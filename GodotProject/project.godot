@@ -10,8 +10,13 @@ config_version=4
 
 [application]
 
-config/name="GodotProject"
+config/name="GWJ 52"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [gui]
 
