@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://_common/GUI/SceneChangeButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Battle/Battle.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Cutscenes/EndScreens/Credits.tscn" type="PackedScene" id=3]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -51,7 +52,8 @@ margin_top = 125.0
 margin_right = 587.0
 margin_bottom = 185.0
 size_flags_horizontal = 6
-text = "Next Scene"
+text = "Credits"
+target_scene = ExtResource( 3 )
 
 [node name="SceneChangeButton3" parent="MarginContainer/VBoxContainer/Body" instance=ExtResource( 1 )]
 margin_left = 437.0

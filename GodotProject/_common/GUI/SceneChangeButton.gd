@@ -1,6 +1,7 @@
 extends Button
 export var target_scene : PackedScene
-export var foo : int
+
+export var return_to_main : bool = false
 
 signal new_scene_requested()
 
@@ -19,4 +20,9 @@ func delayed_ready():
 
 
 func _on_SceneChangeButton_pressed():
-	emit_signal("new_scene_requested", target_scene)
+	if not return_to_main:
+		emit_signal("new_scene_requested", target_scene)
+	else:
+		Global.stage_manager.return_to_main()
+
+		

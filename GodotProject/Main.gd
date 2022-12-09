@@ -50,6 +50,8 @@ func fade_out(fadeDuration : float):
 	fade(Color(.5,.5,.5,0), fadeDuration)
 
 
+func return_to_main():
+	change_scene(first_scene)
 
 func _on_scene_change_requested(new_scene : PackedScene):
 	change_scene(new_scene)
