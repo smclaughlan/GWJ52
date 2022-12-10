@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Battle/CreepSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Enemies/creep.wav" type="AudioStream" id=2]
+
+[node name="CreepSpawner" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+color = Color( 0.607843, 0.282353, 0.121569, 1 )
+polygon = PoolVector2Array( -8, -13, -5, -39, 11, -22, 22, -42, 21, -8, 46, 8, 15, 13, 14, 38, -1, 19, -38, 27, -24, 1, -26, -23 )
+
+[node name="Label" type="Label" parent="Sprite"]
+margin_left = -18.0
+margin_top = -39.0
+margin_right = 22.0
+margin_bottom = -25.0
+rect_pivot_offset = Vector2( 18, 7 )
+text = "Spawn"
+align = 1
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="NewCreepNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
