@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Battle/CreepSpawner.tscn" type="PackedScene" id=3]
@@ -21,18 +21,21 @@ vertices = PoolVector2Array( 13, 12, 1011, 11, 1015, 591, 6, 592 )
 polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
 outlines = [ PoolVector2Array( 13, 12, 1011, 11, 1015, 591, 6, 592 ) ]
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 2042, 29 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 61, 1789 )
+
 [node name="Battle" type="Node2D"]
 
 [node name="FloorTexture" type="Sprite" parent="."]
 self_modulate = Color( 0.262745, 0.403922, 0.27451, 1 )
 material = SubResource( 3 )
-scale = Vector2( 1, 1.05964 )
+position = Vector2( -1448, -754 )
+scale = Vector2( 4, 4 )
 texture = SubResource( 2 )
 centered = false
-
-[node name="Camera2D" type="Camera2D" parent="."]
-anchor_mode = 0
-current = true
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 437, 433 )
@@ -52,3 +55,41 @@ navpoly = SubResource( 4 )
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationPolygonInstance"]
 
 [node name="Village" parent="." instance=ExtResource( 4 )]
+
+[node name="InvisibleWalls" type="Node2D" parent="."]
+
+[node name="Wall1" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 587, -732 )
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/Wall1"]
+position = Vector2( 6, -5 )
+shape = SubResource( 5 )
+
+[node name="Wall2" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 633, 1621 )
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/Wall2"]
+position = Vector2( -31, 15 )
+shape = SubResource( 5 )
+
+[node name="Wall3" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( -1422, 242 )
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/Wall3"]
+position = Vector2( -51, -11 )
+shape = SubResource( 6 )
+
+[node name="Wall4" type="StaticBody2D" parent="InvisibleWalls"]
+position = Vector2( 2687, 302 )
+collision_layer = 4
+collision_mask = 11
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/Wall4"]
+position = Vector2( -51, -11 )
+shape = SubResource( 6 )
