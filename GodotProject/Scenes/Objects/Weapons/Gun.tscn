@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Projectiles/Flame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Objects/Projectiles/Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Objects/Projectiles/Light.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Objects/Weapons/Bang.wav" type="AudioStream" id=5]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0818713, 0.324561, 0.567251, 0.611111, 0.77193 )
@@ -37,3 +38,14 @@ visible = false
 
 [node name="MuzzlePosition" type="Position2D" parent="."]
 position = Vector2( 103, -18 )
+
+[node name="BangNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 5 )
+
+[node name="CockTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="CockTimer" to="." method="_on_CockTimer_timeout"]
