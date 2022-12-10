@@ -16,9 +16,30 @@ func _ready():
 	State = States.READY
 	
 func initialize_weapons():
-	for weapon in $WeaponSlot.get_children():
-		if weapon.has_method("init"):
-			weapon.init(self)
+	set_tool("range", "left")
+
+
+func set_tool(toolString : String = "range", hand : String = "left"):
+	var tools = {
+		"melee":$Toolbelt/Sword,
+		"range":$Toolbelt/Gun,
+		"build":$Toolbelt/ConstructionWrench,
+	}
+
+	var handNodes = {
+		"left":$LeftHand,
+		"right":$RightHand,
+	}
+
+	for existingTool in handNodes[hand].get_children():
+		existingTool.queue_free()
+		var newTool = tools[toolString].duplicate()
+		handNodes[hand].add_child(newTool)
+		newTool.init(self)
+
+
+
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -47,13 +68,13 @@ func begin_dying():
 
 func die_for_real_this_time():
 	# show a death screen and pop up a restart option
-	State == States.DEAD
+	State = States.DEAD
 	$HUD/DeathDialog.popup_centered_ratio(0.75)
 
 func _on_knockback(impulseVector):
 	var _remainingVel = move_and_slide(impulseVector)
 	
-func _on_hit(damage, impulseVector, damageAttributes):
+func _on_hit(damage, impulseVector, _damageAttributes):
 	if State != States.DEAD:
 		_on_knockback(impulseVector)
 		health -= damage
