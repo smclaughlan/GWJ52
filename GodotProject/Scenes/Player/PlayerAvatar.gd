@@ -12,6 +12,25 @@ export var max_health : int = 100
 enum States {INITIALIZING, READY, DYING, DEAD}
 var State = States.INITIALIZING
 
+onready var tools = {
+	"melee":$Toolbelt/Sword,
+	"range":$Toolbelt/Gun,
+	"build":$Toolbelt/ConstructionWrench,
+}
+
+onready var handNodes = {
+	"left":{
+				"node":$LeftHand,
+				"action":"left_hand"
+			},
+	"right":{
+				"node":$RightHand,
+				"action":"right_hand"
+			},
+}
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.player = self
@@ -29,25 +48,7 @@ func set_tool(toolString : String = "range", hand : String = "left"):
 	# put a tool in the left or right hand and tell it which action to listen for.
 	# note: We aren't shuffling nodes, we duplicate tools from the toolbelt, then delete them when no longer needed.
 	
-	var tools = {
-		"melee":$Toolbelt/Sword,
-		"range":$Toolbelt/Gun,
-		"build":$Toolbelt/ConstructionWrench,
-	}
-
-	var handNodes = {
-		"left":{
-					"node":$LeftHand,
-					"action":"left_hand"
-				},
-		"right":{
-					"node":$RightHand,
-					"action":"right_hand"
-				},
-	}
-
-	for existingTool in handNodes[hand]["node"].get_children():
-		existingTool.queue_free()
+	disable_tools(hand)
 	var newTool = tools[toolString].duplicate()
 	handNodes[hand]["node"].add_child(newTool)
 	if newTool.has_method("init"):
@@ -57,6 +58,10 @@ func set_tool(toolString : String = "range", hand : String = "left"):
 		printerr("Configuration error in PlayerAvatar.gd set_tool(), trying to use a tool with no init method")
 
 
+func disable_tools(hand : String):
+	for existingTool in handNodes[hand]["node"].get_children():
+		existingTool.disable()
+		existingTool.queue_free()
 
 
 
@@ -67,9 +72,6 @@ func _process(_delta):
 
 	velocity = Vector2.ZERO
 
-
-
-
 	if Input.is_action_pressed("ui_left"):
 		velocity += Vector2.LEFT
 	elif Input.is_action_pressed("ui_right"):
@@ -78,8 +80,6 @@ func _process(_delta):
 		velocity += Vector2.UP
 	elif Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
-
-
 
 
 	velocity = velocity.normalized() * player_speed
@@ -94,6 +94,8 @@ func begin_dying():
 func die_for_real_this_time():
 	# show a death screen and pop up a restart option
 	State = States.DEAD
+	disable_tools("left")
+	disable_tools("right")
 	$HUD/DeathDialog.popup_centered_ratio(0.75)
 
 func _on_knockback(impulseVector):
