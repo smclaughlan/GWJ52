@@ -46,7 +46,7 @@ margin_right = 330.0
 margin_bottom = 60.0
 size_flags_horizontal = 6
 disabled = true
-text = "Scene 1"
+text = "Village Mockup"
 
 [node name="Scene 2" parent="MarginContainer/VBoxContainer/Body/LeftSide" instance=ExtResource( 1 )]
 margin_left = 180.0
@@ -55,7 +55,7 @@ margin_right = 330.0
 margin_bottom = 145.0
 size_flags_horizontal = 6
 disabled = true
-text = "Scene 2"
+text = "Tower Test"
 
 [node name="Scene 3" parent="MarginContainer/VBoxContainer/Body/LeftSide" instance=ExtResource( 1 )]
 margin_left = 180.0
@@ -64,7 +64,7 @@ margin_right = 330.0
 margin_bottom = 230.0
 size_flags_horizontal = 6
 disabled = true
-text = "Scene 3"
+text = "Player Controller Test"
 
 [node name="Scene 4" parent="MarginContainer/VBoxContainer/Body/LeftSide" instance=ExtResource( 1 )]
 margin_left = 180.0
@@ -73,7 +73,7 @@ margin_right = 330.0
 margin_bottom = 315.0
 size_flags_horizontal = 6
 disabled = true
-text = "Scene 4"
+text = "NPC Behaviour"
 
 [node name="Scene 5" parent="MarginContainer/VBoxContainer/Body/LeftSide" instance=ExtResource( 1 )]
 margin_left = 180.0
@@ -82,7 +82,7 @@ margin_right = 330.0
 margin_bottom = 400.0
 size_flags_horizontal = 6
 disabled = true
-text = "Scene 5"
+text = "Trading?"
 
 [node name="RightSide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Body"]
 margin_left = 514.0
