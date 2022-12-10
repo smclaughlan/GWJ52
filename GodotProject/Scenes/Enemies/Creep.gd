@@ -110,6 +110,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 
 func _on_DeathTimer_timeout():
 	die_for_real_this_time()
+	emit_signal("died")
 
 
 func _on_InvulnerabiltyTimer_timeout():
