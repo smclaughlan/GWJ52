@@ -12,6 +12,8 @@ func _ready():
 
 
 func _physics_process(delta):
+	
+		
 	# If the player is too far away, can't place.
 	var distance_to_player = global_position.distance_to(player.global_position)
 	

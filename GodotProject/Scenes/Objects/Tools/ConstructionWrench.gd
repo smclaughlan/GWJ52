@@ -1,3 +1,7 @@
+# used for placing and repairing towers
+
+# maybe later we'll change the wrench to be repair only, and a blueprint can be for placing towers
+
 extends Node2D
 
 var player
@@ -7,6 +11,7 @@ var is_placing_tower : bool = false
 var tower_buildmode_visual = null
 
 var action_to_use : String
+var equipped : bool = false
 
 enum States { INITIALIZING, STORED, ACTIVE }
 var State = States.INITIALIZING
@@ -20,30 +25,21 @@ func init(myPlayer):
 
 
 func _unhandled_input(event):
-	
-	if not State == States.ACTIVE:
+	if !equipped or State != States.ACTIVE:
 		return
+	elif Input.is_action_just_pressed(action_to_use) and tower_buildmode_visual.can_place:
+		spawn_tower()
 
-	if Input.is_action_just_released("toggle_towerbuild"):
-		toggle_towerbuildmode()
-	update_tower_build_visual()
 
+func spawn_tower():
+	var new_tower = tower_base_scene.instance()
+	new_tower.global_position = tower_buildmode_visual.global_position
 	
-	if event.is_action_pressed("build"):
-		# spawn a tower in the target location
-		var tower = preload("res://Scenes/Towers/PlaceholderTower.tscn").instance()
-		var towerPosition = $Sprite/TargetPosition.get_global_position()
-
-		# this should be a signal to ask the map to spawn the tower
-		Global.current_map.add_child(tower )
-		tower.set_global_position(towerPosition)
-
-	if Input.is_action_just_released(action_to_use) and is_placing_tower and tower_buildmode_visual.can_place:
-		var new_tower = tower_base_scene.instance()
-		new_tower.global_position = tower_buildmode_visual.global_position
-		get_tree().get_root().add_child(new_tower)
+	if Global.current_map != null and is_instance_valid(Global.current_map):
+		Global.current_map.add_child(new_tower)
 		new_tower.init("fire")
-		
+
+
 
 func toggle_towerbuildmode():
 	is_placing_tower = !is_placing_tower
@@ -51,7 +47,10 @@ func toggle_towerbuildmode():
 		# Create green tower base to visualize where tower will be placed.
 		tower_buildmode_visual = tower_buildmode.instance()
 		tower_buildmode_visual.store_player(self)
-		get_tree().get_root().add_child(tower_buildmode_visual)
+		if Global.current_map != null and is_instance_valid(Global.current_map):
+			Global.current_map.add_child(tower_buildmode_visual)
+		else:
+			get_tree().get_root().add_child(tower_buildmode_visual)
 	else:
 		# Stop showing the green tower base visual.
 		tower_buildmode_visual.queue_free()
@@ -69,12 +68,15 @@ func _process(_delta):
 
 
 func enable(actionKey : String):
-	$Sprite.visible = true
+	visible = true
 	action_to_use = actionKey
 	State = States.ACTIVE
+	equipped = true
+	toggle_towerbuildmode()
+	update_tower_build_visual()
 	
 func disable():
-	$Sprite.visible = false
+	visible = false
 	State = States.STORED
 	queue_free() # don't worry, player has a duplicate
 	

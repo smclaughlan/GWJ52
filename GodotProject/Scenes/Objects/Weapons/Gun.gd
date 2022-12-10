@@ -22,6 +22,7 @@ func _ready():
 
 func init(myShooter): # aka human player
 	shooter = myShooter
+	set_global_position(shooter.global_position)
 	if shooter.has_method("_on_knockback"):
 		var _err = connect("shot", shooter, "_on_knockback")
 	else:
@@ -60,12 +61,12 @@ func knockback_shooter():
 		emit_signal("shot", impulseVector)
 
 func enable(actionString:String):
-	$Sprite.visible = true
+	visible = true
 	equipped = true
 	action_to_use = actionString
 	
 func disable():
-	$Sprite.visible = false
+	visible = false
 	equipped = false
 	action_to_use = ""
 	queue_free() # don't worry, player has a duplicate
