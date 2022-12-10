@@ -11,16 +11,17 @@ onready var weapons = $WeaponSlot.get_children()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Utils.set_player(self)
+	Global.player = self
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	velocity = Vector2.ZERO
-	
+
 	if Input.is_action_just_released("toggle_towerbuild"):
 		toggle_towerbuildmode()
 	update_tower_build_visual()
-	
+
 	if Input.is_action_pressed("ui_left"):
 		velocity += Vector2.LEFT
 	elif Input.is_action_pressed("ui_right"):
@@ -29,13 +30,13 @@ func _process(_delta):
 		velocity += Vector2.UP
 	elif Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
-	
+
 	if Input.is_action_just_released("shoot") and is_placing_tower and tower_buildmode_visual.can_place:
 		var new_tower = tower_base_scene.instance()
 		new_tower.global_position = tower_buildmode_visual.global_position
 		get_tree().get_root().add_child(new_tower)
 		new_tower.init("fire")
-	
+
 	velocity = velocity.normalized() * player_speed
 
 	velocity = move_and_slide(velocity * Global.game_speed) # delta not required

@@ -1,16 +1,19 @@
 extends Control
 
-export var first_scene = preload("res://Scenes/GUI/Menus/MainMenu.tscn")
+export var first_scene = preload("res://Scenes/Menus/MainMenu.tscn")
 var fade_node : TextureRect
 var fade_duration = 0.5
 
+var current_map
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
+	
 	Global.stage_manager = self
 	fade_node = $FadeRect
 
 	change_scene(first_scene)
-
 	
 	
 
@@ -24,7 +27,9 @@ func change_scene(newScene : PackedScene):
 		else:
 			child.queue_free()
 	if newScene != null:
-		$CurrentScene.add_child(newScene.instance())
+		current_map = newScene.instance()
+		Global.current_map = current_map
+		$CurrentScene.add_child(current_map)
 		fade_in(fade_duration)
 	else:
 		printerr("Main.gd.change_scene() error. No target scene to change to.")
