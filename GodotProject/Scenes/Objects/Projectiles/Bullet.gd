@@ -2,12 +2,15 @@ extends Area2D
 
 
 export var bullet_speed = 400.0
-export var bullet_damage = 10.0
+export var bullet_damage = 20.0
 
-export var features = {
-	"armor_piercing":false,
-	"flaming":false,
+
+var damage_attributes = {
+	"bleed":false,
+	"poison":false,
+	"fire":false,
 	"holy":false,
+	"armor_piercing":true,
 }
 
 enum States { DISABLED, INITIALIZING, MOVING, DEAD }
@@ -43,6 +46,6 @@ func _on_Bullet_body_entered(body):
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
 		var fwdVector = (Vector2.RIGHT * bullet_speed/3.0).rotated(rotation)
-		emit_signal("hit", bullet_damage, fwdVector, features)
+		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
 		die()
 		
