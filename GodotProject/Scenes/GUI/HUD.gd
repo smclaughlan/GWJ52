@@ -16,3 +16,9 @@ func _on_ActionButton_pressed(action : String):
 	elif action == "shop":
 		$ShoppingPopupPanel.popup()
 	
+
+
+
+func _on_PauseButton_pressed():
+	$PauseMenuPopupDialog.popup_centered_ratio(0.75)
+	Global.pause()
