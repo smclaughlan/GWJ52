@@ -2,6 +2,7 @@ extends Node2D
 
 
 var current_ammo
+var can_shoot : bool = true
 
 
 # Called when the node enters the scene tree for the first time.
@@ -13,8 +14,12 @@ func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		shoot(current_ammo)
 
+func toggle_shooting():
+	can_shoot = !can_shoot
 
 func shoot(ammo):
+	if !can_shoot:
+		return
 	
 	var new_projectile = ammo.duplicate()
 	
