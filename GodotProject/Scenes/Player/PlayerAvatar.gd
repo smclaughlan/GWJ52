@@ -54,4 +54,5 @@ func toggle_towerbuildmode():
 func update_tower_build_visual():
 	if !is_placing_tower:
 		return
+
 	tower_buildmode_visual.global_position = get_global_mouse_position()
