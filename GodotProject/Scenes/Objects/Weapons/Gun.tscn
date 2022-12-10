@@ -27,7 +27,13 @@ polygon = PoolVector2Array( 18, 11, 21, -27, 77, -28, 76, -16, 48, -16, 32, -8, 
 [node name="Ammo" type="Node2D" parent="."]
 
 [node name="Flame" parent="Ammo" instance=ExtResource( 2 )]
+visible = false
 
 [node name="Bullet" parent="Ammo" instance=ExtResource( 3 )]
+visible = false
 
 [node name="Light" parent="Ammo" instance=ExtResource( 4 )]
+visible = false
+
+[node name="MuzzlePosition" type="Position2D" parent="."]
+position = Vector2( 103, -18 )

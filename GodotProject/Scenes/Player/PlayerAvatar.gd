@@ -9,7 +9,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	velocity = Vector2.ZERO
 	
 	if Input.is_action_pressed("ui_left"):
