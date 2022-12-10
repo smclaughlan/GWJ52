@@ -11,6 +11,8 @@ extends KinematicBody2D
 
 var health = 20.0
 var speed = 100.0
+var velocity : Vector2 = Vector2.ZERO
+var prev_position : Vector2 = Vector2.ZERO
 var nav_target
 
 enum Goals { ATTACK_PLAYER, ATTACK_VILLAGE } #move toward is implicit when out of range
@@ -37,6 +39,9 @@ func init(initialPos, navTarget):
 func _physics_process(delta):
 	if State == States.MOVING:
 		move(delta)
+	
+	velocity = (global_position - prev_position)
+	prev_position = global_position
 
 
 func move(delta)	:
