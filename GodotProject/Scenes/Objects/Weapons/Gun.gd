@@ -12,8 +12,6 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		shoot(current_ammo)
-	else:
-		printerr("config error in Gun.gd, _unhandled_input(). Ammo has no shoot method.")
 
 
 func shoot(ammo):
@@ -22,9 +20,17 @@ func shoot(ammo):
 	
 	# a signal to the map would be nicer, but this works for now
 	get_parent().add_child(new_projectile)
-	new_projectile.init($MuzzlePosition.global_position, $MuzzlePosition.global_rotation)
+	if new_projectile.has_method("init"):
+		new_projectile.init($MuzzlePosition.global_position, $MuzzlePosition.global_rotation)
 	
 
 func _process(_delta):
-	# temporary aiming mechanic
-	look_at(get_global_mouse_position())
+	var mousePos = get_global_mouse_position()
+
+	# flip if needed
+	if mousePos.x < get_global_position().x:
+		scale.x = -abs(scale.x)
+		rotation = global_position.direction_to(mousePos).angle() - PI
+	else:
+		scale.x = abs(scale.x)
+		look_at(get_global_mouse_position())
