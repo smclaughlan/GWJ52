@@ -8,6 +8,8 @@ var current_map
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	randomize()
+	
 	Global.stage_manager = self
 	fade_node = $FadeRect
 

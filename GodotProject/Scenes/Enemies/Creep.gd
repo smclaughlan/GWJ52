@@ -74,7 +74,7 @@ func _on_ObstacleDetectionZone_area_entered(area):
 		pass
 		# turn left until there's no more obstacles
 
-func _on_hit(damage, damageAttributes):
+func _on_hit(damage, _damageAttributes):
 	# worry about damage attributes later
 	
 	$OwNoise.play()
