@@ -34,6 +34,7 @@ self_modulate = Color( 0.262745, 0.403922, 0.27451, 1 )
 material = SubResource( 3 )
 position = Vector2( -1448, -754 )
 scale = Vector2( 4, 4 )
+z_index = -100
 texture = SubResource( 2 )
 centered = false
 

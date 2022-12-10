@@ -33,6 +33,7 @@ one_shot = true
 
 [node name="NewCreepNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+volume_db = -12.0
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

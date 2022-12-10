@@ -25,7 +25,7 @@ var State = States.INITIALIZING
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$corpse.hide()
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
@@ -64,24 +64,26 @@ func move(delta)	:
 	elif Goal == Goals.ATTACK_VILLAGE:
 		var _collision = move_and_collide(dirToNavTarget * delta * Global.game_speed * speed)
 	
-func begin_dying():
-	# play a death animation and spawn loot
+func begin_dying(): # death animation and loot spawn
 	State = States.DEAD
-	rotation = PI/2.0
 	# disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
 	$ObstacleDetectionZone/CollisionShape2D.set_deferred("disabled", true)
 	disable_weapons()
-
+	$AnimationPlayer.play("die")
 	$DeathTimer.start()
 
-func die_for_real_this_time():
-	queue_free()
+func die_for_real_this_time(): # blood smear
+	$corpse.show()
+	$Sprite.hide()
+	$DecayTimer.start()
+	
 
 func disable_weapons():
 	for weapon in $Weapons.get_children():
 		if weapon.has_method("disable"):
 			weapon.disable()
+	$Weapons.hide()
 
 func _on_ObstacleDetectionZone_area_entered(area):
 	if area.is_in_group("towers"):
@@ -114,3 +116,7 @@ func _on_DeathTimer_timeout():
 func _on_InvulnerabiltyTimer_timeout():
 	if health > 0:
 		State = States.MOVING
+
+
+func _on_DecayTimer_timeout():
+	queue_free()

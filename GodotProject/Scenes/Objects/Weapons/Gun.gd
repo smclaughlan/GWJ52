@@ -29,7 +29,7 @@ func init(myShooter): # aka human player
 		printerr("Config error in Gun.gd.init() shooter has no _on_knockback method.")
 
 func _unhandled_input(event):
-	if equipped and event.is_action_pressed("shoot"):
+	if equipped and event.is_action_pressed(action_to_use):
 		shoot(current_ammo)
 
 
