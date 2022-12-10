@@ -29,7 +29,7 @@ func _unhandled_input(event):
 		if event.is_action_pressed(action_to_use):
 			swing()
 
-func _process(delta):
+func _process(_delta):
 	if equipped and State == States.READY:
 		look_at(get_global_mouse_position())
 

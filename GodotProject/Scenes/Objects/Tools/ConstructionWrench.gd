@@ -25,7 +25,7 @@ func init(myPlayer):
 	player = myPlayer
 	State = States.ACTIVE
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if !equipped or State != States.ACTIVE:
 		return
 	elif Input.is_action_just_pressed(action_to_use):
@@ -49,18 +49,18 @@ func spawn_tower():
 
 
 
-func toggle_towerbuildmode():
-	is_placing_tower = !is_placing_tower
-	if is_placing_tower:
+func set_towerbuildmode(enabled:bool):
+	is_placing_tower = enabled
+	if enabled:
 		# Create green tower base to visualize where tower will be placed.
 		tower_buildmode_visual = tower_buildmode.instance()
-		tower_buildmode_visual.store_player(self)
+		tower_buildmode_visual.store_player(player)
 
 		if Global.current_map != null and is_instance_valid(Global.current_map):
 			Global.current_map.add_child(tower_buildmode_visual)
 		else:
 			get_tree().get_root().add_child(tower_buildmode_visual)
-	else:
+	else: # disabled
 		# Stop showing the green tower base visual.
 		tower_buildmode_visual.queue_free()
 		
@@ -81,12 +81,13 @@ func enable(actionKey : String):
 	action_to_use = actionKey
 	State = States.ACTIVE
 	equipped = true
-	toggle_towerbuildmode()
+	set_towerbuildmode(true)
 	update_tower_build_visual()
 	
 func disable():
 	visible = false
 	State = States.STORED
+	set_towerbuildmode(false)
 	queue_free() # don't worry, player has a duplicate
 	
 func stow():
