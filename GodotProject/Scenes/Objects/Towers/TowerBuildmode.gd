@@ -2,7 +2,7 @@ extends Node2D
 
 var can_place = true
 var player
-export var MAX_PLACEMENT_RANGE = 200
+export var MAX_PLACEMENT_RANGE = 300.0
 onready var build_area = $Area2D
 onready var visual = $Sprite
 
@@ -13,7 +13,8 @@ func _ready():
 
 func _physics_process(delta):
 	
-		
+	set_global_position(get_global_mouse_position())
+	
 	# If the player is too far away, can't place.
 	var distance_to_player = global_position.distance_to(player.global_position)
 	

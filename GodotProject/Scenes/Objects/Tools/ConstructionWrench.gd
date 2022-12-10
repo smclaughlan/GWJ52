@@ -16,19 +16,26 @@ var equipped : bool = false
 enum States { INITIALIZING, STORED, ACTIVE }
 var State = States.INITIALIZING
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
-	pass # Replace with function body.
+	pass
+
 
 func init(myPlayer):
 	player = myPlayer
-
+	State = States.ACTIVE
 
 func _unhandled_input(event):
 	if !equipped or State != States.ACTIVE:
 		return
-	elif Input.is_action_just_pressed(action_to_use) and tower_buildmode_visual.can_place:
+	elif Input.is_action_just_pressed(action_to_use):
+		attempt_to_spawn_tower()
+
+func attempt_to_spawn_tower():
+	if tower_buildmode_visual.can_place:
 		spawn_tower()
+	else:
+		$IncorrectPlacementNoise.play()
 
 
 func spawn_tower():
@@ -36,6 +43,7 @@ func spawn_tower():
 	new_tower.global_position = tower_buildmode_visual.global_position
 	
 	if Global.current_map != null and is_instance_valid(Global.current_map):
+		$BuildNoise.play()
 		Global.current_map.add_child(new_tower)
 		new_tower.init("fire")
 
@@ -47,6 +55,7 @@ func toggle_towerbuildmode():
 		# Create green tower base to visualize where tower will be placed.
 		tower_buildmode_visual = tower_buildmode.instance()
 		tower_buildmode_visual.store_player(self)
+
 		if Global.current_map != null and is_instance_valid(Global.current_map):
 			Global.current_map.add_child(tower_buildmode_visual)
 		else:
