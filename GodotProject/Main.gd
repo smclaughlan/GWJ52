@@ -1,6 +1,6 @@
 extends Control
 
-export var first_scene = preload("res://Scenes/GUI/Menus/MainMenu.tscn")
+export var first_scene = preload("res://Scenes/Menus/MainMenu.tscn")
 var fade_node : TextureRect
 var fade_duration = 0.5
 
