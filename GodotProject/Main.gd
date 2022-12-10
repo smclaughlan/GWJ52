@@ -26,6 +26,7 @@ func change_scene(newScene : PackedScene):
 			child.queue_free()
 	if newScene != null:
 		current_map = newScene.instance()
+		Global.current_map = current_map
 		$CurrentScene.add_child(current_map)
 		fade_in(fade_duration)
 	else:

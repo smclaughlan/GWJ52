@@ -39,9 +39,9 @@ func die():
 
 
 func _on_Bullet_body_entered(body):
-	if body.has_method("_on_hit"):
+	if body.has_method("_on_hit") and body != Global.player:
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
-		emit_signal("hit")
+		emit_signal("hit", bullet_damage, features)
 		die()
 		
