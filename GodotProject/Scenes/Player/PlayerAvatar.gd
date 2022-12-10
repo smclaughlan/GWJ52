@@ -107,25 +107,3 @@ func update_tower_build_visual():
 		return
 
 	tower_buildmode_visual.global_position = get_global_mouse_position()
-
-func toggle_towerbuildmode():
-	is_placing_tower = !is_placing_tower
-	if is_placing_tower:
-		# Create green tower base to visualize where tower will be placed.
-		tower_buildmode_visual = tower_buildmode.instance()
-		tower_buildmode_visual.store_player(self)
-		get_tree().get_root().add_child(tower_buildmode_visual)
-	else:
-		# Stop showing the green tower base visual.
-		tower_buildmode_visual.queue_free()
-
-	for weapon in weapons:
-		if weapon.has_method("toggle_shooting"):
-			weapon.toggle_shooting()
-
-
-func update_tower_build_visual():
-	if !is_placing_tower:
-		return
-
-	tower_buildmode_visual.global_position = get_global_mouse_position()
