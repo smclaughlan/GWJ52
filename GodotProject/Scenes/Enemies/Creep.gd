@@ -22,6 +22,7 @@ var Goal = Goals.ATTACK_PLAYER
 enum States { INITIALIZING, READY, MOVING, ATTACKING, INVULNERABLE, RELOADING, STUNNED, DEAD }
 var State = States.INITIALIZING
 
+signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
