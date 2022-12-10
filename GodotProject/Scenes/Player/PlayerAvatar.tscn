@@ -56,4 +56,6 @@ texture_under = ExtResource( 4 )
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 6 )
 
+[node name="Weapons" type="Node2D" parent="."]
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]

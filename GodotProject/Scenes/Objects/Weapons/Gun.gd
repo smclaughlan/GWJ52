@@ -2,6 +2,7 @@ extends Node2D
 
 
 var current_ammo
+var can_shoot : bool = true
 
 enum States { INITIALIZING, READY, FIRING, COCKING, RELOADING, DEAD }
 var State = States.INITIALIZING

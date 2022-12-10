@@ -7,7 +7,7 @@ var velocity : Vector2 = Vector2.ZERO
 var player_speed : float = 400.0
 var is_placing_tower : bool = false
 var tower_buildmode_visual = null
-#onready var weapons = $WeaponSlot.get_children()
+onready var weapons = $Weapons.get_children()
 
 export var health : int = 100
 export var max_health : int = 100
