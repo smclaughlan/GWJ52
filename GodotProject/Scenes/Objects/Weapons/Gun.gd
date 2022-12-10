@@ -29,8 +29,6 @@ func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		shoot(current_ammo)
 
-func toggle_shooting():
-	can_shoot = !can_shoot
 
 func shoot(ammo):
 	if !can_shoot:
