@@ -31,7 +31,7 @@ func init(initialPos, navTarget):
 	set_global_position(initialPos)
 	nav_target = navTarget
 	State = States.MOVING
-
+	set_target(Global.player)
 	
 	
 
@@ -43,6 +43,10 @@ func _physics_process(delta):
 	velocity = (global_position - prev_position)
 	prev_position = global_position
 
+func set_target(target):
+	for weapon in $Weapons.get_children():
+		if weapon.has_method("set_target"):
+			weapon.set_target(target)
 
 func move(delta)	:
 	var myPos = get_global_position()
@@ -67,25 +71,34 @@ func begin_dying():
 	# disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
 	$ObstacleDetectionZone/CollisionShape2D.set_deferred("disabled", true)
-	$MeleeZone/CollisionShape2D.set_deferred("disabled", true)
+	disable_weapons()
 
 	$DeathTimer.start()
 
 func die_for_real_this_time():
 	queue_free()
 
+func disable_weapons():
+	for weapon in $Weapons.get_children():
+		if weapon.has_method("disable"):
+			weapon.disable()
+
 func _on_ObstacleDetectionZone_area_entered(area):
 	if area.is_in_group("towers"):
 		pass
 		# turn left until there's no more obstacles
 
-func _on_hit(damage, _damageAttributes):
+func knockback(impactVector):
+	var _collision = move_and_collide(impactVector)
+
+func _on_hit(damage, impactVector, _damageAttributes):
 	# worry about damage attributes later
 	
 	$OwNoise.play()
+	knockback(impactVector)
 	
 	health -= damage
-	if health < 0:
+	if health < 0 and State != States.DEAD:
 		begin_dying()
 	else:
 		$InvulnerabiltyTimer.start()
