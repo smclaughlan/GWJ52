@@ -19,7 +19,7 @@ func shoot(ammo):
 	var new_projectile = ammo.duplicate()
 	
 	# a signal to the map would be nicer, but this works for now
-	get_parent().add_child(new_projectile)
+	Global.stage_manager.current_map.add_child(new_projectile)
 	if new_projectile.has_method("init"):
 		new_projectile.init($MuzzlePosition.global_position, $MuzzlePosition.global_rotation)
 	
