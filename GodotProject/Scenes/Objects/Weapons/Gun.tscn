@@ -39,6 +39,17 @@ visible = false
 [node name="MuzzlePosition" type="Position2D" parent="."]
 position = Vector2( 103, -18 )
 
+[node name="MuzzleFlash" type="Polygon2D" parent="MuzzlePosition"]
+visible = false
+position = Vector2( -5, -1 )
+rotation = 1.55257
+color = Color( 0.756863, 0.815686, 0.0745098, 1 )
+polygon = PoolVector2Array( -8, 0, -20, -29, -10, -20, -12, -45, -3, -30, 2, -65, 4, -27, 8, -42, 5, -13, 24, -22, 9, -1, 0, -4 )
+
+[node name="FlashTimer" type="Timer" parent="MuzzlePosition/MuzzleFlash"]
+wait_time = 0.1
+one_shot = true
+
 [node name="BangNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 
@@ -48,4 +59,5 @@ one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="."]
 
+[connection signal="timeout" from="MuzzlePosition/MuzzleFlash/FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="CockTimer" to="." method="_on_CockTimer_timeout"]

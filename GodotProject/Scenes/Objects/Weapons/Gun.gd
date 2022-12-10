@@ -21,6 +21,7 @@ func _unhandled_input(event):
 func shoot(ammo):
 	if State == States.READY:
 		$BangNoise.play()
+		flash_muzzle()
 		var new_projectile = ammo.duplicate()
 		
 		# a signal to the map would be nicer, but this works for now
@@ -29,6 +30,10 @@ func shoot(ammo):
 			new_projectile.init($MuzzlePosition.global_position, $MuzzlePosition.global_rotation)
 		State = States.COCKING
 		$CockTimer.start()
+
+func flash_muzzle():
+	$MuzzlePosition/MuzzleFlash.visible = true
+	$MuzzlePosition/MuzzleFlash/FlashTimer.start()
 
 func _process(_delta):
 	var mousePos = get_global_mouse_position()
@@ -49,3 +54,8 @@ func _on_CockTimer_timeout():
 	if Input.is_action_pressed("shoot"):
 		shoot(current_ammo)
 	
+
+
+func _on_FlashTimer_timeout():
+	$MuzzlePosition/MuzzleFlash.hide()
+

@@ -9,6 +9,9 @@ signal creep_spawned(creep, location)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# make the spawn timers have a bit of variation, so player doesn't get 3 waves simultaneously
+	$WaveTimer.set_wait_time($WaveTimer.get_wait_time() * rand_range(0.8, 1.2))
+	$WaveTimer.start()
 	if creep == null:
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
@@ -40,14 +43,19 @@ func spawn_creep():
 
 
 func spawn_creep_wayfinder():
-	var navTargetScene = preload("res://Scenes/Enemies/CreepWave.tscn")
+	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
 	var navTarget = navTargetScene.instance()
+	navTarget.init(Global.village_location)
 	Global.current_map.add_child(navTarget)
 	current_wave_wayfinder = navTarget
 
 
 func _on_WaveTimer_timeout():
 	spawn_creep_wayfinder()
+
+	# modify this later to accommodate game progression
+	num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
+
 	$SpawnTimer.start()
 
 
