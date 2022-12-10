@@ -26,3 +26,7 @@ func _on_SceneChangeButton_pressed():
 		Global.stage_manager.return_to_main()
 
 		
+
+
+func _on_QuitButton_pressed():
+	get_tree().quit()
