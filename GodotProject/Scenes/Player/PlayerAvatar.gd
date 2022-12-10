@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var tower_buildmode = load("res://Scenes/Objects/Towers/TowerBuildmode.tscn")
+var tower_base_scene = load("res://Scenes/Objects/Towers/TowerBase.tscn")
 
 var velocity : Vector2 = Vector2.ZERO
 var player_speed : float = 400.0
@@ -10,8 +11,7 @@ onready var weapons = $WeaponSlot.get_children()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-
+	Utils.set_player(self)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -30,6 +30,11 @@ func _process(_delta):
 	elif Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
 	
+	if Input.is_action_just_released("shoot") and is_placing_tower and tower_buildmode_visual.can_place:
+		var new_tower = tower_base_scene.instance()
+		new_tower.global_position = tower_buildmode_visual.global_position
+		get_tree().get_root().add_child(new_tower)
+		new_tower.init("fire")
 	
 	velocity = velocity.normalized() * player_speed
 
@@ -41,6 +46,7 @@ func toggle_towerbuildmode():
 	if is_placing_tower:
 		# Create green tower base to visualize where tower will be placed.
 		tower_buildmode_visual = tower_buildmode.instance()
+		tower_buildmode_visual.store_player(self)
 		get_tree().get_root().add_child(tower_buildmode_visual)
 	else:
 		# Stop showing the green tower base visual.
