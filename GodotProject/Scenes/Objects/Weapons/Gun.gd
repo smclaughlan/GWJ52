@@ -6,13 +6,24 @@ var current_ammo
 enum States { INITIALIZING, READY, FIRING, COCKING, RELOADING, DEAD }
 var State = States.INITIALIZING
 
+var shooter
+
+signal shot(impulseVector)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if current_ammo == null:
 		current_ammo = $Ammo/Bullet
 
 	State = States.READY
-	
+
+func init(myShooter): # aka human player
+	shooter = myShooter
+	if shooter.has_method("_on_knockback"):
+		var _err = connect("shot", shooter, "_on_knockback")
+	else:
+		printerr("Config error in Gun.gd.init() shooter has no _on_knockback method.")
+
 func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		shoot(current_ammo)
@@ -22,6 +33,7 @@ func shoot(ammo):
 	if State == States.READY:
 		$BangNoise.play()
 		flash_muzzle()
+		knockback_shooter()
 		var new_projectile = ammo.duplicate()
 		
 		# a signal to the map would be nicer, but this works for now
@@ -34,6 +46,12 @@ func shoot(ammo):
 func flash_muzzle():
 	$MuzzlePosition/MuzzleFlash.visible = true
 	$MuzzlePosition/MuzzleFlash/FlashTimer.start()
+
+func knockback_shooter():
+	var knockbackPower = 1050.0
+	var impulseVector = (Vector2.RIGHT * knockbackPower).rotated(get_global_rotation() - PI)
+	if shooter != null:
+		emit_signal("shot", impulseVector)
 
 func _process(_delta):
 	var mousePos = get_global_mouse_position()

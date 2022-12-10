@@ -52,6 +52,7 @@ one_shot = true
 
 [node name="BangNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+volume_db = 7.0
 
 [node name="CockTimer" type="Timer" parent="."]
 wait_time = 0.25

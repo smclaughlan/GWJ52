@@ -70,6 +70,8 @@ interact={
 2d_physics/layer_2="Creeps"
 2d_physics/layer_3="Towers and Walls"
 2d_physics/layer_4="Bullets"
+2d_physics/layer_5="Melee Weapons"
+2d_physics/layer_6="NPCs"
 
 [physics]
 

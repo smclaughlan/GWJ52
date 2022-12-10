@@ -13,7 +13,7 @@ export var features = {
 enum States { DISABLED, INITIALIZING, MOVING, DEAD }
 var State = States.DISABLED
 
-signal hit(damage, features)
+signal hit(damage, impactVector, features)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,6 +42,7 @@ func _on_Bullet_body_entered(body):
 	if body.has_method("_on_hit") and body != Global.player:
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
-		emit_signal("hit", bullet_damage, features)
+		var fwdVector = (Vector2.RIGHT * bullet_speed/3.0).rotated(rotation)
+		emit_signal("hit", bullet_damage, fwdVector, features)
 		die()
 		

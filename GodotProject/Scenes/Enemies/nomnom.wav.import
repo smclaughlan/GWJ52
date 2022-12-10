@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/nomnom.wav-877cfa2b2007242e579279be0f269ddc.sample"
+
+[deps]
+
+source_file="res://Scenes/Enemies/nomnom.wav"
+dest_files=[ "res://.import/nomnom.wav-877cfa2b2007242e579279be0f269ddc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
