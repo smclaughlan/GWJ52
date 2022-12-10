@@ -2,6 +2,7 @@ extends Node2D
 
 
 var current_ammo
+var can_shoot : bool = true
 
 enum States { INITIALIZING, READY, FIRING, COCKING, RELOADING, DEAD }
 var State = States.INITIALIZING
@@ -28,14 +29,19 @@ func _unhandled_input(event):
 	if event.is_action_pressed("shoot"):
 		shoot(current_ammo)
 
+func toggle_shooting():
+	can_shoot = !can_shoot
 
 func shoot(ammo):
+	if !can_shoot:
+		return
+
 	if State == States.READY:
 		$BangNoise.play()
 		flash_muzzle()
 		knockback_shooter()
 		var new_projectile = ammo.duplicate()
-		
+
 		# a signal to the map would be nicer, but this works for now
 		Global.stage_manager.current_map.add_child(new_projectile)
 		if new_projectile.has_method("init"):
@@ -67,13 +73,12 @@ func _process(_delta):
 
 func _on_CockTimer_timeout():
 	State = States.READY
-	
+
 	# continuous fire by holding mouse button down
 	if Input.is_action_pressed("shoot"):
 		shoot(current_ammo)
-	
+
 
 
 func _on_FlashTimer_timeout():
 	$MuzzlePosition/MuzzleFlash.hide()
-
