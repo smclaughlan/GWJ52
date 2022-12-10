@@ -95,6 +95,7 @@ build={
 2d_physics/layer_5="Melee Weapons"
 2d_physics/layer_6="NPCs"
 2d_physics/layer_7="Pickables"
+2d_physics/layer_8="PlayerCollectionRadius"
 
 [physics]
 
