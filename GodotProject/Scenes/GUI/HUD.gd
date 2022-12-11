@@ -1,10 +1,15 @@
 extends CanvasLayer
 
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
+onready var sun_amount = $header/Currency/SunAmount
 var player
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	Global.hud = self
 
 func init(myPlayer):
 	player = myPlayer
@@ -17,6 +22,8 @@ func _on_ActionButton_pressed(action : String):
 		$ShoppingPopupPanel.popup()
 	
 
+func update_sun(sun: int) -> void:
+	sun_amount.text = str(sun)
 
 
 func _on_PauseButton_pressed():
