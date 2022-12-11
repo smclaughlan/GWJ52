@@ -49,6 +49,7 @@ func fade(startColor, fadeDuration):
 	tween.tween_property(fade_node, "self_modulate", endColor, fadeDuration) # starts automatically
 
 func fade_in(fadeDuration : float):
+	fade_node.set_visible(true)
 	fade(Color(.5,.5,.5,1), fadeDuration)
 
 func fade_out(fadeDuration : float):

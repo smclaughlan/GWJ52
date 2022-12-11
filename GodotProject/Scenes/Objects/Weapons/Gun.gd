@@ -6,6 +6,8 @@ var can_shoot : bool = true
 
 enum States { INITIALIZING, READY, FIRING, COCKING, RELOADING, DEAD }
 var State = States.INITIALIZING
+var equipped : bool = false
+var action_to_use : String
 
 var shooter
 
@@ -20,18 +22,19 @@ func _ready():
 
 func init(myShooter): # aka human player
 	shooter = myShooter
+	set_global_position(shooter.global_position)
 	if shooter.has_method("_on_knockback"):
 		var _err = connect("shot", shooter, "_on_knockback")
 	else:
 		printerr("Config error in Gun.gd.init() shooter has no _on_knockback method.")
 
 func _unhandled_input(event):
-	if event.is_action_pressed("shoot"):
+	if equipped and event.is_action_pressed(action_to_use):
 		shoot(current_ammo)
 
 
 func shoot(ammo):
-	if !can_shoot:
+	if not equipped:
 		return
 
 	if State == States.READY:
@@ -56,6 +59,23 @@ func knockback_shooter():
 	var impulseVector = (Vector2.RIGHT * knockbackPower).rotated(get_global_rotation() - PI)
 	if shooter != null:
 		emit_signal("shot", impulseVector)
+
+func enable(actionString:String):
+	visible = true
+	equipped = true
+	action_to_use = actionString
+	
+func disable():
+	visible = false
+	equipped = false
+	action_to_use = ""
+	queue_free() # don't worry, player has a duplicate
+
+func equip(actionString:String):
+	enable(actionString)
+	
+func stow():
+	disable()
 
 func _process(_delta):
 	var mousePos = get_global_mouse_position()

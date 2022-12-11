@@ -8,3 +8,12 @@ var current_map : Node2D # for spawning bullets and creeps
 var pickable_object_spawner: Node2D # Spawner node that handles spawning of pickables
 var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
+
+func pause():
+	# this is pretty abrupt and brute force.
+	get_tree().set_pause(true)
+
+
+func resume():
+	get_tree().set_pause(false)
+
