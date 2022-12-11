@@ -57,13 +57,13 @@ custom_constants/separation = 20
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 924.0
-margin_bottom = 340.0
+margin_bottom = 420.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 margin_right = 924.0
-margin_bottom = 340.0
+margin_bottom = 420.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "The Glass Queen
@@ -85,6 +85,7 @@ autowrap = true
 percent_visible = 0.0
 
 [node name="ReturnToMainButton" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
+visible = false
 margin_left = 387.0
 margin_top = 360.0
 margin_right = 537.0
