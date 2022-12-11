@@ -16,6 +16,7 @@ func init(turret_type):
 	new_turret.global_position = global_position
 	if Global.current_map.has_node("Towers"):
 		Global.current_map.get_node("Towers").add_child(new_turret)
+		new_turret.global_position = global_position
 	else:
 		Global.current_map.add_child(new_turret)
 	var default_turret_range = 30

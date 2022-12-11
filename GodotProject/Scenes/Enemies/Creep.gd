@@ -33,14 +33,14 @@ signal died
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Global.pickable_object_spawner != null:
-		connect("died", Global.pickable_object_spawner, "spawn_pickable")
+		var _err = connect("died", Global.pickable_object_spawner, "spawn_pickable")
 	$corpse.hide()
 
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
 	nav_target = navTarget
-	set_target(Global.player)
+	set_attack_target(Global.player)
 	State = States.MOVING
 
 
@@ -49,13 +49,39 @@ func _physics_process(delta):
 	if State == States.MOVING:
 		move(delta)
 
-#	velocity = (global_position - prev_position)
-#	prev_position = global_position
 
-func set_target(target):
+
+func set_attack_target(target):
 	for weapon in $Weapons.get_children():
 		if weapon.has_method("set_target"):
 			weapon.set_target(target)
+
+
+func choose_target_location():
+	var target : Object
+	var targetLocation : Vector2
+	
+	var vector_to_player = Global.player.global_position - self.global_position
+	var vector_to_village = Global.village_location - self.global_position
+	if vector_to_player.length_squared() > vector_to_village.length_squared():
+		target = get_nearest_target()
+		targetLocation = target.global_position
+	else:
+		targetLocation = Global.player.global_position
+		
+	nav_agent.set_target_location(targetLocation)
+
+
+func get_nearest_target():
+	var potentialTargets = []
+	potentialTargets.append_array(get_tree().get_nodes_in_group("village"))
+	potentialTargets.append_array(get_tree().get_nodes_in_group("towers"))
+	potentialTargets.append(Global.player)
+	
+	return Global.get_closest_object(potentialTargets, self)
+
+
+
 
 func move(delta):
 	if nav_agent.is_navigation_finished():
@@ -63,6 +89,11 @@ func move(delta):
 		return
 
 	nav_agent.get_next_location()
+	
+
+	
+	
+	
 	var direction = global_position.direction_to(nav_agent.get_next_location())
 	var desired_velocity = direction * speed
 	var steering = (desired_velocity - velocity) * delta * 4.0
@@ -145,4 +176,4 @@ func _on_DecayTimer_timeout():
 
 
 func _on_PathfindTimer_timeout():
-	nav_agent.set_target_location(Global.player.global_position)
+	choose_target_location()
