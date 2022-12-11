@@ -13,8 +13,11 @@ NPCs in the village can provide blueprints and upgrades.
 
 Github:
 	https://github.com/smclaughlan/GWJ52
+Issues List:
+	https://github.com/smclaughlan/GWJ52/issues
 Project Board:
-	https://dev.azure.com/strangeone087/Project%20Hero%20Tower/_boards/board/t/Project%20Hero%20Tower%20Team/Stories
+	https://app.hacknplan.com/p/178297/kanban?categoryId=0&boardId=0
+	
 
 
 The Glass Queen

@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Projectiles/Flame.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Objects/Projectiles/PlayerBullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Objects/Projectiles/Light.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Weapons/Bang.wav" type="AudioStream" id=5]
+[ext_resource path="res://Scenes/Objects/Weapons/lasernoise.wav" type="AudioStream" id=6]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.0818713, 0.324561, 0.567251, 0.611111, 0.77193 )
@@ -47,7 +48,7 @@ position = Vector2( 115, -18 )
 
 [node name="Bullet" parent="Ammo" instance=ExtResource( 3 )]
 visible = false
-bullet_speed = 800.0
+bullet_speed = 1400.0
 bullet_damage = 40.0
 
 [node name="Flame" parent="Ammo" instance=ExtResource( 2 )]
@@ -65,6 +66,9 @@ wait_time = 0.15
 one_shot = true
 
 [node name="ReloadTimer" type="Timer" parent="."]
+
+[node name="LaserNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 6 )
 
 [connection signal="timeout" from="Sprite/MuzzleFlash/FlashTimer" to="." method="_on_FlashTimer_timeout"]
 [connection signal="timeout" from="CockTimer" to="." method="_on_CockTimer_timeout"]
