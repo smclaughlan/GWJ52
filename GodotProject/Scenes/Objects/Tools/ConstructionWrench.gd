@@ -16,9 +16,10 @@ var equipped : bool = false
 enum States { INITIALIZING, STORED, ACTIVE }
 var State = States.INITIALIZING
 
+signal tower_built
 
 func _ready():
-	pass
+	connect("tower_built", Global.currency_tracker, "update_amount")
 
 
 func init(myPlayer):
@@ -32,8 +33,12 @@ func _unhandled_input(_event):
 		attempt_to_spawn_tower()
 
 func attempt_to_spawn_tower():
-	if tower_buildmode_visual.can_place:
+	var cost_reference: CostReference = CostReference.new()
+	cost_reference.tower = tower_base_scene.instance()
+	cost_reference.cost = cost_reference.tower.cost
+	if tower_buildmode_visual.can_place and cost_reference.can_purchase():
 		spawn_tower()
+		emit_signal("tower_built", -cost_reference.cost)
 	else:
 		$IncorrectPlacementNoise.play()
 
@@ -46,7 +51,6 @@ func spawn_tower():
 		$BuildNoise.play()
 		Global.current_map.add_child(new_tower)
 		new_tower.init("fire")
-
 
 
 func set_towerbuildmode(enabled:bool):
