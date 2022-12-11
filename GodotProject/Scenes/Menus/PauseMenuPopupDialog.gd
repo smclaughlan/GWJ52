@@ -22,3 +22,7 @@ func _on_ResumeButton_pressed():
 func _on_QuitButton_pressed():
 	Global.resume()
 	Global.stage_manager.return_to_main()
+
+
+func _on_FreeMoneyButton_pressed():
+	Global.currency_tracker.update_amount(100)

@@ -19,6 +19,8 @@ var State = States.INITIALIZING
 signal tower_built
 
 func _ready():
+	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
+	yield(delay_let_ancestors_initialize_first, "timeout")
 	connect("tower_built", Global.currency_tracker, "update_amount")
 
 

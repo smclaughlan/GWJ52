@@ -16,4 +16,6 @@ texture_offset = Vector2( 32, -15 )
 polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 70, 47, 71, 59, 64, 68, 36, 76, 12, 76, -14, 75, -37, 76, -62, 72, -70, 56, -68, 47 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -70, -70, 71, -70, 73, 72, -70, 71 )
+position = Vector2( -1, 38 )
+rotation = 1.57079
+polygon = PoolVector2Array( 5.00001, -4.99999, 18.0001, -35, 46.0001, -35.9999, 58, 17.0001, 38.9999, 62.0001, 11.9999, 60 )
