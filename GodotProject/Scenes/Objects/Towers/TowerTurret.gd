@@ -21,7 +21,10 @@ func _physics_process(delta):
 	var distance = global_position.distance_to(target.global_position)
 	
 	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
-		point_toward(target.global_position + target.velocity * (distance/projectile_speed) / delta)
+		if target.get("velocity"): # verify that they have the velocity property
+			point_toward(target.global_position + target.velocity * (distance/projectile_speed) / delta)
+		else:
+			point_toward(target.global_position)
 
 func point_toward(targetPos):
 	$DebugInfo.text = str(targetPos)
@@ -66,15 +69,15 @@ func _on_Area2D_body_exited(body):
 func find_target_in_collider():
 	var enemies = collision_area.get_overlapping_bodies()
 	var closest_enemy = null
-	var closest_enemy_dist = 100000
+	var closest_enemy_dist_sq = 100000000000
 	for enemy in enemies:
-		var curr_dist = global_position.distance_to(enemy.global_position)
+		var curr_dist_sq = global_position.distance_squared_to(enemy.global_position)
 		if closest_enemy == null:
 			closest_enemy = enemy
-			closest_enemy_dist = curr_dist
-		if curr_dist < closest_enemy_dist:
+			closest_enemy_dist_sq = curr_dist_sq
+		if curr_dist_sq < closest_enemy_dist_sq:
 			closest_enemy = enemy
-			closest_enemy_dist = curr_dist
+			closest_enemy_dist_sq = curr_dist_sq
 	if closest_enemy and is_instance_valid(closest_enemy):
 		target = closest_enemy
 		shoot_timer.start(turret_fire_rate)
