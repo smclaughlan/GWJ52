@@ -38,7 +38,7 @@ func shoot(ammo):
 		return
 
 	if State == States.READY:
-		$BangNoise.play()
+		$LaserNoise.play()
 		knockback_shooter()
 		var new_projectile = ammo.duplicate()
 

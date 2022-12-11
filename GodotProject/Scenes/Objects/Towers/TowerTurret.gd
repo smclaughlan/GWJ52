@@ -33,11 +33,13 @@ func point_toward(targetPos):
 	var targetRot = $InvisibleTurret.rotation + (2*PI) # prevent negative rotations
 	var rotation_as_fraction = targetRot / (2*PI)
 	
-	var total_frames = $Sprite.hframes * $Sprite.vframes
-	var offset_frame = 6
-	var current_frame = int(rotation_as_fraction * float(total_frames)) + offset_frame
-	current_frame = current_frame % (total_frames-1)
-	$Sprite.frame = current_frame
+	# change the spritesheet frame for animated 8-way turrets
+	if $Sprite.hframes > 1 or $Sprite.vframes > 1:
+		var total_frames = $Sprite.hframes * $Sprite.vframes
+		var offset_frame = 6
+		var current_frame = int(rotation_as_fraction * float(total_frames)) + offset_frame
+		current_frame = current_frame % (total_frames-1)
+		$Sprite.frame = current_frame
 
 func shoot():
 	var new_projectile = bullet_scene.instance()
