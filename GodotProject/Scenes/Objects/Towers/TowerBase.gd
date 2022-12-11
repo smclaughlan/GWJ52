@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
 
