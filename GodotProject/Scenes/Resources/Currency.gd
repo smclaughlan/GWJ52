@@ -5,7 +5,7 @@ extends Node
 
 signal resource_changed
 
-# Base currency.
+# Base currency. Change the name if we must.
 var sun: int = 0
 
 func _ready() -> void:

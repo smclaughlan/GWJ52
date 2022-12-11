@@ -6,14 +6,19 @@
 # Once the player is in range, the item will be freed instantly
 
 extends Area2D
+class_name PickableObject
 
 const PICKUP_SPEED = 300
 
 var on_pickup_radius: bool = false setget set_on_pickup
 
+signal picked
+
+
 func _on_PickableObject_body_entered(body: Node) -> void:
 	if body.collision_layer == 1:
 		queue_free()
+		emit_signal("picked")
 
 
 func _physics_process(delta: float) -> void:
