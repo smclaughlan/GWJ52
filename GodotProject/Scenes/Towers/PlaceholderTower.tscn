@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.166667, 0.491228, 0.909357 )
+colors = PoolColorArray( 0.000396729, 0, 0.0507812, 1, 1, 1, 1, 1, 0, 0, 0.0470588, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 128
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0.163743, 0.418129 )
+colors = PoolColorArray( 0.114644, 0.00270877, 0.160156, 1, 0.0575922, 0.0569999, 0.132812, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+width = 64
+
+[node name="PlaceholderTower" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+texture = SubResource( 2 )
+texture_offset = Vector2( 32, 0 )
+texture_scale = Vector2( 2, 2 )
+polygon = PoolVector2Array( 35, 20, -33, 19, -34, 4, -21, -3, -17, -46, -29, -58, -29, -76, -19, -76, -19, -66, -5, -66, -5, -77, 7, -77, 7, -66, 18, -66, 18, -78, 32, -78, 32, -55, 21, -46, 27, -5, 35, 1 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="Sprite"]
+position = Vector2( 1, 1 )
+scale = Vector2( 1, 2.66667 )
+texture = SubResource( 4 )
+texture_scale = Vector2( 1.2, 3 )
+texture_rotation_degrees = 90.0
+polygon = PoolVector2Array( -29, -22.125, 32, -22.125, 21, -12.375, -19, -11.25 )

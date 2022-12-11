@@ -1,0 +1,65 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
+[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Player/PlayerAvatar.gd" type="Script" id=3]
+[ext_resource path="res://_common/GUI/HealthBarUnder.png" type="Texture" id=4]
+[ext_resource path="res://_common/GUI/HealthBarOver.png" type="Texture" id=5]
+[ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Objects/Tools/ConstructionWrench.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/GUI/HUD.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Objects/Weapons/Sword.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 31, 31.5 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -0.5 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Sprite"]
+texture = ExtResource( 2 )
+
+[node name="LeftHand" type="Node2D" parent="."]
+
+[node name="RightHand" type="Node2D" parent="."]
+
+[node name="Toolbelt" type="Node2D" parent="."]
+
+[node name="Gun" parent="Toolbelt" instance=ExtResource( 1 )]
+visible = false
+
+[node name="ConstructionWrench" parent="Toolbelt" instance=ExtResource( 7 )]
+visible = false
+
+[node name="Sword" parent="Toolbelt" instance=ExtResource( 9 )]
+visible = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 1.5, 1.5 )
+
+[node name="DeathTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="HUD" parent="." instance=ExtResource( 8 )]
+
+[node name="StatusBars" type="Node2D" parent="."]
+position = Vector2( -59, -57 )
+
+[node name="TextureProgress" type="TextureProgress" parent="StatusBars"]
+margin_right = 40.0
+margin_bottom = 40.0
+value = 100.0
+texture_under = ExtResource( 4 )
+texture_over = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
+
+[node name="Weapons" type="Node2D" parent="."]
+
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
