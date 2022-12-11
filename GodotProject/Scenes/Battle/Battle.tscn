@@ -39,16 +39,16 @@ texture = SubResource( 2 )
 centered = false
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 437, 433 )
+position = Vector2( 1751, 400 )
 
 [node name="CreepSpawner" parent="." instance=ExtResource( 3 )]
-position = Vector2( 126, 122 )
+position = Vector2( -43, 144 )
 
 [node name="CreepSpawner2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 204, 319 )
+position = Vector2( -88, 659 )
 
 [node name="CreepSpawner3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 629, 102 )
+position = Vector2( -151, 395 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 4 )
@@ -56,6 +56,7 @@ navpoly = SubResource( 4 )
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationPolygonInstance"]
 
 [node name="Village" parent="." instance=ExtResource( 4 )]
+position = Vector2( 2375, 628 )
 
 [node name="InvisibleWalls" type="Node2D" parent="."]
 
