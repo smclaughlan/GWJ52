@@ -12,6 +12,23 @@ anchor_right = 1.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
 
+[node name="Currency" type="HBoxContainer" parent="header"]
+margin_right = 76.0
+margin_bottom = 64.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="header/Currency"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 1 )
+
+[node name="SunAmount" type="Label" parent="header/Currency"]
+margin_left = 68.0
+margin_top = 25.0
+margin_right = 76.0
+margin_bottom = 39.0
+text = "0"
+
 [node name="Footer" type="MarginContainer" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
