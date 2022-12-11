@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Objects/Towers/TurretSpritesheet.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -47,6 +48,8 @@ margin_top = -70.0
 margin_right = 24.0
 margin_bottom = -56.0
 text = "targetPos = "
+
+[node name="TowerWireSockets" parent="." instance=ExtResource( 4 )]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
