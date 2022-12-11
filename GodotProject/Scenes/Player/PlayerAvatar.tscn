@@ -75,6 +75,23 @@ script = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRadius"]
 shape = SubResource( 2 )
 
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="RestTimer" type="Timer" parent="DashTimer"]
+wait_time = 3.0
+one_shot = true
+
+[node name="DashParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+local_coords = false
+initial_velocity = 100.0
+scale_amount = 5.0
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
 [connection signal="area_exited" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_exited"]

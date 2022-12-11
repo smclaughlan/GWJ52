@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 var velocity : Vector2 = Vector2.ZERO
 var player_speed : float = 400.0
+var dash_multiple : float = 8.0
 
 onready var weapons = $Weapons.get_children()
 
@@ -81,8 +82,14 @@ func _process(_delta):
 	if Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
 
-
-	velocity = velocity.normalized() * player_speed
+	if Input.is_action_just_pressed("dash") and $DashTimer.is_stopped() and $DashTimer/RestTimer.is_stopped() == true:
+		$DashParticles.emitting = true
+		$DashTimer.start()
+		$DashTimer/RestTimer.start() # longer than the dash
+	var dashFactor : float = 1.0
+	if Input.is_action_pressed("dash") and $DashTimer.is_stopped() == false:
+		dashFactor = dash_multiple
+	velocity = velocity.normalized() * player_speed * dashFactor
 
 	velocity = move_and_slide(velocity * Global.game_speed) # delta not required
 
