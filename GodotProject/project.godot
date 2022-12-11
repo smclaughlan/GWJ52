@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Area2D",
+"class": "PickableObject",
+"language": "GDScript",
+"path": "res://Scenes/Objects/Pickups/PickableObject.gd"
+} ]
+_global_script_class_icons={
+"PickableObject": ""
+}
+
 [application]
 
 config/name="GWJ 52"
