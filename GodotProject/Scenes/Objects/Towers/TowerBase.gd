@@ -2,8 +2,6 @@ extends Node2D
 
 var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
 
-export var cost: int = 10
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
