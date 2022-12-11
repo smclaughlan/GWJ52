@@ -14,7 +14,7 @@
 extents = Vector2( 31, 31.5 )
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 93.1933
+radius = 300.0
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -71,3 +71,5 @@ script = ExtResource( 9 )
 shape = SubResource( 2 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
+[connection signal="area_exited" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_exited"]

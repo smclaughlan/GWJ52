@@ -21,7 +21,6 @@ func _physics_process(delta: float) -> void:
 		return
 	var velocity: Vector2 = position.direction_to(Global.player.position)
 	position += velocity * PICKUP_SPEED * delta
-	
 
 
 func set_on_pickup(value: bool) -> void:
