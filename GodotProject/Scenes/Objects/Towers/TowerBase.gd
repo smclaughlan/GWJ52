@@ -1,6 +1,8 @@
 extends StaticBody2D
 
 var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
+onready var collision_polygon_2d = $CollisionPolygon2D
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,5 +18,4 @@ func init(turret_type):
 
 
 func cut_from_nav():
-	var collider = $CollisionPolygon2D
-	Global.nav_manager.cut_from_nav(collider)
+	Global.nav_manager.cut_from_nav(collision_polygon_2d)
