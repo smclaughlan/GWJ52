@@ -53,11 +53,12 @@ margin_top = 25.0
 margin_right = 76.0
 margin_bottom = 39.0
 text = "0"
-[node name="PauseButton" type="Button" parent="header"]
-margin_right = 50.0
-margin_bottom = 50.0
-text = "Pause"
 
+[node name="PauseButton" type="Button" parent="header"]
+margin_left = 80.0
+margin_right = 130.0
+margin_bottom = 64.0
+text = "Pause"
 
 [node name="Footer" type="MarginContainer" parent="."]
 anchor_top = 1.0
