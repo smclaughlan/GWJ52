@@ -8,22 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Reference",
-"class": "CostReference",
-"language": "GDScript",
-"path": "res://Scenes/Resources/CostReference.gd"
-}, {
-"base": "Area2D",
-"class": "PickableObject",
-"language": "GDScript",
-"path": "res://Scenes/Objects/Pickups/PickableObject.gd"
-} ]
-_global_script_class_icons={
-"CostReference": "",
-"PickableObject": ""
-}
-
 [application]
 
 config/name="GWJ 52"
@@ -114,8 +98,6 @@ build={
 2d_physics/layer_4="Bullets"
 2d_physics/layer_5="Melee Weapons"
 2d_physics/layer_6="NPCs"
-2d_physics/layer_7="Pickables"
-2d_physics/layer_8="PlayerCollectionRadius"
 
 [physics]
 
