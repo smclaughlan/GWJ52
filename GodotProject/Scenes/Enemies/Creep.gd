@@ -28,8 +28,8 @@ signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Global.object_spawner != null:
-		connect("died", Global.object_spawner, "spawn_pickable")
+	if Global.pickable_object_spawner != null:
+		connect("died", Global.pickable_object_spawner, "spawn_pickable")
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)

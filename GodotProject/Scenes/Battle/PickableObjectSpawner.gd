@@ -4,7 +4,7 @@ extends Node2D
 
 
 func _ready() -> void:
-	Global.object_spawner = self
+	Global.pickable_object_spawner = self
 
 
 func spawn_pickable(pickable_object: Object, position: = Vector2.ZERO) -> void:
