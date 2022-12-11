@@ -4,7 +4,7 @@ var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	cut_from_nav()
 
 
 func init(turret_type):
@@ -13,3 +13,8 @@ func init(turret_type):
 	Global.current_map.add_child(new_turret)
 	var default_turret_range = 30
 	new_turret.init(turret_type, default_turret_range)
+
+
+func cut_from_nav():
+	var collider = $CollisionPolygon2D
+	Global.nav_manager.cut_from_nav(collider)

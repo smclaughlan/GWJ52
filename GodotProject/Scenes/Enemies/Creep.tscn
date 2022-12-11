@@ -46,6 +46,7 @@ tracks/0/keys = {
 [node name="Creep" type="KinematicBody2D" groups=["creeps", "enemies"]]
 collision_layer = 2
 collision_mask = 15
+collision/safe_margin = 1.0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -105,6 +106,7 @@ anims/RESET = SubResource( 5 )
 anims/die = SubResource( 6 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+radius = 100.0
 
 [connection signal="area_entered" from="ObstacleDetectionZone" to="." method="_on_ObstacleDetectionZone_area_entered"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
