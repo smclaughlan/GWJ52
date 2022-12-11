@@ -26,10 +26,16 @@ var Goal = Goals.ATTACK_PLAYER
 enum States { INITIALIZING, READY, MOVING, ATTACKING, INVULNERABLE, RELOADING, STUNNED, DEAD }
 var State = States.INITIALIZING
 
+export (PackedScene) var dropped_pickable
+
+signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Global.pickable_object_spawner != null:
+		connect("died", Global.pickable_object_spawner, "spawn_pickable")
 	$corpse.hide()
+
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
@@ -42,7 +48,7 @@ func init(initialPos, navTarget):
 func _physics_process(delta):
 	if State == States.MOVING:
 		move(delta)
-	
+
 #	velocity = (global_position - prev_position)
 #	prev_position = global_position
 
@@ -55,7 +61,7 @@ func move(delta):
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
-	
+
 	nav_agent.get_next_location()
 	var direction = global_position.direction_to(nav_agent.get_next_location())
 	var desired_velocity = direction * speed
@@ -65,7 +71,7 @@ func move(delta):
 	sprite.rotation = new_angle
 	weapons.rotation = new_angle
 	var _collision = move_and_collide(velocity)
-	
+
 #	var myPos = get_global_position()
 #
 #	var playerPos = Vector2.ZERO
@@ -80,7 +86,7 @@ func move(delta):
 #		var _collision = move_and_collide(dirToPlayer * delta * Global.game_speed * speed)
 #	elif Goal == Goals.ATTACK_VILLAGE:
 #		var _collision = move_and_collide(dirToNavTarget * delta * Global.game_speed * speed)
-	
+
 func begin_dying(): # death animation and loot spawn
 	State = States.DEAD
 	# disable collisions
@@ -94,7 +100,7 @@ func die_for_real_this_time(): # blood smear
 	$corpse.show()
 	$Sprite.hide()
 	$DecayTimer.start()
-	
+
 
 func disable_weapons():
 	for weapon in $Weapons.get_children():
@@ -112,10 +118,10 @@ func knockback(impactVector):
 
 func _on_hit(damage, impactVector, _damageAttributes):
 	# worry about damage attributes later
-	
+
 	$OwNoise.play()
 	knockback(impactVector)
-	
+
 	health -= damage
 	if health < 0 and State != States.DEAD:
 		begin_dying()
@@ -126,6 +132,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 
 func _on_DeathTimer_timeout():
 	die_for_real_this_time()
+	emit_signal("died", dropped_pickable, position)
 
 
 func _on_InvulnerabiltyTimer_timeout():

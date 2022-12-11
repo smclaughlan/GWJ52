@@ -4,6 +4,8 @@ var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
 onready var collision_polygon_2d = $CollisionPolygon2D
 
 
+export var cost: int = 10
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cut_from_nav()

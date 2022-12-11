@@ -39,20 +39,33 @@ func shoot(ammo):
 
 	if State == States.READY:
 		$BangNoise.play()
-		flash_muzzle()
 		knockback_shooter()
 		var new_projectile = ammo.duplicate()
 
 		# a signal to the map would be nicer, but this works for now
 		Global.stage_manager.current_map.add_child(new_projectile)
+		var rand_offset = Vector2.ZERO
+		rand_offset.x = rand_range(-5.0, 5.0)
+		rand_offset.y = rand_range(-5.0, 5.0)
+		var rand_aim_tremble = rand_range(-0.15, 0.15)
+		flash_muzzle()
+		$Sprite.rotation = rand_aim_tremble
+		var pos = $Sprite/MuzzlePosition.global_position + rand_offset
+		var rot = $Sprite/MuzzlePosition.global_rotation + rand_aim_tremble
+
 		if new_projectile.has_method("init"):
-			new_projectile.init($MuzzlePosition.global_position, $MuzzlePosition.global_rotation)
+			new_projectile.init(pos, rot)
+		else:
+			printerr("configuration error in Gun.gd: ammo has no init() method")
 		State = States.COCKING
 		$CockTimer.start()
 
 func flash_muzzle():
-	$MuzzlePosition/MuzzleFlash.visible = true
-	$MuzzlePosition/MuzzleFlash/FlashTimer.start()
+	$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
+	var colorChange = rand_range(0.8, 1.0)
+	$Sprite/MuzzleFlash.set_self_modulate(Color(colorChange, colorChange, colorChange))
+	$Sprite/MuzzleFlash.visible = true
+	$Sprite/MuzzleFlash/FlashTimer.start()
 
 func knockback_shooter():
 	var knockbackPower = 1050.0
@@ -99,4 +112,4 @@ func _on_CockTimer_timeout():
 
 
 func _on_FlashTimer_timeout():
-	$MuzzlePosition/MuzzleFlash.hide()
+	$Sprite/MuzzleFlash.hide()
