@@ -39,7 +39,6 @@ func init(initialPos, navTarget):
 	State = States.MOVING
 	set_target(Global.player)
 	
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
