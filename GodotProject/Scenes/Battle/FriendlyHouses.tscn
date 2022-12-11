@@ -48,7 +48,7 @@ colors = PoolColorArray( 0.959033, 0.732193, 0.0932675, 1, 0.619189, 0, 0, 1, 0,
 
 [node name="FriendlyHouses" type="StaticBody2D" groups=["village"]]
 collision_layer = 32
-collision_mask = 10
+collision_mask = 258
 script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
