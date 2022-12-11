@@ -10,6 +10,6 @@ func _ready():
 func init(turret_type):
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
-	get_tree().get_root().add_child(new_turret)
+	Global.current_map.add_child(new_turret)
 	var default_turret_range = 30
 	new_turret.init(turret_type, default_turret_range)

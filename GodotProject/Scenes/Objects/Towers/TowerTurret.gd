@@ -19,7 +19,28 @@ func _physics_process(delta):
 		return
 	
 	var distance = global_position.distance_to(target.global_position)
-	look_at(target.global_position + target.velocity * (distance/projectile_speed) / delta)
+	
+	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
+		point_toward(target.global_position + target.velocity * (distance/projectile_speed) / delta)
+
+func point_toward(targetPos):
+	$DebugInfo.text = str(targetPos)
+	$InvisibleTurret.look_at(targetPos)
+	
+	var targetRot = $InvisibleTurret.rotation + (2*PI) # prevent negative rotations
+	var rotation_as_fraction = targetRot / (2*PI)
+	
+	var total_frames = $Sprite.hframes * $Sprite.vframes
+	var offset_frame = 6
+	var current_frame = int(rotation_as_fraction * float(total_frames)) + offset_frame
+	current_frame = current_frame % (total_frames-1)
+	$Sprite.frame = current_frame
+
+func shoot():
+	var new_projectile = bullet_scene.instance()
+	Global.stage_manager.current_map.add_child(new_projectile)
+	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
+
 
 func init(_turret_type, _turret_range):
 	turret_type = _turret_type
@@ -63,7 +84,5 @@ func _on_ShootTimer_timeout():
 	if !target or !is_instance_valid(target):
 		shoot_timer.stop()
 		return
-	
-	var new_projectile = bullet_scene.instance()
-	Global.stage_manager.current_map.add_child(new_projectile)
-	new_projectile.init(global_position, global_rotation)
+	else:
+		shoot()

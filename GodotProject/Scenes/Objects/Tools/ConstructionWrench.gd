@@ -59,7 +59,7 @@ func set_towerbuildmode(enabled:bool):
 		if Global.current_map != null and is_instance_valid(Global.current_map):
 			Global.current_map.add_child(tower_buildmode_visual)
 		else:
-			get_tree().get_root().add_child(tower_buildmode_visual)
+			printerr("config error in ConstructionWrench.gd. unknown Global.map")
 	else: # disabled
 		# Stop showing the green tower base visual.
 		tower_buildmode_visual.queue_free()
