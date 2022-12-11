@@ -74,11 +74,11 @@ func _process(_delta):
 
 	if Input.is_action_pressed("ui_left"):
 		velocity += Vector2.LEFT
-	elif Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right"):
 		velocity += Vector2.RIGHT
-	elif Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("ui_up"):
 		velocity += Vector2.UP
-	elif Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
 
 
