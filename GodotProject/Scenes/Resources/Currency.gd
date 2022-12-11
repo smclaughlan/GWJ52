@@ -10,7 +10,7 @@ var sun: int = 0
 
 func _ready() -> void:
 	Global.currency_tracker = self
-	connect("resource_changed", Global.hud, "update_sun")
+	var _err = connect("resource_changed", Global.hud, "update_sun")
 
 
 func update_amount(new_amount: int = 1) -> void:

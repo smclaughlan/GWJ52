@@ -8,6 +8,8 @@ collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Node2D" parent="."]
+show_behind_parent = true
+z_index = -5
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
 position = Vector2( -67, 29 )
@@ -18,4 +20,4 @@ polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 7
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -1, 38 )
 rotation = 1.57079
-polygon = PoolVector2Array( 5.00001, -4.99999, 18.0001, -35, 46.0001, -35.9999, 58, 17.0001, 38.9999, 62.0001, 11.9999, 60 )
+polygon = PoolVector2Array( 17.0002, -34.9999, 57.0002, -37.9996, 55.9997, 43.0004, 19.9997, 42.0001 )

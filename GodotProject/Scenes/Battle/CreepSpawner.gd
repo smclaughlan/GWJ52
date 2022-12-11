@@ -79,7 +79,7 @@ func _on_SpawnTimer_timeout():
 	if State == States.READY:
 		spawn_creep()
 
-func _on_hit(damage, impactVector, damageAttributes):
+func _on_hit(damage, _impactVector, _damageAttributes):
 	health -= damage
 	$HealthBar.value = health/max_health
 	if health <= 0:

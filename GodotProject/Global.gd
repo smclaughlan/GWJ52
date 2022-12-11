@@ -17,3 +17,15 @@ func pause():
 
 func resume():
 	get_tree().set_pause(false)
+
+
+func get_closest_object(group : Array, referenceObj ):
+	var refPos = referenceObj.global_position
+	var closest_object = null
+	for obj in group:
+		if is_instance_valid(obj) and obj != referenceObj:
+			var objPos = obj.global_position
+			if closest_object == null or objPos.distance_squared_to(refPos) < closest_object.global_position.distance_squared_to(refPos):
+				closest_object = obj
+	return closest_object
+	
