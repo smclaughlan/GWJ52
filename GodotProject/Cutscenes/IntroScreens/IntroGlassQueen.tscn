@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://_common/GUI/SceneChangeButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Cutscenes/IntroScreens/IntroGlassQueen.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Battle/Battle.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Label:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "RevealText"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Label:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[node name="Intro" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 974.0
+margin_bottom = 550.0
+custom_constants/separation = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 924.0
+margin_bottom = 340.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+margin_right = 924.0
+margin_bottom = 340.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "The Glass Queen
+
+Deep in the planet’s depths resides an ancient, once-bustling dwarven kingdom.
+
+At its highest peak rests a brilliant glass statue that houses the spirit of the last dwarven queen. Her ghost protects The Chandelier, a dazzling monument of crystal that serves as the final resting place for the souls of her long-forgotten kingdom.
+
+ – and is a source of tremendous power.
+
+Her spirit has long stood guard for The Chandelier ever since her husband sacrificed himself to push back and cast down The Strife, a dark and terrible force that their kingdom stumbled upon while digging too deeply into the planet.
+
+Eons have passed, and The Strife have regained their strength, crawling and clawing their way back up to the doorstep of the kingdom. They have but one goal: to avenge their defeat and consume the last of the dwarven kingdom’s light.
+
+The queen must defend her kingdom by utilizing the light of The Chandelier like a power grid. Though it is brilliant and powerful, it is finite, and must be carefully distributed amongst the mausoleum’s ancient defense systems.
+
+These sentinel towers of tarnished mithril must reveal, incapacitate, and dispatch The Strife before their darkness swallows up the kingdom for good."
+autowrap = true
+percent_visible = 0.0
+
+[node name="ReturnToMainButton" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_left = 387.0
+margin_top = 360.0
+margin_right = 537.0
+margin_bottom = 420.0
+size_flags_horizontal = 6
+text = "Return to Main Menu"
+return_to_main = true
+
+[node name="StartGameButton" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
+margin_left = 361.0
+margin_top = 440.0
+margin_right = 562.0
+margin_bottom = 500.0
+size_flags_horizontal = 6
+text = "Begin: Protect The Chandelier"
+target_scene = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 1 )
+anims/RevealText = SubResource( 2 )
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
