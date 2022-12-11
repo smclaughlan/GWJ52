@@ -68,7 +68,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_DamageArea_body_entered(body):
 	if body != null and is_instance_valid(body):
-		if body.is_in_group("creeps"):
+		if body.is_in_group("creeps") or body.is_in_group("EnemySpawners"):
 			if body.has_method("_on_hit"):
 				if player != null and is_instance_valid(player):
 					var impactVector = body.global_position - player.global_position
