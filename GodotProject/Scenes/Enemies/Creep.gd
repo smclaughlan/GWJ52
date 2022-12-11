@@ -22,11 +22,14 @@ var Goal = Goals.ATTACK_PLAYER
 enum States { INITIALIZING, READY, MOVING, ATTACKING, INVULNERABLE, RELOADING, STUNNED, DEAD }
 var State = States.INITIALIZING
 
+export (PackedScene) var dropped_pickable
+
 signal died
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	if Global.object_spawner != null:
+		connect("died", Global.object_spawner, "spawn_pickable")
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
@@ -110,7 +113,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 
 func _on_DeathTimer_timeout():
 	die_for_real_this_time()
-	emit_signal("died")
+	emit_signal("died", dropped_pickable, position)
 
 
 func _on_InvulnerabiltyTimer_timeout():
