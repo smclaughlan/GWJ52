@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/GUI/ShoppingPopupPanel.gd" type="Script" id=2]
 
 [node name="ShoppingPopupPanel" type="PopupPanel"]
-visible = true
+pause_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -19,6 +19,10 @@ script = ExtResource( 2 )
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
 custom_constants/separation = 20
 
 [node name="Header" type="PanelContainer" parent="VBoxContainer"]
@@ -223,4 +227,5 @@ rect_min_size = Vector2( 125, 50 )
 size_flags_horizontal = 4
 text = "Close"
 
+[connection signal="popup_hide" from="." to="." method="_on_ShoppingPopupPanel_popup_hide"]
 [connection signal="pressed" from="VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]

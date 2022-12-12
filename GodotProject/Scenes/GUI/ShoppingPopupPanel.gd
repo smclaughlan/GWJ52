@@ -18,3 +18,8 @@ func _ready():
 
 func _on_CloseButton_pressed():
 	hide()
+
+
+func _on_ShoppingPopupPanel_popup_hide():
+	Global.resume()
+	#Engine.set_time_scale(1.0) # Why doesn't this work?!?
