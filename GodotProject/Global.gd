@@ -59,8 +59,8 @@ func show_fps_counter():
 			
 	else:
 		# delete the fps counter if not enabled
-		var fps_counter = get_tree().get_root().get_node("FPS_COUNTER_HOLDER").get_node("FPS_COUNTER")
-		fps_counter.queue_free()
+		var fps_counter_holder = get_tree().get_root().get_node("FPS_COUNTER_HOLDER")
+		fps_counter_holder.queue_free()
 
 func _process(_delta):
 	if enable_fps_counter:
