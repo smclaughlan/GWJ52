@@ -3,10 +3,12 @@ Tracks currency
 """
 extends Node
 
+const STARTING_AMOUNT = 30
+
 signal resource_changed
 
 # Base currency. Change the name if we must.
-var sun: int = 0
+var sun: int = STARTING_AMOUNT
 
 func _ready() -> void:
 	Global.currency_tracker = self
