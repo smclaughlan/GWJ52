@@ -172,8 +172,9 @@ func _on_DeathTimer_timeout():
 
 
 func _on_InvulnerabiltyTimer_timeout():
-	if State == States.INVULNERABLE:
+	if State == States.INVULNERABLE and health > 0:
 		State = States.MOVING
+	
 
 
 func _on_DecayTimer_timeout():
@@ -181,4 +182,7 @@ func _on_DecayTimer_timeout():
 
 
 func _on_PathfindTimer_timeout():
-	choose_target_location()
+	if State != States.DEAD:
+		choose_target_location()
+	else:
+		$PathfindTimer.stop()
