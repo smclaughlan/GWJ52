@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://Scenes/GUI/FloatText.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemies/Creep.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Enemies/OwNoise.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Enemies/CreepMeleeWeapon.tscn" type="PackedScene" id=4]
@@ -54,6 +55,7 @@ collision_layer = 2
 collision_mask = 9
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
+float_text = ExtResource( 1 )
 dropped_pickable = ExtResource( 5 )
 
 [node name="Sprite" type="Node2D" parent="."]
