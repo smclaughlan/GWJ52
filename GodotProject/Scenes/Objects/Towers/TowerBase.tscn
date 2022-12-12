@@ -21,3 +21,9 @@ polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 7
 position = Vector2( -1, 38 )
 rotation = 1.57079
 polygon = PoolVector2Array( 17.0002, -34.9999, 57.0002, -37.9996, 55.9997, 43.0004, 19.9997, 42.0001 )
+
+[node name="RemoveMarkDeconTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="RemoveMarkDeconTimer" to="." method="_on_RemoveMarkDeconTimer_timeout"]

@@ -7,8 +7,10 @@ extends Node2D
 var player
 var tower_buildmode = load("res://Scenes/Objects/Towers/TowerBuildmode.tscn")
 var tower_base_scene = load("res://Scenes/Objects/Towers/TowerBase.tscn")
+onready var deconstruct_area_2d = $DeconstructArea2D
 var is_placing_tower : bool = false
 var tower_buildmode_visual = null
+var tower_to_deconstruct = null
 
 var action_to_use : String
 var equipped : bool = false
@@ -31,6 +33,10 @@ func init(myPlayer):
 func _unhandled_input(_event):
 	if !equipped or State != States.ACTIVE:
 		return
+	elif Input.is_action_just_released("right_hand") and tower_to_deconstruct != null and is_instance_valid(tower_to_deconstruct):
+		# Decon and refund towers.
+		tower_to_deconstruct.destroy()
+		Global.currency_tracker.update_amount(10)
 	elif Input.is_action_just_pressed(action_to_use):
 		attempt_to_spawn_tower()
 
@@ -80,6 +86,21 @@ func update_tower_build_visual():
 
 func _process(_delta):
 	$Sprite.look_at(get_global_mouse_position())
+
+
+func _physics_process(delta):
+	if State != States.ACTIVE:
+		return
+	# If the mouse cursor goes over a tower:
+	# * make the tower semi-transparent
+	# * mark the tower as tower_to_deconstruct
+	tower_to_deconstruct = null
+	deconstruct_area_2d.global_position = get_global_mouse_position()
+	var towers = deconstruct_area_2d.get_overlapping_bodies()
+	for tower in towers:
+		tower_to_deconstruct = tower
+	if tower_to_deconstruct != null and is_instance_valid(tower_to_deconstruct):
+		tower_to_deconstruct.mark_for_deconstruction()
 
 
 func enable(actionKey : String):
