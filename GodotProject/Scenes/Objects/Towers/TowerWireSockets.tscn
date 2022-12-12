@@ -23,5 +23,12 @@ wait_time = 2.5
 [node name="ReconnectionTimer2" type="Timer" parent="."]
 wait_time = 2.5
 
+[node name="DebugInfo" type="Label" parent="."]
+margin_left = -52.0
+margin_top = -91.0
+margin_right = -12.0
+margin_bottom = -77.0
+rect_scale = Vector2( 2.50663, 2.50663 )
+
 [connection signal="timeout" from="ReconnectionTimer" to="." method="_on_ReconnectionTimer_timeout"]
 [connection signal="timeout" from="ReconnectionTimer2" to="." method="_on_ReconnectionTimer_timeout"]

@@ -1,7 +1,7 @@
 extends Area2D
 
 
-var player_present : bool = true # probably starts with the player near the tower
+var player_present : bool = false # probably starts with the player near the tower
 var tower
 
 signal demolition_requested
@@ -9,9 +9,14 @@ signal demolition_requested
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$InteractLabel.hide()
 	tower = get_parent()
 	if tower.has_method("_on_demolition_requested"):
 		var _err = connect("demolition_requested", tower, "_on_demolition_requested")
+	if get_overlapping_bodies().has(Global.player):
+		player_present = true
+		$InteractLabel.show()
+		
 
 
 func _unhandled_input(event):
