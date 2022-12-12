@@ -10,8 +10,7 @@ export var cost: int = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-#	cut_from_nav()
+	cut_from_nav()
 
 
 func init(turret_type):
