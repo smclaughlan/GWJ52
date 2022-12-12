@@ -145,7 +145,12 @@ func _on_ObstacleDetectionZone_area_entered(area):
 		# turn left until there's no more obstacles
 
 func knockback(impactVector):
-	var _collision = move_and_collide(impactVector)
+	#var _collision = move_and_collide(impactVector)
+	#var _resultVel = move_and_slide(impactVector)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position+impactVector, 0.1)
+
+	
 
 func _on_hit(damage, impactVector, _damageAttributes):
 	# worry about damage attributes later

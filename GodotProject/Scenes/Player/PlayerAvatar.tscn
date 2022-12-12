@@ -42,7 +42,7 @@ visible = false
 [node name="ConstructionWrench" parent="Toolbelt" instance=ExtResource( 7 )]
 visible = false
 
-[node name="Sword" parent="Toolbelt" instance=ExtResource( 9 )]
+[node name="Axe" parent="Toolbelt" instance=ExtResource( 9 )]
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]

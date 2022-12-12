@@ -5,7 +5,7 @@ var State = States.INITIALIZING
 
 export var damage : int = 10
 var damage_attributes = { } # future potential for poison, flaming, etc.
-
+var knockback_factor : float = 1.0
 
 export var num_attacks_per_set : int = 3
 var attacks_this_set : int = 0
@@ -31,7 +31,7 @@ func bite(targetObj):
 		if get_overlapping_bodies().has(targetObj):
 			$AnimationPlayer.play("bite")
 			$NomNomNoise.play()
-			var impactVector = targetObj.global_position - global_position * damage
+			var impactVector = targetObj.global_position - global_position * knockback_factor
 			emit_signal("hit", damage, impactVector, damage_attributes)
 			attacks_this_set += 1
 			if attacks_this_set > num_attacks_per_set:
