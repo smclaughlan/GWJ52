@@ -11,21 +11,24 @@ gradient = SubResource( 1 )
 width = 64
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 15.5, 10 )
+extents = Vector2( 51, 5 )
 
-[node name="Bullet" type="Area2D"]
+[node name="LaserBullet" type="Area2D"]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
+bullet_speed = 1200.0
 
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+position = Vector2( 28.4929, 0 )
+scale = Vector2( 9.83374, 0.557938 )
 texture = SubResource( 2 )
 texture_offset = Vector2( 7, 0 )
 texture_scale = Vector2( 4, 1 )
 texture_rotation_degrees = 90.0
-polygon = PoolVector2Array( -7, -8, 15, -8, 22, 0, 16, 7, -7, 7 )
+polygon = PoolVector2Array( -7, -8, 15.963, -7.16926, 16.8305, -3.58463, 16.8305, 3.58463, 16, 7, -7, 7 )
 
 [node name="Line2D" type="Line2D" parent="Sprite"]
 position = Vector2( -13, 0 )
@@ -46,7 +49,7 @@ width = 1.0
 default_color = Color( 1, 0.960784, 0.4, 0.231373 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 5.5, 0 )
+position = Vector2( 41, 0 )
 shape = SubResource( 3 )
 disabled = true
 

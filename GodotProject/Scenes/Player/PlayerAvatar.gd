@@ -14,7 +14,7 @@ enum States {INITIALIZING, READY, DYING, DEAD}
 var State = States.INITIALIZING
 
 onready var tools = {
-	"melee":$Toolbelt/Sword,
+	"melee":$Toolbelt/Axe,
 	"range":$Toolbelt/Gun,
 	"build":$Toolbelt/ConstructionWrench,
 }
@@ -106,7 +106,12 @@ func die_for_real_this_time():
 	$HUD/DeathDialog.popup_centered_ratio(0.75)
 
 func _on_knockback(impulseVector):
-	var _remainingVel = move_and_slide(impulseVector)
+	#var _remainingVel = move_and_slide(impulseVector)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position+impulseVector, 0.1)
+
+	
 	
 func _on_hit(damage, impulseVector, _damageAttributes):
 	if State != States.DEAD:

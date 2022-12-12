@@ -38,7 +38,7 @@ func shoot(ammo):
 		return
 
 	if State == States.READY:
-		$BangNoise.play()
+		make_shooty_noise()
 		knockback_shooter()
 		var new_projectile = ammo.duplicate()
 
@@ -59,6 +59,11 @@ func shoot(ammo):
 			printerr("configuration error in Gun.gd: ammo has no init() method")
 		State = States.COCKING
 		$CockTimer.start()
+
+func make_shooty_noise():
+	# should probably depend on the bullet, rather than the gun.. but whatever
+	$LaserNoise.set_pitch_scale(rand_range(0.9, 1.1))
+	$LaserNoise.play()
 
 func flash_muzzle():
 	$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
