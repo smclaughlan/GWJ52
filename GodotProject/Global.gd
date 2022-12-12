@@ -11,6 +11,7 @@ var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
 var grid_dist_px = 50
 var power_source : Node2D # the first TowerWireSocket, at the home base
+var enable_fps_counter: bool # Shows an fps counter
 
 
 func pause():
@@ -32,3 +33,35 @@ func get_closest_object(group : Array, referenceObj ):
 				closest_object = obj
 	return closest_object
 	
+func show_fps_counter():
+	# checks if the fps counter is enabled
+	if enable_fps_counter:
+		# if the fps counter is enabled but does not exist
+		if !get_tree().get_root().get_node("FPS_COUNTER_HOLDER"):
+			
+			# init the fps counter holder
+			var fps_counter_holder = CanvasLayer.new()
+			fps_counter_holder.layer = 50
+			fps_counter_holder.name = str("FPS_COUNTER_HOLDER")
+			
+			# init the fps counter
+			
+			var fps_counter = Label.new()
+			fps_counter.name = str("FPS_COUNTER")
+			fps_counter.rect_position = Vector2(10, 10)
+			fps_counter.text = "FPS: 0"
+			
+			get_tree().get_root().add_child(fps_counter_holder) # create the fps counter holder
+			fps_counter_holder.add_child(fps_counter) # create the fps counter
+		elif get_tree().get_root().get_node("FPS_COUNTER_HOLDER"):
+			# set the fps
+			get_tree().get_root().get_node("FPS_COUNTER_HOLDER").get_node("FPS_COUNTER").text = str(Engine.get_frames_per_second())
+			
+	else:
+		# delete the fps counter if not enabled
+		var fps_counter = get_tree().get_root().get_node("FPS_COUNTER_HOLDER").get_node("FPS_COUNTER")
+		fps_counter.queue_free()
+
+func _process(_delta):
+	if enable_fps_counter:
+		show_fps_counter()

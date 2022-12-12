@@ -110,9 +110,9 @@ custom_constants/separation = 25
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 176.0
+margin_top = 127.0
 margin_right = 510.0
-margin_bottom = 196.0
+margin_bottom = 147.0
 alignment = 1
 
 [node name="GraphicsLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer"]
@@ -130,6 +130,43 @@ text = "Mid-spec for decent machines"
 items = [ "Lo-spec for Potatoes", null, false, 0, null, "Mid-spec for decent machines", null, false, 1, null, "Hi-spec for Bleeding Edge GPUs", null, false, 2, null ]
 selected = 1
 
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
+margin_top = 172.0
+margin_right = 510.0
+margin_bottom = 196.0
+alignment = 1
+
+[node name="ShowFPSLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer2"]
+margin_left = 211.0
+margin_top = 5.0
+margin_right = 270.0
+margin_bottom = 19.0
+text = "Show FPS"
+
+[node name="CheckButton" type="CheckBox" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer2"]
+margin_left = 274.0
+margin_right = 298.0
+margin_bottom = 24.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
+margin_top = 221.0
+margin_right = 510.0
+margin_bottom = 245.0
+alignment = 1
+
+[node name="EnableVsyncLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer3"]
+margin_left = 199.0
+margin_top = 5.0
+margin_right = 282.0
+margin_bottom = 19.0
+text = "Enable Vsync"
+
+[node name="CheckButton" type="CheckBox" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer3"]
+margin_left = 286.0
+margin_right = 310.0
+margin_bottom = 24.0
+pressed = true
+
 [node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 506.0
 margin_right = 1024.0
@@ -146,3 +183,6 @@ margin_right = 587.0
 margin_bottom = 94.0
 text = "Return to Main Menu"
 return_to_main = true
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer2/CheckButton" to="MarginContainer/VBoxContainer/Footer/SceneChangeButton" method="_on_OptionButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer3/CheckButton" to="MarginContainer/VBoxContainer/Footer/SceneChangeButton" method="_on_CheckButton_pressed"]

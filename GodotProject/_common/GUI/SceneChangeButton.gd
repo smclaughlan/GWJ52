@@ -9,6 +9,8 @@ signal new_scene_requested()
 func _ready():
 	# delay init to allow parent scene to load
 	var _err = get_tree().create_timer(0.1, false).connect("timeout", self, "delayed_ready")
+	
+	# set the fps counter check box value
 
 func delayed_ready():
 	var stage_manager = Global.stage_manager
@@ -30,3 +32,13 @@ func _on_SceneChangeButton_pressed():
 
 func _on_QuitButton_pressed():
 	get_tree().quit()
+
+
+func _on_OptionButton_pressed():
+	Global.enable_fps_counter = !Global.enable_fps_counter
+	Global.show_fps_counter()
+
+
+func _on_CheckButton_pressed():
+	OS.vsync_enabled = !OS.vsync_enabled
+	print(OS.vsync_enabled)
