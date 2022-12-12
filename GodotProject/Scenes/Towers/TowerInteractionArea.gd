@@ -3,16 +3,18 @@ extends Area2D
 
 var player_present : bool = false # probably starts with the player near the tower
 var tower
+var upgrade_popup_dialog
 
-signal demolition_requested
-
+#signal demolition_requested # moved to TowerUpgradePopupDialog
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	$InteractLabel.hide()
 	tower = get_parent()
-	if tower.has_method("_on_demolition_requested"):
-		var _err = connect("demolition_requested", tower, "_on_demolition_requested")
+	upgrade_popup_dialog = find_node("TowerUpgradePopupDialog")
+	upgrade_popup_dialog.init(tower)
+	
 	if get_overlapping_bodies().has(Global.player):
 		player_present = true
 		$InteractLabel.show()
@@ -21,7 +23,7 @@ func _ready():
 
 func _unhandled_input(event):
 	if player_present and event.is_action_pressed("interact"):
-		$CanvasLayer/PopupDialog.popup_centered_ratio(0.66)
+		upgrade_popup_dialog.popup_centered_ratio(0.66)
 		Global.pause()
 
 
@@ -41,11 +43,7 @@ func _on_InteractArea_body_exited(body):
 		$InteractLabel.hide()
 
 
-func _on_DeconstructButton_pressed():
-	Global.resume()
-	Global.currency_tracker.update_amount(10)
-	emit_signal("demolition_requested")
-	hide()
+
 	
 
 
