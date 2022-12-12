@@ -12,7 +12,7 @@ gradient = SubResource( 1 )
 width = 64
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 51, 5 )
+extents = Vector2( 66.5, 9 )
 
 [node name="LaserBullet" type="Area2D"]
 collision_layer = 8
@@ -56,7 +56,7 @@ texture = ExtResource( 2 )
 energy = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 41, 0 )
+position = Vector2( 25.5, 0 )
 shape = SubResource( 3 )
 disabled = true
 
