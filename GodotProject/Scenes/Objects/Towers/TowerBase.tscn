@@ -21,7 +21,7 @@ polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 7
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2( -1, 38 )
 rotation = 1.57079
-polygon = PoolVector2Array( 17.0002, -34.9999, 57.0002, -37.9996, 55.9997, 43.0004, 19.9997, 42.0001 )
+polygon = PoolVector2Array( 26.0002, -32.9998, 58.0002, -32.9996, 57.9998, 31.0004, 25.9998, 31.0002 )
 
 [node name="RemoveMarkDeconTimer" type="Timer" parent="."]
 wait_time = 0.1
