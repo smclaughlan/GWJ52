@@ -24,6 +24,7 @@ text = "[F]"
 
 [node name="PopupDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 pause_mode = 2
+visible = true
 margin_left = 36.0
 margin_top = 196.0
 margin_right = 436.0
@@ -66,4 +67,6 @@ text = "This tower sucks. I want my money back."
 
 [connection signal="body_entered" from="." to="." method="_on_InteractArea_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_InteractArea_body_exited"]
+[connection signal="about_to_show" from="CanvasLayer/PopupDialog" to="." method="_on_PopupDialog_about_to_show"]
 [connection signal="popup_hide" from="CanvasLayer/PopupDialog" to="." method="_on_PopupDialog_popup_hide"]
+[connection signal="pressed" from="CanvasLayer/PopupDialog/MarginContainer/VBoxContainer/DeconstructButton" to="." method="_on_DeconstructButton_pressed"]

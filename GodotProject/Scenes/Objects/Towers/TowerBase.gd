@@ -33,7 +33,8 @@ func mark_for_deconstruction():
 
 func destroy():
 	# Later add the animation, etc.
-	turret.queue_free()
+	turret._on_base_destroyed() # should propagate to the WireSockets as well.
+	#turret.queue_free()
 	queue_free()
 
 
@@ -44,3 +45,8 @@ func cut_from_nav():
 func _on_RemoveMarkDeconTimer_timeout():
 	modulate = Color(1, 1, 1, 1)
 	turret.modulate = Color(1, 1, 1, 1)
+
+
+func _on_demolition_requested(): # from InteractArea probably
+
+	destroy()

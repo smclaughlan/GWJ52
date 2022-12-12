@@ -15,7 +15,7 @@ var tower_to_deconstruct = null
 var action_to_use : String
 var equipped : bool = false
 
-enum States { INITIALIZING, STORED, ACTIVE }
+enum States { INITIALIZING, STORED, ACTIVE, BUILDING, PAUSED }
 var State = States.INITIALIZING
 
 signal tower_built
@@ -31,16 +31,13 @@ func init(myPlayer):
 	State = States.ACTIVE
 
 func _unhandled_input(_event):
-	if !equipped or State != States.ACTIVE:
-		return
-	elif Input.is_action_just_released("right_hand") and tower_to_deconstruct != null and is_instance_valid(tower_to_deconstruct):
-		# Decon and refund towers.
-		tower_to_deconstruct.destroy()
-		Global.currency_tracker.update_amount(10)
-	elif Input.is_action_just_pressed(action_to_use):
-		attempt_to_spawn_tower()
+	if equipped == true and State == States.ACTIVE:
+		if Input.is_action_just_pressed(action_to_use):
+			attempt_to_spawn_tower()
+
 
 func attempt_to_spawn_tower():
+	State = States.BUILDING
 	var cost_reference: CostReference = CostReference.new()
 	cost_reference.tower = tower_base_scene.instance()
 	cost_reference.cost = cost_reference.tower.cost
@@ -49,6 +46,8 @@ func attempt_to_spawn_tower():
 		emit_signal("tower_built", -cost_reference.cost)
 	else:
 		$IncorrectPlacementNoise.play()
+	$ReloadTimer.start()
+	
 
 
 func spawn_tower():
@@ -88,19 +87,9 @@ func _process(_delta):
 	$Sprite.look_at(get_global_mouse_position())
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if State != States.ACTIVE:
 		return
-	# If the mouse cursor goes over a tower:
-	# * make the tower semi-transparent
-	# * mark the tower as tower_to_deconstruct
-	tower_to_deconstruct = null
-	deconstruct_area_2d.global_position = get_global_mouse_position()
-	var towers = deconstruct_area_2d.get_overlapping_bodies()
-	for tower in towers:
-		tower_to_deconstruct = tower
-	if tower_to_deconstruct != null and is_instance_valid(tower_to_deconstruct):
-		tower_to_deconstruct.mark_for_deconstruction()
 
 
 func enable(actionKey : String):
@@ -123,3 +112,12 @@ func stow():
 func equip(actionKey : String):
 	enable(actionKey)
 	
+func _on_menu_opened():
+	State = States.PAUSED
+func _on_menu_closed():
+	State = States.READY
+
+
+func _on_ReloadTimer_timeout():
+	State = States.ACTIVE
+
