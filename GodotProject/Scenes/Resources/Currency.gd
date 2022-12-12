@@ -8,11 +8,12 @@ const STARTING_AMOUNT = 30
 signal resource_changed
 
 # Base currency. Change the name if we must.
-var sun: int = STARTING_AMOUNT
+var sun: int = 0
 
 func _ready() -> void:
 	Global.currency_tracker = self
 	var _err = connect("resource_changed", Global.hud, "update_sun")
+	update_amount(STARTING_AMOUNT)
 
 
 func update_amount(new_amount: int = 1) -> void:
