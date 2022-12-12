@@ -15,7 +15,7 @@ Wire Sockets should be able to:
 
 extends Node2D
 
-var max_range = 600.0
+var max_range = 500.0
 var source : Node2D = null
 var connected_to_source = true
 
@@ -30,6 +30,9 @@ signal upstream_power_disconnected
 func _ready():
 	connect_closest_tower()
 	connected_to_source = has_unbroken_connection()
+	if not connected_to_source:
+		turn_off_the_lights()
+		$ReconnectionTimer.start()
 	$DebugInfo.text = "Connected: " + str(connected_to_source)
 
 
@@ -91,10 +94,9 @@ func get_nearest_tower_socket():
 	return Global.get_closest_object(towers, self)
 
 func get_nearby_powered_towers() -> Array:
-	var max_connection_range = 300
 	var nearby_powered_sockets = []
 	for remoteSocket in get_tree().get_nodes_in_group("tower_sockets"):
-		if self.global_position.distance_squared_to(remoteSocket.global_position) < max_connection_range * max_connection_range:
+		if self.global_position.distance_squared_to(remoteSocket.global_position) < max_range * max_range:
 			if remoteSocket.connected_to_source:
 				nearby_powered_sockets.append(remoteSocket)
 	return nearby_powered_sockets
