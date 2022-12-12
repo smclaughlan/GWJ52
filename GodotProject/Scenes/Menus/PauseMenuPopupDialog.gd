@@ -26,3 +26,8 @@ func _on_QuitButton_pressed():
 
 func _on_FreeMoneyButton_pressed():
 	Global.currency_tracker.update_amount(100)
+
+
+func _on_BonusHealthButton_pressed():
+	Global.player.health += 1000
+	Global.player.max_health += 1000

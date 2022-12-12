@@ -45,7 +45,7 @@ func _on_Bullet_body_entered(body):
 	if body.has_method("_on_hit") and body != Global.player:
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
-		var fwdVector = (Vector2.RIGHT * bullet_speed/3.0).rotated(rotation)
+		var fwdVector = (Vector2.RIGHT * 50.0).rotated(rotation)
 		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
 		die()
 		

@@ -16,6 +16,7 @@ var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D
 onready var sprite = $Sprite
 onready var weapons = $Weapons
+export (PackedScene) var float_text
 var nav_target
 
 
@@ -154,7 +155,10 @@ func knockback(impactVector):
 
 func _on_hit(damage, impactVector, _damageAttributes):
 	# worry about damage attributes later
-
+	var new_floating_text = float_text.instance()
+	new_floating_text.global_position = global_position
+	Global.current_map.add_child(new_floating_text)
+	new_floating_text.set_text(damage)
 	$OwNoise.play()
 	knockback(impactVector)
 
@@ -172,8 +176,9 @@ func _on_DeathTimer_timeout():
 
 
 func _on_InvulnerabiltyTimer_timeout():
-	if State == States.INVULNERABLE:
+	if State == States.INVULNERABLE and health > 0:
 		State = States.MOVING
+	
 
 
 func _on_DecayTimer_timeout():
@@ -181,4 +186,7 @@ func _on_DecayTimer_timeout():
 
 
 func _on_PathfindTimer_timeout():
-	choose_target_location()
+	if State != States.DEAD:
+		choose_target_location()
+	else:
+		$PathfindTimer.stop()
