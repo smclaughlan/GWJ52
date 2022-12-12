@@ -92,3 +92,7 @@ func _on_ShootTimer_timeout():
 		return
 	else:
 		shoot()
+
+func _on_base_destroyed():
+	$TowerWireSockets.disconnect_all()
+	queue_free()

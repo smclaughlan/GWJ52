@@ -30,6 +30,7 @@ func init(myShooter): # aka human player
 
 func _unhandled_input(event):
 	if equipped and event.is_action_pressed(action_to_use):
+		
 		shoot(current_ammo)
 
 
