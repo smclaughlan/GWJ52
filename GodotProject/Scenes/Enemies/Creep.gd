@@ -16,6 +16,7 @@ var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D
 onready var sprite = $Sprite
 onready var weapons = $Weapons
+export (PackedScene) var float_text
 var nav_target
 
 
@@ -154,7 +155,10 @@ func knockback(impactVector):
 
 func _on_hit(damage, impactVector, _damageAttributes):
 	# worry about damage attributes later
-
+	var new_floating_text = float_text.instance()
+	new_floating_text.global_position = global_position
+	Global.current_map.add_child(new_floating_text)
+	new_floating_text.set_text(damage)
 	$OwNoise.play()
 	knockback(impactVector)
 
