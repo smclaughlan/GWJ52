@@ -87,7 +87,9 @@ func find_target_in_collider():
 
 
 func _on_ShootTimer_timeout():
-	if !target or !is_instance_valid(target):
+	if $TowerWireSockets.connected_to_source == false:
+		return
+	elif !target or !is_instance_valid(target):
 		shoot_timer.stop()
 		return
 	else:
