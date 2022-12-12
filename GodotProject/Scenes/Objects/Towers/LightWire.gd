@@ -20,6 +20,7 @@ func _process(delta):
 	
 	if tower_socket.connected_to_source == true:
 		set_width(default_width + (sin(elapsed_time * frequency)*(default_width/2.0)))
+		set_default_color(Color.yellow)
 	else:
 		set_width(1)
 		set_default_color(Color.red)

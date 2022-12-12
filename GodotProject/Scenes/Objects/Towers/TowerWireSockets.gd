@@ -15,12 +15,14 @@ Wire Sockets should be able to:
 
 extends Node2D
 
-var max_range = 1000.0
+var max_range = 600.0
 var source : Node2D = null
 var connected_to_source = true
 
 var connections_in = []
 var connections_out = []
+
+onready var light_wire_scene = load("res://Scenes/Objects/Towers/LightWire.tscn")
 
 signal upstream_power_disconnected
 
@@ -29,22 +31,6 @@ func _ready():
 	connect_closest_tower()
 	connected_to_source = has_unbroken_connection()
 	$DebugInfo.text = "Connected: " + str(connected_to_source)
-
-#func init(sourceNode : Node2D):
-#	pass # no one initialized us yet
-
-
-# func is_connected_to_source(): # recursive walk upstream
-# 	if self == Global.power_source:
-# 		return true
-# 	if connections_in.has(Global.power_source):
-# 		return true
-# 	else:
-# 		for tower in connections_in:
-# 			if tower != null and is_instance_valid(tower) and tower.is_inside_tree():
-# 				if tower.is_connected_to_source():
-# 					return true
-# 	return false
 
 
 func has_unbroken_connection():
@@ -104,9 +90,20 @@ func get_nearest_tower_socket():
 	var towers = get_tree().get_nodes_in_group("tower_sockets")
 	return Global.get_closest_object(towers, self)
 
+func get_nearby_powered_towers() -> Array:
+	var max_connection_range = 300
+	var nearby_powered_sockets = []
+	for remoteSocket in get_tree().get_nodes_in_group("tower_sockets"):
+		if self.global_position.distance_squared_to(remoteSocket.global_position) < max_connection_range * max_connection_range:
+			if remoteSocket.connected_to_source:
+				nearby_powered_sockets.append(remoteSocket)
+	return nearby_powered_sockets
+
+
+
 func turn_off_the_lights():
 	$LightAura.enabled = false
-	#$In/LightWire.queue_free()
+	#$In/LightWire.points = [ ]
 
 func turn_on_the_lights():
 	$LightAura.enabled = true
@@ -125,14 +122,34 @@ func turn_on_the_lights():
 func connect_closest_tower():
 	var remoteTowerSocket = get_nearest_tower_socket()
 	if remoteTowerSocket != null and is_instance_valid(remoteTowerSocket) and remoteTowerSocket != self:
-		connections_in.append(remoteTowerSocket)
-		remoteTowerSocket.connections_out.append(self)
-		var line = $In/LightWire
-		line.init(self)
-		line.add_point(self.position)
-		line.add_point(remoteTowerSocket.get_global_position() - self.global_position)
-		line.set_default_color(Color(1, 1, 0.25, 0.25))
+		plugin_to(remoteTowerSocket)
+
+		
+
+func plugin_to(remoteTowerSocket):
+	connections_in.append(remoteTowerSocket)
+	remoteTowerSocket.connections_out.append(self)
 	
+	
+	#var line = $In/LightWire
+	var line = light_wire_scene.instance()
+	line.name = "LightWire"
+	$In.add_child(line)
+
+	line.init(self)
+	line.add_point(self.position)
+	line.add_point(remoteTowerSocket.get_global_position() - self.global_position)
+	line.set_default_color(Color(1, 1, 0.25, 0.25))
+
+
+func attempt_to_repower():
+	var nearbyNodes = get_nearby_powered_towers()
+	if nearbyNodes.size() > 0:
+		var nearest_powered_node = Global.get_closest_object(nearbyNodes, self)
+		if self.global_position.distance_squared_to(nearest_powered_node.global_position) < max_range * max_range:
+			plugin_to(nearest_powered_node)
+
+
 func _on_upstream_power_disconnected():
 	connected_to_source = false
 	turn_off_the_lights()
@@ -146,3 +163,11 @@ func _on_ReconnectionTimer_timeout():
 	if connected_to_source:
 		turn_on_the_lights()
 		$ReconnectionTimer.stop()
+	else:
+		attempt_to_repower()
+
+
+
+
+	
+
