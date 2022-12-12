@@ -96,6 +96,12 @@ margin_right = 150.0
 margin_bottom = 20.0
 text = "Free Money!"
 
+[node name="BonusHealthButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_top = 24.0
+margin_right = 150.0
+margin_bottom = 44.0
+text = "1000 health!"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 160.0
 margin_right = 280.0
@@ -117,5 +123,6 @@ text = "Quit Game"
 
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
