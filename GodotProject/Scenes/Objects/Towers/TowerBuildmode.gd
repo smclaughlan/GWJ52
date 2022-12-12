@@ -4,7 +4,8 @@ var can_place = true
 var player
 export var MAX_PLACEMENT_RANGE = 300.0
 onready var build_area = $Area2D
-onready var visual = $Sprite
+onready var green_sprite = $GreenSprite
+onready var red_sprite = $RedSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,10 +31,12 @@ func _physics_process(_delta):
 
 		if distance_to_player > MAX_PLACEMENT_RANGE or area_collisions.size() > 0 or body_collisions.size() > 0:
 			can_place = false
-			visual.self_modulate = Color(1, .1, .1, .5)
+			green_sprite.hide()
+			red_sprite.show()
 		else:
 			can_place = true
-			visual.self_modulate = Color(1, 1, 1, .5)
+			green_sprite.show()
+			red_sprite.hide()
 
 func store_player(_player):
 	player = _player
