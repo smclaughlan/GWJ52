@@ -17,6 +17,7 @@ onready var tools = {
 	"melee":$Toolbelt/Axe,
 	"range":$Toolbelt/Gun,
 	"build":$Toolbelt/ConstructionWrench,
+	"flashlight":$Toolbelt/Flashlight,
 }
 
 onready var handNodes = {
