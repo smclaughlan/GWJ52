@@ -30,6 +30,7 @@ func init(myShooter): # aka human player
 
 func _unhandled_input(event):
 	if equipped and event.is_action_pressed(action_to_use):
+		
 		shoot(current_ammo)
 
 
@@ -38,7 +39,7 @@ func shoot(ammo):
 		return
 
 	if State == States.READY:
-		$BangNoise.play()
+		make_shooty_noise()
 		knockback_shooter()
 		var new_projectile = ammo.duplicate()
 
@@ -47,7 +48,7 @@ func shoot(ammo):
 		var rand_offset = Vector2.ZERO
 		rand_offset.x = rand_range(-5.0, 5.0)
 		rand_offset.y = rand_range(-5.0, 5.0)
-		var rand_aim_tremble = rand_range(-0.15, 0.15)
+		var rand_aim_tremble = rand_range(-0.05, 0.05)
 		flash_muzzle()
 		$Sprite.rotation = rand_aim_tremble
 		var pos = $Sprite/MuzzlePosition.global_position + rand_offset
@@ -60,15 +61,21 @@ func shoot(ammo):
 		State = States.COCKING
 		$CockTimer.start()
 
+func make_shooty_noise():
+	# should probably depend on the bullet, rather than the gun.. but whatever
+	$LaserNoise.set_pitch_scale(rand_range(0.9, 1.1))
+	$LaserNoise.play()
+
 func flash_muzzle():
-	$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
-	var colorChange = rand_range(0.8, 1.0)
-	$Sprite/MuzzleFlash.set_self_modulate(Color(colorChange, colorChange, colorChange))
-	$Sprite/MuzzleFlash.visible = true
+#	$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
+#	var colorChange = rand_range(0.8, 1.0)
+#	$Sprite/MuzzleFlash.set_self_modulate(Color(colorChange, colorChange, colorChange))
+#	$Sprite/MuzzleFlash.visible = true
+	$Sprite/MuzzleBubbles.emitting = true
 	$Sprite/MuzzleFlash/FlashTimer.start()
 
 func knockback_shooter():
-	var knockbackPower = 1050.0
+	var knockbackPower = 10.0
 	var impulseVector = (Vector2.RIGHT * knockbackPower).rotated(get_global_rotation() - PI)
 	if shooter != null:
 		emit_signal("shot", impulseVector)
@@ -113,3 +120,4 @@ func _on_CockTimer_timeout():
 
 func _on_FlashTimer_timeout():
 	$Sprite/MuzzleFlash.hide()
+	$Sprite/MuzzleBubbles.emitting = false

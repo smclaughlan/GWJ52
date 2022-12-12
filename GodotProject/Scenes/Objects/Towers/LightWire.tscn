@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scenes/Objects/Towers/LightWire.gd" type="Script" id=1]
+
+[node name="LightWire" type="Line2D"]
+default_color = Color( 1, 0.960784, 0.4, 1 )
+script = ExtResource( 1 )
+
+[node name="PulseTimer" type="Timer" parent="."]

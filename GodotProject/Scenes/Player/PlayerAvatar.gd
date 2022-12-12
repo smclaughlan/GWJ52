@@ -3,6 +3,7 @@ extends KinematicBody2D
 
 var velocity : Vector2 = Vector2.ZERO
 var player_speed : float = 400.0
+var dash_multiple : float = 8.0
 
 onready var weapons = $Weapons.get_children()
 
@@ -13,9 +14,10 @@ enum States {INITIALIZING, READY, DYING, DEAD}
 var State = States.INITIALIZING
 
 onready var tools = {
-	"melee":$Toolbelt/Sword,
+	"melee":$Toolbelt/Axe,
 	"range":$Toolbelt/Gun,
 	"build":$Toolbelt/ConstructionWrench,
+	"flashlight":$Toolbelt/Flashlight,
 }
 
 onready var handNodes = {
@@ -74,15 +76,21 @@ func _process(_delta):
 
 	if Input.is_action_pressed("ui_left"):
 		velocity += Vector2.LEFT
-	elif Input.is_action_pressed("ui_right"):
+	if Input.is_action_pressed("ui_right"):
 		velocity += Vector2.RIGHT
-	elif Input.is_action_pressed("ui_up"):
+	if Input.is_action_pressed("ui_up"):
 		velocity += Vector2.UP
-	elif Input.is_action_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down"):
 		velocity += Vector2.DOWN
 
-
-	velocity = velocity.normalized() * player_speed
+	if Input.is_action_just_pressed("dash") and $DashTimer.is_stopped() and $DashTimer/RestTimer.is_stopped() == true:
+		$DashParticles.emitting = true
+		$DashTimer.start()
+		$DashTimer/RestTimer.start() # longer than the dash
+	var dashFactor : float = 1.0
+	if Input.is_action_pressed("dash") and $DashTimer.is_stopped() == false:
+		dashFactor = dash_multiple
+	velocity = velocity.normalized() * player_speed * dashFactor
 
 	velocity = move_and_slide(velocity * Global.game_speed) # delta not required
 
@@ -99,7 +107,12 @@ func die_for_real_this_time():
 	$HUD/DeathDialog.popup_centered_ratio(0.75)
 
 func _on_knockback(impulseVector):
-	var _remainingVel = move_and_slide(impulseVector)
+	#var _remainingVel = move_and_slide(impulseVector)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", position+impulseVector, 0.1)
+
+	
 	
 func _on_hit(damage, impulseVector, _damageAttributes):
 	if State != States.DEAD:

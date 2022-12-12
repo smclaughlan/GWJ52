@@ -13,6 +13,7 @@ var damage_attributes = {
 
 
 export var damage = 25.0
+export var knockback_factor : float = 250.0
 
 enum States {INITIALIZING, READY, SWINGING}
 var State = States.INITIALIZING
@@ -23,6 +24,7 @@ func _ready():
 
 func init(myPlayer):
 	player = myPlayer
+	disable_collisions()
 	
 func _unhandled_input(event):
 	if equipped and State == States.READY:
@@ -36,9 +38,17 @@ func _process(_delta):
 func swing():
 	if State == States.READY:
 		State = States.SWINGING
+		enable_collisions()
 		$AnimationPlayer.play("swing")
 		$SwingNoise.set_pitch_scale(rand_range(0.8, 1.2))
 		$SwingNoise.play()
+
+func enable_collisions():
+	$DamageArea.set_collision_mask_bit(1, true)
+
+func disable_collisions():
+	$DamageArea.set_collision_mask_bit(1, false)
+
 
 func enable(actionString:String):
 	visible = true
@@ -64,12 +74,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		State = States.READY
 		if Input.is_action_pressed(action_to_use):
 			swing()
+		else:
+			disable_collisions()
 
 
 func _on_DamageArea_body_entered(body):
 	if body != null and is_instance_valid(body):
-		if body.is_in_group("creeps"):
+		if body.is_in_group("creeps") or body.is_in_group("EnemySpawners"):
 			if body.has_method("_on_hit"):
 				if player != null and is_instance_valid(player):
-					var impactVector = body.global_position - player.global_position
+					var impactVector = (body.global_position - player.global_position).rotated(rand_range(-PI/3,PI/3)).normalized()*knockback_factor
 					body._on_hit(damage, impactVector, damage_attributes)

@@ -8,9 +8,25 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "CostReference",
+"language": "GDScript",
+"path": "res://Scenes/Resources/CostReference.gd"
+}, {
+"base": "Area2D",
+"class": "PickableObject",
+"language": "GDScript",
+"path": "res://Scenes/Objects/Pickups/PickableObject.gd"
+} ]
+_global_script_class_icons={
+"CostReference": "",
+"PickableObject": ""
+}
+
 [application]
 
-config/name="GWJ 52"
+config/name="GWJ 52 - The Glass Queen"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
@@ -25,6 +41,30 @@ window/stretch/mode="2d"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -89,15 +129,23 @@ build={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":71,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
+dash={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Creeps"
 2d_physics/layer_3="Towers and Walls"
-2d_physics/layer_4="Bullets"
+2d_physics/layer_4="PlayerBullets"
 2d_physics/layer_5="Melee Weapons"
 2d_physics/layer_6="NPCs"
+2d_physics/layer_7="Pickables"
+2d_physics/layer_8="PlayerCollectionRadius"
+2d_physics/layer_9="EnemyWeapons"
 
 [physics]
 
