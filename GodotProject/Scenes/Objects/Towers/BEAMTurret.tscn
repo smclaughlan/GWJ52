@@ -1,33 +1,26 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scenes/Objects/Towers/TurretSpritesheet.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Towers/PLACEHOLDER/crystal_yellow.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Objects/Towers/PLACEHOLDER/tower2Sprite.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Objects/Projectiles/BEAMProjectile1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Objects/Projectiles/BEAMProjectile2.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 
-[node name="TowerTurret" type="Node2D"]
+[node name="BEAMTurret" type="Node2D"]
 script = ExtResource( 2 )
-collision_shape = NodePath("Area2D/CollisionShape2D")
-collision_area = NodePath("Area2D")
-shoot_timer = NodePath("ShootTimer")
+bullet_scene_1 = ExtResource( 7 )
+bullet_scene_2 = ExtResource( 8 )
+bullet_scene_3 = ExtResource( 8 )
 
-[node name="PlaceholderSpritesheet" type="Sprite" parent="."]
-visible = false
-position = Vector2( 1, 27 )
-scale = Vector2( 1.40319, 1.40319 )
-texture = ExtResource( 1 )
-hframes = 4
-vframes = 3
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea"]
 scale = Vector2( 30, 30 )
 shape = SubResource( 1 )
 
@@ -66,6 +59,6 @@ texture = ExtResource( 6 )
 position = Vector2( -8.01973, -245.938 )
 texture = ExtResource( 5 )
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
