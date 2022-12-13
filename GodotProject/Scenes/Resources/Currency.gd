@@ -1,25 +1,23 @@
-"""
-Tracks currency
-"""
+class_name Currency
 extends Node
-
-const STARTING_AMOUNT = 30
 
 signal resource_changed
 
 # Base currency. Change the name if we must.
-var sun: int = 0
+var amount: int = 0
+
+export var starting_amount := 30
 
 func _ready() -> void:
 	Global.currency_tracker = self
-	var _err = connect("resource_changed", Global.hud, "update_sun")
-	update_amount(STARTING_AMOUNT)
+	var _err = connect("resource_changed", Global.hud, "update_amount")
+	update_amount(starting_amount)
 
 
 func update_amount(new_amount: int = 1) -> void:
-	sun += new_amount
-	emit_signal("resource_changed", sun)
+	amount += new_amount
+	emit_signal("resource_changed", amount)
 
 
 func get_amount() -> int:
-	return sun
+	return amount
