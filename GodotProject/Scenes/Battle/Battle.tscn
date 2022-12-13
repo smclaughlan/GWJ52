@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Battle/CreepSpawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Region/Village.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Resources/Currency.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Resources/CurrencyManager.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=7]
 
@@ -109,6 +109,6 @@ nav_mesh = NodePath("../NavigationPolygonInstance")
 [node name="PickableObjectSpawner" parent="." instance=ExtResource( 6 )]
 position = Vector2( -738, -363 )
 
-[node name="Currency" parent="." instance=ExtResource( 5 )]
-
 [node name="Towers" type="YSort" parent="."]
+
+[node name="CurrencyManager" parent="." instance=ExtResource( 5 )]

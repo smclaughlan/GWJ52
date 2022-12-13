@@ -40,7 +40,7 @@ func attempt_to_spawn_tower():
 	cost_reference.cost = cost_reference.tower.cost
 	if tower_buildmode_visual.can_place and cost_reference.can_purchase():
 		spawn_tower()
-		emit_signal("tower_built", -cost_reference.cost)
+		emit_signal("tower_built", "sun", -cost_reference.cost)
 	else:
 		$IncorrectPlacementNoise.play()
 

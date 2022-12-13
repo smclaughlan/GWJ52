@@ -18,7 +18,7 @@ signal picked
 func _on_PickableObject_body_entered(body: Node) -> void:
 	if body.collision_layer == 1:
 		queue_free()
-		emit_signal("picked")
+		emit_signal("picked", "sun")
 
 
 func _physics_process(delta: float) -> void:
