@@ -12,7 +12,7 @@ var current_bullet_scene = bullet_scene_1
 #var turret_type = "beam"
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
-var turret_reload_delay = 0.75
+export var turret_reload_delay = 0.75
 var projectile_speed : float # declared in bullet scene
 var target = null
 
@@ -140,5 +140,5 @@ func _on_base_destroyed():
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.25))
+	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.05))
 	
