@@ -12,6 +12,7 @@ var hud: CanvasLayer # HUD Reference
 var grid_dist_px = 50
 var power_source : Node2D # the first TowerWireSocket, at the home base
 enum TowerTypes { BEAM, AOE, GLUE }
+enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 
 func pause():
 	# this is pretty abrupt and brute force.

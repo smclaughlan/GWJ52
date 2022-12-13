@@ -2,7 +2,7 @@ extends Area2D
 
 
 var player_present : bool = false # probably starts with the player near the tower
-var tower
+var tower_base # not the same as a tower turret, but the base knows about the turret
 var upgrade_popup_dialog
 
 #signal demolition_requested # moved to TowerUpgradePopupDialog
@@ -11,9 +11,9 @@ var upgrade_popup_dialog
 func _ready():
 	
 	$InteractLabel.hide()
-	tower = get_parent()
+	tower_base = get_parent()
 	upgrade_popup_dialog = find_node("TowerUpgradePopupDialog")
-	upgrade_popup_dialog.init(tower)
+	upgrade_popup_dialog.init(tower_base)
 	
 	if get_overlapping_bodies().has(Global.player):
 		player_present = true

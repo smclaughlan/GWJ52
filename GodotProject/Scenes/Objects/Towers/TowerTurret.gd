@@ -51,7 +51,7 @@ func point_toward(targetPos):
 		current_frame = current_frame % (total_frames-1)
 		$Sprite.frame = current_frame
 
-func upgrade():
+func upgrade(upgradeType): # [bigger, faster, stronger]
 	
 	current_bullet_scene = bullet_scene_2
 
