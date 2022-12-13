@@ -5,7 +5,7 @@
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Towers/PLACEHOLDER/tower2Sprite.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/Objects/Projectiles/Bullet.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Objects/Projectiles/AOEProjectile1.tscn" type="PackedScene" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 
