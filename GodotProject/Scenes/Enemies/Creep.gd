@@ -14,6 +14,8 @@ var speed = 2.0
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D
+onready var pathfinder = $Pathfinder
+onready var tween = $Tween
 onready var sprite = $Sprite
 onready var weapons = $Weapons
 export (PackedScene) var float_text
@@ -85,24 +87,31 @@ func get_nearest_target():
 
 
 func move(delta):
-	if nav_agent.is_navigation_finished():
-		velocity = Vector2.ZERO
+	if tween.is_active():
 		return
-
-	nav_agent.get_next_location()
 	
-
+	# Tween from point to point in pathfinder.path
+	var next_pos = pathfinder.path.pop_front()
+	if next_pos == null:
+		return
+	tween.interpolate_property(self, "global_position", global_position, next_pos, 0.5)
+	tween.start()
 	
 	
+#	if nav_agent.is_navigation_finished():
+#		velocity = Vector2.ZERO
+#		return
+#
+#	nav_agent.get_next_location()
 	
-	var direction = global_position.direction_to(nav_agent.get_next_location())
-	var desired_velocity = direction * speed
-	var steering = (desired_velocity - velocity) * delta * 4.0
-	velocity += steering
-	var new_angle = velocity.angle()
-	sprite.rotation = new_angle
-	weapons.rotation = new_angle
-	var _collision = move_and_collide(velocity)
+#	var direction = global_position.direction_to(nav_agent.get_next_location())
+#	var desired_velocity = direction * speed
+#	var steering = (desired_velocity - velocity) * delta * 4.0
+#	velocity += steering
+#	var new_angle = velocity.angle()
+#	sprite.rotation = new_angle
+#	weapons.rotation = new_angle
+#	var _collision = move_and_collide(velocity)
 
 #	var myPos = get_global_position()
 #
