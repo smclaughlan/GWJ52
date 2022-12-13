@@ -17,7 +17,7 @@ func init(myTowerBase):
 		printerr("Configuration error in TowerUpgradePopupMenu. Are you connected to a tower?")
 
 	for upgradeOption in find_node("TowerUpgrades").get_children():
-		upgradeOption.init(tower_base)
+		upgradeOption.init(tower_base, self)
 
 	
 func _on_DeconstructButton_pressed():
@@ -31,3 +31,7 @@ func _on_CloseButton_pressed():
 	Global.resume()
 	hide()
 
+func _on_upgrade_selected(_upgradeType):
+	Global.resume()
+	hide()
+	
