@@ -1,9 +1,13 @@
 extends Node2D
 
-export(NodePath) onready var collision_shape = get_node(collision_shape)
-export(NodePath) onready var collision_area = get_node(collision_area)
-export(NodePath) onready var shoot_timer = get_node(shoot_timer)
-var bullet_scene = load("res://Scenes/Objects/Projectiles/Bullet.tscn")
+onready var enemy_detection_area = get_node("EnemyDetectionArea")
+onready var shoot_timer = get_node("ShootTimer")
+
+export var bullet_scene_1 : PackedScene
+export var bullet_scene_2 : PackedScene
+export var bullet_scene_3 : PackedScene
+var current_bullet_scene = bullet_scene_1
+
 #var turret_type = "beam"
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
@@ -11,19 +15,14 @@ var turret_fire_rate = 1.0
 var projectile_speed = 400
 var target = null
 
-# dictionary of bullet types with an array of upgrades
-var bullets = {
-	"beam":["res://Scenes/Objects/Projectiles/Bullet.tscn"],
-	"aoe":[],
-	"glue":[],
-	
-	
-}
+
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if current_bullet_scene == null:
+		current_bullet_scene = bullet_scene_1
+
 
 func _physics_process(delta):
 	if !target or !is_instance_valid(target):
@@ -52,8 +51,14 @@ func point_toward(targetPos):
 		current_frame = current_frame % (total_frames-1)
 		$Sprite.frame = current_frame
 
+func upgrade():
+	
+	current_bullet_scene = bullet_scene_2
+
 func shoot():
-	var new_projectile = bullet_scene.instance()
+	if current_bullet_scene == null:
+		current_bullet_scene = bullet_scene_1
+	var new_projectile = current_bullet_scene.instance()
 	Global.stage_manager.current_map.add_child(new_projectile)
 	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
 
@@ -67,7 +72,7 @@ func set_properties():
 
 func update_turret_range(_turret_range):
 	turret_range = _turret_range
-	collision_shape.scale = Vector2(turret_range, turret_range)
+	enemy_detection_area.get_node("CollisionShape2D").scale = Vector2(turret_range, turret_range)
 
 func _on_Area2D_body_entered(body):
 	if !target or !is_instance_valid(target):
@@ -80,25 +85,18 @@ func _on_Area2D_body_exited(body):
 		target = null
 		shoot_timer.stop()
 	# Enemy might exit while other enemies are in collider.
-	find_target_in_collider()
+	target_closest_enemy()
+
 	
-func find_target_in_collider():
-	var enemies = collision_area.get_overlapping_bodies()
-	var closest_enemy = Global.get_closest_object(enemies, self)
-
-#	var closest_enemy_dist_sq = 100000000000
-#	for enemy in enemies:
-#		var curr_dist_sq = global_position.distance_squared_to(enemy.global_position)
-#		if closest_enemy == null:
-#			closest_enemy = enemy
-#			closest_enemy_dist_sq = curr_dist_sq
-#		if curr_dist_sq < closest_enemy_dist_sq:
-#			closest_enemy = enemy
-#			closest_enemy_dist_sq = curr_dist_sq
-	if closest_enemy and is_instance_valid(closest_enemy):
-		target = closest_enemy
-		shoot_timer.start(turret_fire_rate)
-
+func target_closest_enemy():
+	var enemies = enemy_detection_area.get_overlapping_bodies()
+	if enemies.size() > 0:
+		var closest_enemy = Global.get_closest_object(enemies, self)
+		if closest_enemy and is_instance_valid(closest_enemy):
+			target = closest_enemy
+			shoot_timer.start(turret_fire_rate)
+	else:
+		target = null
 
 func _on_ShootTimer_timeout():
 	if $TowerWireSockets.connected_to_source == false:
