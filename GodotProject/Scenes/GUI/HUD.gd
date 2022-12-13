@@ -4,8 +4,10 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var sun_amount = $header/Currency/SunAmount
 var player
+
+onready var sun_amount = $header/Currency/Sun/SunAmount
+onready var power = $header/Currency/Power/SunAmount
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,6 +26,10 @@ func _on_ActionButton_pressed(action : String):
 
 func update_sun(sun: int) -> void:
 	sun_amount.text = str(sun)
+
+
+func update_power(_power:int) -> void:
+	power.text = str(_power)
 
 
 func _on_PauseButton_pressed():
