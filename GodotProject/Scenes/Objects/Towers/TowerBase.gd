@@ -31,8 +31,7 @@ func init(turret_type):
 		new_turret.global_position = global_position
 	else:
 		Global.current_map.add_child(new_turret)
-	var default_turret_range = 30
-	new_turret.init(turret_type, default_turret_range)
+	new_turret.init(turret_type)
 	turret = new_turret
 
 func mark_for_deconstruction():
