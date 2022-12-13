@@ -4,11 +4,22 @@ export(NodePath) onready var collision_shape = get_node(collision_shape)
 export(NodePath) onready var collision_area = get_node(collision_area)
 export(NodePath) onready var shoot_timer = get_node(shoot_timer)
 var bullet_scene = load("res://Scenes/Objects/Projectiles/Bullet.tscn")
-var turret_type = "fire"
+#var turret_type = "beam"
+var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
 var turret_fire_rate = 1.0
 var projectile_speed = 400
 var target = null
+
+# dictionary of bullet types with an array of upgrades
+var bullets = {
+	"beam":["res://Scenes/Objects/Projectiles/Bullet.tscn"],
+	"aoe":[],
+	"glue":[],
+	
+	
+}
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,9 +58,12 @@ func shoot():
 	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
 
 
-func init(_turret_type, _turret_range):
-	turret_type = _turret_type
+func init(towerType : int, _turret_range : int):
+	tower_type = towerType
 	update_turret_range(_turret_range)
+
+func set_properties():
+	pass
 
 func update_turret_range(_turret_range):
 	turret_range = _turret_range

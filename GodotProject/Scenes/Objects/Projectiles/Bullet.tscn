@@ -32,4 +32,6 @@ position = Vector2( 5.5, 0 )
 shape = SubResource( 3 )
 disabled = true
 
+[node name="DurationTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
