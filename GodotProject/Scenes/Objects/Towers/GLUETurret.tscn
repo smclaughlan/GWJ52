@@ -4,8 +4,8 @@
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Objects/Towers/PLACEHOLDER/crystal_blue.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/Objects/Towers/PLACEHOLDER/tower2Sprite.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Objects/Towers/tower_glue.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Objects/Towers/crystal_glue.png" type="Texture" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -50,13 +50,14 @@ text = "targetPos = "
 position = Vector2( 1, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( -1, -58 )
-scale = Vector2( 0.416394, 0.416394 )
-texture = ExtResource( 6 )
+position = Vector2( 0, -100 )
+scale = Vector2( 6, 6 )
+texture = ExtResource( 5 )
+hframes = 3
 
 [node name="Crystal" type="Sprite" parent="Sprite"]
-position = Vector2( -2.40157, -220.945 )
-texture = ExtResource( 5 )
+position = Vector2( -0.5, -8 )
+texture = ExtResource( 6 )
 
 [node name="Upgrades" type="Node2D" parent="."]
 
