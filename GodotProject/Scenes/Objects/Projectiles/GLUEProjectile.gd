@@ -5,13 +5,10 @@ export var bullet_speed = 400.0
 export var bullet_damage = 20.0
 export var bullet_range = 300.0
 
+var elapsed_time : float
 
 export var damage_attributes = {
-	"bleed":false,
-	"poison":false,
-	"fire":false,
-	"holy":false,
-	"armor_piercing":true,
+	"glue":false,
 }
 
 enum States { DISABLED, INITIALIZING, MOVING, DEAD }
@@ -32,8 +29,12 @@ func init(pos, rot):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	elapsed_time += delta
 	if State == States.MOVING:
-		var fwdVector = (Vector2.RIGHT * bullet_speed).rotated(rotation)
+		var amplitude = 830.0
+		var frequency = 0.01
+		var offsetVector = sin(elapsed_time/frequency) * amplitude * Vector2.UP.rotated(rotation)
+		var fwdVector = ((Vector2.RIGHT * bullet_speed)+offsetVector).rotated(rotation)
 		position += fwdVector * delta * Global.game_speed
 
 
@@ -50,3 +51,7 @@ func _on_Bullet_body_entered(body):
 		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
 		die()
 		
+
+
+func _on_DurationTimer_timeout():
+	queue_free()
