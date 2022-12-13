@@ -7,7 +7,8 @@ signal demolition_requested
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	for upgradeOption in find_node("TowerUpgrades").get_children():
+		upgradeOption.init(tower)
 
 func init(myTower):
 	tower = myTower

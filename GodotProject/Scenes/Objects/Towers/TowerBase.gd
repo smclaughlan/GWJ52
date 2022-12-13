@@ -1,10 +1,18 @@
 extends StaticBody2D
 
-var tower_turret_scene = load("res://Scenes/Objects/Towers/TowerTurret.tscn")
+var tower_turret_scene # set during init
 onready var collision_polygon_2d = $CollisionPolygon2D
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
+var TowerTypes = Global.TowerTypes
+var tower_type : int
+
+var turret_scenes = [
+	"res://Scenes/Objects/Towers/BEAMTurret.tscn",
+	"res://Scenes/Objects/Towers/AOETurret.tscn",
+	"res://Scenes/Objects/Towers/GLUETurret.tscn",
+]
 
 export var cost: int = 10
 
@@ -15,6 +23,7 @@ func _ready():
 
 
 func init(turret_type):
+	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
 	if Global.current_map.has_node("Towers"):

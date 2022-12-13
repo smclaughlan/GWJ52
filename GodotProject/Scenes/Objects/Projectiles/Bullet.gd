@@ -3,9 +3,10 @@ extends Area2D
 
 export var bullet_speed = 400.0
 export var bullet_damage = 20.0
+export var bullet_range = 300.0
 
 
-var damage_attributes = {
+export var damage_attributes = {
 	"bleed":false,
 	"poison":false,
 	"fire":false,

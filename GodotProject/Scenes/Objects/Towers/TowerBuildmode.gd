@@ -1,16 +1,31 @@
+# show a visual representation of a tower on the ground.
+# semi-transparent blueprint so the player can see what they're about to place.
+# Note: This is viz only. tower spawning is handled elsewhere.
+
 extends Node2D
 
 var can_place = true
 var player
 export var MAX_PLACEMENT_RANGE = 300.0
 onready var build_area = $Area2D
-onready var green_sprite = $GreenSprite
-onready var red_sprite = $RedSprite
+#onready var green_sprite = $GreenSprite
+#onready var red_sprite = $RedSprite
+
+var current_blueprint_sprite : Sprite
+
+var tower_type : int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func set_tower_type(towerType):
+	tower_type = towerType
+	var towerTypeName = Global.TowerTypes.keys()[towerType]
+	for sprite in $TowerTypes.get_children():
+		sprite.visible = false
+	current_blueprint_sprite = $TowerTypes.get_node(towerTypeName)
+	current_blueprint_sprite.visible = true
 
 func _physics_process(_delta):
 	if self != null and is_instance_valid(self):
@@ -31,12 +46,16 @@ func _physics_process(_delta):
 
 		if distance_to_player > MAX_PLACEMENT_RANGE or area_collisions.size() > 0 or body_collisions.size() > 0:
 			can_place = false
-			green_sprite.hide()
-			red_sprite.show()
+			if current_blueprint_sprite != null and is_instance_valid(current_blueprint_sprite):
+				current_blueprint_sprite.set_self_modulate(Color.red)
+			#green_sprite.hide()
+			#red_sprite.show()
 		else:
 			can_place = true
-			green_sprite.show()
-			red_sprite.hide()
+			if current_blueprint_sprite != null and is_instance_valid(current_blueprint_sprite):
+				current_blueprint_sprite.set_self_modulate(Color.greenyellow)
+#			green_sprite.show()
+#			red_sprite.hide()
 
 func store_player(_player):
 	player = _player
