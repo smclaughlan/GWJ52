@@ -16,10 +16,10 @@ z_index = -5
 position = Vector2( -2, -47 )
 scale = Vector2( 0.620002, 0.919384 )
 texture_offset = Vector2( 32, -15 )
-polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 70, 47, 71, 59, 64, 68, 36, 76, 12, 76, -14, 75, -37, 76, -62, 72, -70, 56, -68, 47 )
+polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 70, 47, 71, 59, 64, 68, 36, 76, 16.129, 77.2256, -14, 75, -37, 76, -62, 72, -70, 56, -68, 47 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -49, -32, 58.0002, -32.9996, 57.9998, 31.0004, -51, 37 )
+polygon = PoolVector2Array( -48, -32, 48, -32, 48, 32, -48, 32 )
 
 [node name="RemoveMarkDeconTimer" type="Timer" parent="."]
 wait_time = 0.1
