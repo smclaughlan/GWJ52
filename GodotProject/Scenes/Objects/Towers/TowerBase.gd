@@ -59,3 +59,6 @@ func _on_RemoveMarkDeconTimer_timeout():
 func _on_demolition_requested(): # from InteractArea probably
 
 	destroy()
+
+func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
+	turret.upgrade(upgrade_type)

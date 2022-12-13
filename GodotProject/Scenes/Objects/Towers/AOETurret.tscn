@@ -51,7 +51,7 @@ position = Vector2( 1, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 89 )
-scale = Vector2( 0.723723, 0.723723 )
+scale = Vector2( 0.353621, 0.353621 )
 texture = ExtResource( 5 )
 
 [node name="Crystal" type="Sprite" parent="Sprite"]
