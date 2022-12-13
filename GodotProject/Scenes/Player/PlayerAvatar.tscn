@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -9,11 +9,17 @@
 [ext_resource path="res://Scenes/Objects/Tools/ConstructionWrench.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/GUI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Objects/Weapons/Sword.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Player/PickupRadius.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Objects/Tools/Flashlight.tscn" type="PackedScene" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31, 31.5 )
 
+[sub_resource type="CircleShape2D" id=2]
+radius = 300.0
+
 [node name="Player" type="KinematicBody2D"]
+collision_mask = 5
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -37,7 +43,10 @@ visible = false
 [node name="ConstructionWrench" parent="Toolbelt" instance=ExtResource( 7 )]
 visible = false
 
-[node name="Sword" parent="Toolbelt" instance=ExtResource( 9 )]
+[node name="Axe" parent="Toolbelt" instance=ExtResource( 9 )]
+visible = false
+
+[node name="Flashlight" parent="Toolbelt" instance=ExtResource( 11 )]
 visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -62,4 +71,31 @@ texture_progress = ExtResource( 6 )
 
 [node name="Weapons" type="Node2D" parent="."]
 
+[node name="PickupRadius" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 64
+script = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupRadius"]
+shape = SubResource( 2 )
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="RestTimer" type="Timer" parent="DashTimer"]
+wait_time = 3.0
+one_shot = true
+
+[node name="DashParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+local_coords = false
+initial_velocity = 100.0
+scale_amount = 5.0
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
+[connection signal="area_exited" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_exited"]

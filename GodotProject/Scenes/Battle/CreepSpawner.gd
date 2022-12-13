@@ -1,11 +1,19 @@
-extends Node2D
+extends StaticBody2D
 
 export var num_creeps_per_wave : int = 5
 export var creep : PackedScene
 var creeps_spawned_this_wave : int = 0
 var current_wave_wayfinder
 
+export var max_health : float = 200.0
+var health : float = max_health
+
+enum States { INITIALIZING, READY, DEAD }
+var State = States.READY
+
 signal creep_spawned(creep, location)
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,14 +58,37 @@ func spawn_creep_wayfinder():
 	current_wave_wayfinder = navTarget
 
 
+func begin_dying():
+	State = States.DEAD
+	$HealthBar.hide()
+	$DeathTimer.start()
+	$CollisionShape2D.set_deferred("disabled", true)
+	
+
 func _on_WaveTimer_timeout():
-	spawn_creep_wayfinder()
+	if State == States.READY:
+		spawn_creep_wayfinder()
 
-	# modify this later to accommodate game progression
-	num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
+		# modify this later to accommodate game progression
+		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
 
-	$SpawnTimer.start()
+		$SpawnTimer.start()
 
 
 func _on_SpawnTimer_timeout():
-	spawn_creep()
+	if State == States.READY:
+		spawn_creep()
+
+func _on_hit(damage, _impactVector, _damageAttributes):
+	health -= damage
+	$HealthBar.value = health/max_health
+	if health <= 0:
+		begin_dying()
+
+
+
+func _on_DeathTimer_timeout():
+	$corpse.show()
+	$Sprite.hide()
+	
+	
