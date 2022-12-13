@@ -9,8 +9,7 @@ signal new_scene_requested()
 func _ready():
 	# delay init to allow parent scene to load
 	var _err = get_tree().create_timer(0.1, false).connect("timeout", self, "delayed_ready")
-	
-	# set the fps counter check box value
+
 
 func delayed_ready():
 	var stage_manager = Global.stage_manager
