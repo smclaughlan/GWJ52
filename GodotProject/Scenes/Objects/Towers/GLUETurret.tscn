@@ -58,6 +58,7 @@ hframes = 3
 [node name="Crystal" type="Sprite" parent="Sprite"]
 position = Vector2( -0.5, -8 )
 texture = ExtResource( 6 )
+hframes = 2
 
 [node name="Upgrades" type="Node2D" parent="."]
 
