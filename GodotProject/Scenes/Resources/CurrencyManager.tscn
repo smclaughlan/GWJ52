@@ -10,4 +10,5 @@ script = ExtResource( 1 )
 method_name = "update_sun"
 
 [node name="power" parent="." instance=ExtResource( 2 )]
-method_name = "update_sun"
+starting_amount = 1000
+method_name = "update_power"
