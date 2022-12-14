@@ -163,7 +163,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 	knockback(impactVector)
 
 	health -= damage
-	if health < 0 and State != States.DEAD:
+	if health <= 0 and State != States.DEAD:
 		begin_dying()
 	else:
 		State = States.INVULNERABLE
