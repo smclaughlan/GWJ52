@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scenes/Systems/WaveManager.gd" type="Script" id=1]
 
-[node name="WaveManager" type="Node"]
+[node name="WaveManager" type="Node2D"]
 script = ExtResource( 1 )
