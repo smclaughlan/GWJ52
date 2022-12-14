@@ -11,6 +11,7 @@ var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
 var grid_dist_px = 50
 var power_source : Node2D # the first TowerWireSocket, at the home base
+var wave_manager: Node2D
 enum TowerTypes { BEAM, AOE, GLUE }
 enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 
