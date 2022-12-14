@@ -49,13 +49,15 @@ onready var handNodes = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.player = self
-	initialize_weapons()
-	initialize_hud()
 	
+	initialize_hud()
+	initialize_weapons()
+		
 	$Sprite/AnimatedSprite.animation = "golem"
 	$DeathNotice.hide()
 	
 	State = States.READY
+
 
 func initialize_weapons():
 	set_tool("range", "left")
@@ -66,7 +68,7 @@ func initialize_hud():
 func set_tool(toolString : String = "range", hand : String = "left"):
 	# put a tool in the left or right hand and tell it which action to listen for.
 	# note: We aren't shuffling nodes, we duplicate tools from the toolbelt, then delete them when no longer needed.
-	if not State in [ States.READY ]:
+	if not State in [ States.READY, States.INITIALIZING ]:
 		return
 	
 	disable_tools(hand)
