@@ -28,7 +28,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if current_target != null:
-		look_at(current_target.get_global_position())
+		if is_instance_valid(current_target):
+			look_at(current_target.get_global_position())
 	$DebugInfo.set_global_rotation(0)
 	$DebugInfo/StateLabel.text = States.keys()[State]
 
