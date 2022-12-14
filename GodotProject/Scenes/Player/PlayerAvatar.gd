@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-
+var previous_velocity : Vector2 = Vector2.ZERO
 var velocity : Vector2 = Vector2.ZERO
 var player_speed : float = 400.0
 var dash_multiple : float = 8.0
@@ -10,8 +10,21 @@ onready var weapons = $Weapons.get_children()
 export var health : int = 100
 export var max_health : int = 100
 
-enum States {INITIALIZING, READY, DYING, DEAD}
+var lives_remaining : int = 5 # each life should be represented by a golem on the map
+# players inhabit golems to go do stuff.
+
+enum States {INITIALIZING, READY, DYING, GHOST, DEAD}
 var State = States.INITIALIZING
+
+
+var action_states = {
+	"moving":false,
+	"attacking":false,
+	"dashing":false,
+	"building":true,
+	
+}
+
 
 onready var tools = {
 	"melee":$Toolbelt/Axe,
@@ -38,6 +51,9 @@ func _ready():
 	Global.player = self
 	initialize_weapons()
 	initialize_hud()
+	
+	$Sprite/AnimatedSprite.animation = "golem"
+	
 	State = States.READY
 
 func initialize_weapons():
@@ -72,6 +88,7 @@ func _process(_delta):
 	if State == States.DEAD:
 		return
 
+	previous_velocity = velocity
 	velocity = Vector2.ZERO
 
 	if Input.is_action_pressed("ui_left"):
@@ -99,6 +116,10 @@ func begin_dying():
 	State = States.DYING
 	$DeathTimer.start()
 
+func turn_into_a_ghost():
+	$Sprite/AnimatedSprite.animation = "ghost"
+	$Sprite/AnimatedSprite.play()
+
 func die_for_real_this_time():
 	# show a death screen and pop up a restart option
 	State = States.DEAD
@@ -125,7 +146,10 @@ func _on_hit(damage, impulseVector, _damageAttributes):
 
 
 func _on_DeathTimer_timeout():
-	die_for_real_this_time()
+	if lives_remaining > 0:
+		turn_into_a_ghost()
+	else:
+		die_for_real_this_time()
 
 
 func _on_DeathDialog_confirmed():

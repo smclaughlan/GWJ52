@@ -82,9 +82,21 @@ func get_nearest_target():
 	return Global.get_closest_object(potentialTargets, self)
 
 
+func select_animation(anim_name):
+	var animSprite = $Sprite/AnimatedSprite
+	if animSprite.get_animation() != anim_name:
+		animSprite.play(anim_name)
+	if anim_name == "walk":
+		$Sprite/AnimatedSprite/eyes.play("walk")
+		$Sprite/AnimatedSprite/eyes.frame = $Sprite/AnimatedSprite.frame
+	else:
+		$Sprite/AnimatedSprite/eyes.visible = false
 
 
 func move(delta):
+	
+	#select_animation("walk")
+	
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
@@ -100,7 +112,13 @@ func move(delta):
 	var steering = (desired_velocity - velocity) * delta * 4.0
 	velocity += steering
 	var new_angle = velocity.angle()
-	sprite.rotation = new_angle
+	#sprite.rotation = new_angle
+	if velocity.x > 0:
+		$Sprite.scale.x = 1
+	else:
+		$Sprite.scale.x = -1
+		
+	
 	weapons.rotation = new_angle
 	var _collision = move_and_collide(velocity)
 
@@ -190,3 +208,16 @@ func _on_PathfindTimer_timeout():
 		choose_target_location()
 	else:
 		$PathfindTimer.stop()
+
+func _on_used_melee_attack(_damage, _impactVector, _damage_attributes):
+	if health > 0 and State != States.DEAD:
+		State = States.ATTACKING
+		select_animation("attack")
+#		$Sprite/AnimatedSprite.play("attack")
+#		$Sprite/AnimatedSprite/eyes.visible = false
+	
+func _on_stopped_attacking():
+	if health > 0 and State != States.DEAD:
+		State = States.READY
+		select_animation("walk")
+
