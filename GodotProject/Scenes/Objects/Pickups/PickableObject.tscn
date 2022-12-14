@@ -70,4 +70,8 @@ anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/pickup = SubResource( 3 )
 
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 60.0
+
 [connection signal="body_entered" from="." to="." method="_on_PickableObject_body_entered"]
+[connection signal="timeout" from="Lifetime" to="." method="_on_Lifetime_timeout"]

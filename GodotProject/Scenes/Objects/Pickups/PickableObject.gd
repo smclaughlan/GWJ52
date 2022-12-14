@@ -30,3 +30,7 @@ func _physics_process(delta: float) -> void:
 
 func set_on_pickup(value: bool) -> void:
 	on_pickup_radius = value
+
+
+func _on_Lifetime_timeout() -> void:
+	queue_free()
