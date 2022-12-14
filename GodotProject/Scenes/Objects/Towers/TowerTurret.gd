@@ -9,15 +9,19 @@ export var bullet_scene_2 : PackedScene
 
 var current_bullet_scene = bullet_scene_1
 
-#var turret_type = "beam"
+var tower_base : StaticBody2D
+
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
 export var turret_reload_delay = 0.75
 var projectile_speed : float # declared in bullet scene
 var target = null
 
-var health = 100
-var max_health = 100
+# it's the base that should get attacked, not the turret
+#var health = 100
+#var max_health = 100
+
+
 
 var upgrades = {
 	Global.UpgradeTypes.BIGGER:false, # health and range
@@ -71,8 +75,8 @@ func update_spritesheet():
 
 func upgrade(upgradeType): # [bigger, faster, stronger]
 	if upgradeType == Global.UpgradeTypes.BIGGER:
-		max_health = 3 * max_health
-		health = max_health
+		tower_base.max_health = 3 * tower_base.max_health
+		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
 	elif upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
@@ -91,10 +95,10 @@ func shoot():
 	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
 
 
-func init(towerType : int):
+func init(towerType : int, towerBase : StaticBody2D):
 	tower_type = towerType
 	update_turret_range(turret_range)
-
+	tower_base = towerBase
 
 
 func update_turret_range(_turret_range):

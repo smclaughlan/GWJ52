@@ -60,4 +60,9 @@ position = Vector2( 25.5, 0 )
 shape = SubResource( 3 )
 disabled = true
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

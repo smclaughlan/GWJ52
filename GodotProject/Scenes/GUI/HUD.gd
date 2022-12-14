@@ -4,7 +4,6 @@ extends CanvasLayer
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var sun_amount = $header/Currency/SunAmount
 var player
 
 # Called when the node enters the scene tree for the first time.
@@ -23,9 +22,18 @@ func _on_ActionButton_pressed(action : String):
 	
 
 func update_sun(sun: int) -> void:
-	sun_amount.text = str(sun)
+	$Footer/HBoxContainer/Mana/IchorAmount.text = str(sun)
+	$Footer/HBoxContainer/Mana.value = float(sun)/100.0
+	# if mana hits 100, should win automatically
 
+func update_health() -> void:
+	$Footer/HBoxContainer/Health.value = float(Global.player.health) / float(Global.player.max_health)
+	$Footer/HBoxContainer/Health/HealthAmount.text = str(Global.player.health)
 
 func _on_PauseButton_pressed():
 	$PauseMenuPopupDialog.popup_centered_ratio(0.75)
 	Global.pause()
+
+
+func _on_UpdateTimer_timeout():
+	update_health()

@@ -49,12 +49,15 @@ onready var handNodes = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.player = self
-	initialize_weapons()
-	initialize_hud()
 	
+	initialize_hud()
+	initialize_weapons()
+		
 	$Sprite/AnimatedSprite.animation = "golem"
+	$DeathNotice.hide()
 	
 	State = States.READY
+
 
 func initialize_weapons():
 	set_tool("range", "left")
@@ -65,6 +68,8 @@ func initialize_hud():
 func set_tool(toolString : String = "range", hand : String = "left"):
 	# put a tool in the left or right hand and tell it which action to listen for.
 	# note: We aren't shuffling nodes, we duplicate tools from the toolbelt, then delete them when no longer needed.
+	if not State in [ States.READY, States.INITIALIZING ]:
+		return
 	
 	disable_tools(hand)
 	var newTool = tools[toolString].duplicate()
@@ -120,6 +125,29 @@ func turn_into_a_ghost():
 	$Sprite/AnimatedSprite.animation = "ghost"
 	$Sprite/AnimatedSprite.play()
 
+	$DeathNotice.position = Vector2(25, -25)
+	$DeathNotice.show()
+	
+	var tween = get_tree().create_tween()
+	tween.tween_property($DeathNotice, "position", Vector2(25, 25), 0.3)
+	$DeathNotice/NotificationTimer.start()
+	
+	disable_tools("left")
+	disable_tools("right")
+	State = States.GHOST
+	
+func resurrect():
+	# turn back into a golem
+	$Sprite/AnimatedSprite.play("golem")
+	$DeathNotice.hide()
+	health = max_health
+	$StatusBars/TextureProgress.value = health
+		
+	initialize_weapons()
+	
+	State = States.READY
+
+
 func die_for_real_this_time():
 	# show a death screen and pop up a restart option
 	State = States.DEAD
@@ -162,3 +190,11 @@ func _on_DeathDialog_confirmed():
 
 
 
+
+
+func _on_NotificationTimer_timeout():
+	$DeathNotice.hide()
+	
+func _on_golem_entered():
+	if State == States.GHOST:
+		resurrect()

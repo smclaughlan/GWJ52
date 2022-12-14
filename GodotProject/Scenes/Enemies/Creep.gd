@@ -36,18 +36,20 @@ func _ready():
 	if Global.pickable_object_spawner != null:
 		var _err = connect("died", Global.pickable_object_spawner, "spawn_pickable")
 	$corpse.hide()
+	set_attack_target(choose_target())
 
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
 	nav_target = navTarget
-	set_attack_target(Global.player)
+	#set_attack_target(Global.player)
+	
 	State = States.MOVING
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if State == States.MOVING:
+	if State in [ States.MOVING, States.READY ]:
 		move(delta)
 
 
@@ -58,7 +60,7 @@ func set_attack_target(target):
 			weapon.set_target(target)
 
 
-func choose_target_location():
+func choose_target():
 	var target : Object
 	var targetLocation : Vector2
 	
@@ -68,15 +70,26 @@ func choose_target_location():
 		target = get_nearest_target()
 		targetLocation = target.global_position
 	else:
+		target = Global.player
 		targetLocation = Global.player.global_position
 		
 	nav_agent.set_target_location(targetLocation)
+	return target
+
 
 
 func get_nearest_target():
 	var potentialTargets = []
-	potentialTargets.append_array(get_tree().get_nodes_in_group("village"))
-	potentialTargets.append_array(get_tree().get_nodes_in_group("towers"))
+	var houses = get_tree().get_nodes_in_group("village")
+	for house in houses:
+		if house.State in [ house.States.READY ]:
+			potentialTargets.append(house)
+
+	var towers = get_tree().get_nodes_in_group("towers")
+	for tower in towers:
+		if randf() < 0.2: # mostly creeps should march past towers.
+			potentialTargets.append(tower)
+		
 	potentialTargets.append(Global.player)
 	
 	return Global.get_closest_object(potentialTargets, self)
@@ -205,7 +218,7 @@ func _on_DecayTimer_timeout():
 
 func _on_PathfindTimer_timeout():
 	if State != States.DEAD:
-		choose_target_location()
+		choose_target()
 	else:
 		$PathfindTimer.stop()
 
@@ -218,6 +231,6 @@ func _on_used_melee_attack(_damage, _impactVector, _damage_attributes):
 	
 func _on_stopped_attacking():
 	if health > 0 and State != States.DEAD:
-		State = States.READY
+		State = States.MOVING
 		select_animation("walk")
 
