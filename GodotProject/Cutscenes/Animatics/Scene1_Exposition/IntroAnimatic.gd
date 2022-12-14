@@ -35,7 +35,11 @@ func fade_in():
 
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("next_slide"):
-		show_next_slide()
+		var slide = tab_container.get_current_tab_control()
+		if slide.has_method("is_playing") and slide.is_playing():
+			slide.reveal_all_text()
+		else:
+			show_next_slide()
 	if Input.is_action_just_pressed("prev_slide"):
 		show_previous_slide()
 
