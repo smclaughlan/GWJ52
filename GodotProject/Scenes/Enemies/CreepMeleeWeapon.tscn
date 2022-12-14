@@ -125,6 +125,7 @@ wait_time = 0.2
 [node name="ReloadTimer" type="Timer" parent="."]
 
 [node name="LowerJaw" type="Sprite" parent="."]
+visible = false
 material = ExtResource( 3 )
 scale = Vector2( 0.777734, 0.777734 )
 
@@ -134,6 +135,7 @@ position = Vector2( 40, 36 )
 polygon = PoolVector2Array( -3, 23, 20, 9, 23, -25, 5, 0, -6, -4 )
 
 [node name="UpperJaw" type="Sprite" parent="."]
+visible = false
 material = ExtResource( 3 )
 scale = Vector2( 0.776323, 0.776323 )
 

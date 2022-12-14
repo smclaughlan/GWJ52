@@ -95,8 +95,18 @@ After 7 long, sleepless eons, shadows bite at the edge of my awareness. They wou
 [node name="Towers" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 9 )
-text_to_reveal = "I must build towers to fight back the darkness.
+text_to_reveal = "I must build towers to fight back the darkness. 
+
+Powered by the very creatures who would seek to destroy me.
+
 "
+
+[node name="escToSkipLabel" type="Label" parent="Control"]
+margin_left = 926.0
+margin_top = 561.0
+margin_right = 966.0
+margin_bottom = 575.0
+text = "( esc to skip )"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )

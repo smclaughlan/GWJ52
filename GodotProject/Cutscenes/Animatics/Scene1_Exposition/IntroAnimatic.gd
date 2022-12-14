@@ -40,8 +40,11 @@ func _unhandled_input(_event):
 			slide.reveal_all_text()
 		else:
 			show_next_slide()
-	if Input.is_action_just_pressed("prev_slide"):
+	elif Input.is_action_just_pressed("prev_slide"):
 		show_previous_slide()
+	elif Input.is_action_just_pressed("ui_cancel"):
+		Global.stage_manager.change_scene(next_scene)
+
 
 func show_previous_slide():
 		fade_out()

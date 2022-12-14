@@ -4,6 +4,7 @@ var game_speed : float = 1.0 # lower numbers for slowmo, higher number to accele
 var stage_manager : Control # responsible for changing scenes. Never use get_tree().change_scene()
 var player : KinematicBody2D # player avatar, many things rely on this
 var village_location : Vector2 # so creeps know where to go
+var village : Node2D # Not actually necessary. The village can provide a random golem location for creeps, but they already get that info from the village group.
 var current_map : Node2D # for spawning bullets and creeps
 var nav_manager : Node # makes changes to nav mesh when placing/removing objects
 var pickable_object_spawner: Node2D # Spawner node that handles spawning of pickables
