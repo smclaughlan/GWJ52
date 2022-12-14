@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scenes/Region/VillagePlaceholderArt.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/Player/staticAvatarImage.png" type="Texture" id=1]
 [ext_resource path="res://_common/GUI/HealthBarUnder.png" type="Texture" id=2]
 [ext_resource path="res://_common/GUI/HealthBarOver.png" type="Texture" id=3]
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=4]
@@ -52,7 +52,9 @@ collision_mask = 258
 script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -5 )
+modulate = Color( 0.184314, 0.2, 0.215686, 1 )
+position = Vector2( 0, -16 )
+scale = Vector2( 2.6517, 2.48653 )
 z_index = -1
 texture = ExtResource( 1 )
 
