@@ -57,6 +57,7 @@ texture = SubResource( 2 )
 centered = false
 
 [node name="FloorTexture2" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 0.262745, 0.403922, 0.27451, 1 )
 position = Vector2( -3796, -2280 )
 scale = Vector2( 7.49029, 7.56907 )

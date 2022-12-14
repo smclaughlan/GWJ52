@@ -1,0 +1,114 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/queen_bust.png" type="Texture" id=1]
+[ext_resource path="res://Cutscenes/Animatics/AnimaticSlide.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/IntroAnimatic.gd" type="Script" id=3]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Empire_concept_copy.jpg" type="Texture" id=4]
+[ext_resource path="res://_common/Music/GODOT_TD-THEME_V2-WIP.wav" type="AudioStream" id=5]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/GreatWarPlaceholder.png" type="Texture" id=6]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/strife creep.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Battle/Battle.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/towers placeholder.png" type="Texture" id=9]
+
+[sub_resource type="Animation" id=1]
+resource_name = "intro_exposition"
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="OpenSimplexNoise" id=3]
+octaves = 4
+period = 128.0
+
+[sub_resource type="NoiseTexture" id=4]
+width = 1024
+height = 600
+noise = SubResource( 3 )
+
+[node name="IntroAnimatic" type="CanvasLayer"]
+follow_viewport_enable = true
+script = ExtResource( 3 )
+next_scene = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/intro_exposition = SubResource( 1 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="TabContainer" type="TabContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -25.0
+mouse_filter = 2
+custom_styles/panel = SubResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="Control/TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="Label" type="Label" parent="Control/TabContainer/ColorRect"]
+margin_left = 369.0
+margin_top = 250.0
+margin_right = 719.0
+margin_bottom = 325.0
+rect_scale = Vector2( 1.67086, 1.67086 )
+rect_pivot_offset = Vector2( 230, 6 )
+text = "Press the space bar or click the mouse button to Muse aloud, in an expository manner."
+align = 1
+autowrap = true
+
+[node name="Ghost" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+
+[node name="Queen" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 1 )
+text_to_reveal = "... an empire of automation. Crystal mines churning around the clock. The automatons freed up our people to pursue Philosophy, Poetry, the Arts. It was a rich culture."
+
+[node name="Empire" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 4 )
+text_to_reveal = "7 long eons ago, we uncovered a well of shadow. Shadow creatures, made of darkness and ichor surged forth. We call them, the Strife."
+
+[node name="Strife" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 7 )
+text_to_reveal = "Their blood is powerful fuel. We used it to power our machines. 
+
+But the tide was unyielding.
+
+They consume light. They would consume everything!"
+
+[node name="GreatWar" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 6 )
+text_to_reveal = "My husband sacrificed everything to defeat them. We fought to the very last dwarf. Now, I have nothing. No one.
+
+After 7 long, sleepless eons, shadows bite at the edge of my awareness. They would extinguish my light."
+
+[node name="Towers" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 9 )
+text_to_reveal = "I must build towers to fight back the darkness.
+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+autoplay = true
+
+[node name="FogFade" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = SubResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="Tween" type="Tween" parent="."]
