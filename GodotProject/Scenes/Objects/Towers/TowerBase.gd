@@ -70,7 +70,7 @@ func _on_demolition_requested(): # from InteractArea probably
 func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
 	turret.upgrade(upgrade_type)
 
-func _on_hit(damage, impactVector, damageAttributes):
+func _on_hit(damage, _impactVector, _damageAttributes):
 	health -= damage
 	if health <= 0:
 		# might want better animations
