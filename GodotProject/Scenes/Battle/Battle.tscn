@@ -2,11 +2,11 @@
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Battle/CreepSpawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Region/Village.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Resources/Currency.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Systems/WaveManager.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CanvasItemMaterial" id=3]
 light_mode = 2
@@ -67,15 +67,6 @@ centered = false
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 6, 6 )
-
-[node name="CreepSpawner" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1585, -545 )
-
-[node name="CreepSpawner2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1473, 837 )
-
-[node name="CreepSpawner3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1392, -300 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 visible = false
@@ -138,3 +129,6 @@ position = Vector2( -738, -363 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
+
+[node name="WaveManager" parent="." instance=ExtResource( 8 )]
+position = Vector2( -72, 291 )

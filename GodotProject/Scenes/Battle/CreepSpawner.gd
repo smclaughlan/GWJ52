@@ -1,3 +1,4 @@
+class_name CreepSpawner
 extends StaticBody2D
 
 export var num_creeps_per_wave : int = 5
