@@ -25,4 +25,12 @@ func _on_QuitButton_pressed():
 
 
 func _on_FreeMoneyButton_pressed():
-	Global.currency_tracker.update_amount(100)
+	Global.currency_tracker.update_amount("sun", 100)
+
+
+func _on_IncreasePower_pressed() -> void:
+	Global.currency_tracker.update_amount("power", 500)
+
+
+func _on_DecreasePower2_pressed() -> void:
+	Global.currency_tracker.update_amount("power", -100)
