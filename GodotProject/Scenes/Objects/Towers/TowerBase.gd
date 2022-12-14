@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Node2D
 
 var tower_turret_scene # set during init
 onready var collision_polygon_2d = $CollisionPolygon2D
@@ -18,8 +18,7 @@ export var cost: int = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	#cut_from_nav()
+	Global.pathfinding_manager.rebuild_nodes()
 
 
 func init(turret_type):

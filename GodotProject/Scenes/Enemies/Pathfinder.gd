@@ -3,6 +3,8 @@ extends Node2D
 var debug_viz = load("res://Scenes/Enemies/debug/pathfindViz.tscn")
 export(NodePath) onready var tween = get_node(tween)
 onready var path_area = $PathArea
+onready var nodes = Global.pathfinding_manager.nodes
+onready var colliding_nodes = Global.pathfinding_manager.colliding_nodes
 # List of positions to move to.
 var path = []
 var offset = 10
@@ -13,24 +15,11 @@ var target
 enum States {FINDING_TARGET, START_FINDING_PATH, FINDING_PATH, DONE}
 var State = States.FINDING_TARGET
 
-var directions = [
-	Vector2(0, -offset), # up
-	Vector2(-offset, -offset), #upleft
-	Vector2(offset, -offset), # upright
-	Vector2(0, offset), # down
-	Vector2(-offset, offset), # downleft
-	Vector2(offset, offset), # downright
-	Vector2(-offset, 0), # left
-	Vector2(offset, 0) # right
-]
-	
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	if get_parent():
-		get_parent().remove_child(self)
-	Global.current_map.add_child(self)
-
+	# Connect signal from pathfinding_manager so pathfinding restarts when something is placed
+	# and the navmesh has been rebuilt.
+	Global.pathfinding_manager.connect("restart_pathfinding", self, "start_restart_timer")
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -41,11 +30,8 @@ func _process(delta):
 	elif State == States.START_FINDING_PATH:
 		find_path()
 	elif State == States.FINDING_PATH:
-		next_step()
-
-
-func get_tower_collider_position(tower):
-	return Vector2(tower.global_position.x, tower.global_position.y)
+		for i in 50:
+			next_step()
 
 
 func find_target():
@@ -66,107 +52,88 @@ func find_target():
 
 func find_path():
 	# Find path by:
-	# * Move the path_area around using the directions.
-	# * Fill queue arrays up to a limited amount of iterations.
-	# * If the path_area overlaps with the target's collider, set that path_array as path.
-	var start_position = get_parent().global_position
+	# * Put the start position at the nearest node on the navmesh. 
+	#		The first position in the path will always be there.
+	var closest_node = null
+	var closest_dist = 999999999999
+	for node in nodes:
+		var curr_dist = global_position.distance_to(str_to_vector2(node))
+		if curr_dist < closest_dist:
+			closest_dist = curr_dist
+			closest_node = node
 	queue = [
-			[0, [start_position]], # [num_of_iterations_so_far, [path_array]]
+			[closest_node], # [[path_array], [path_array]]
 		]
 	State = States.FINDING_PATH
 
 
 func next_step():
-	# Do the next step in the pathfinding.
-	var curr_queue_item = queue.pop_front()
-	if curr_queue_item == null:
-		State = States.DONE
+	var curr_path_arr = queue.pop_front()
+	if curr_path_arr == null:
 		return
-	var curr_iterations = curr_queue_item.pop_front()
-	var curr_path_arr = curr_queue_item.pop_front()
-	if curr_iterations > 10000000:
+	if curr_path_arr.size() > 100000:
+		# TODO Find a different target??
 		queue = []
 		State = States.DONE
-	
-	# If the current last position of curr_path_arr is overlapping, make that the path.
+
 	var last_path_position = curr_path_arr[curr_path_arr.size() - 1]
-	# Put the vector into seen so we can skip creating new points there.
-#	seen[String(last_path_position)] = true
-	debug_path_viz(last_path_position)
-	
-	curr_iterations += 1
-	# IF no collisions around last_path_position:
-	# 	pick closest point to add to queue
-	# ELSE: there are collisions.
-	# 	Check if each direction is colliding with the target.
-	#	IF any are, return the curr path. Set state.
-	#	IF any positions aren't colliding, add to queue.
-	if !collisions_around_position(last_path_position):
-		# Here there are no collisions around this point, so pick shortest path.
-		var closest_dir = null
-		var closest_dist = 999999999999
-		for direction in directions:
-			var new_pos = last_path_position + direction
-			var curr_dist = new_pos.distance_to(get_tower_collider_position(target))
-			if curr_dist < closest_dist:
-				closest_dist = curr_dist
-				closest_dir = direction
-		add_to_queue(curr_iterations, curr_path_arr, last_path_position, closest_dir)
-	else:
-		# There are collisions right around this last_path_position.
-		# We can check that any of them are the target, and also add any non-colliding spaces
-		# at the same time.
-		for direction in directions:
-			if !position_has_collisions(last_path_position + direction):
-				print("adding non-colliding position")
-				add_to_queue(curr_iterations, curr_path_arr, last_path_position, direction)
-			
-			if is_colliding_with_target(last_path_position + direction):
-				# add to path and stop pathfinding.
-				path = curr_path_arr
-				State = States.DONE
+#	debug_path_viz(str_to_vector2(last_path_position))
+	# BFS through nodes using their neighbors to move outward.
+	#	If colliding_nodes has any neighbor nodes w/ target, that's our path.
+	#	If neighbor nodes are in colliding_nodes, skip them.
+	#	Add the other non-colliding nodes to the queue.
+	var neighbors = nodes.get(last_path_position)
+	if neighbors == null:
+		return
+	for neighbor in neighbors:
+		# Check if this is the target we're looking for.
+		var colliders = colliding_nodes.get(neighbor)
+#		print('looking for target:', target)
+		if colliders != null and colliders.has(target):
+			path = curr_path_arr
+			State = States.DONE
+
+		if colliders == null:
+			add_to_queue(curr_path_arr, neighbor)
 
 
-func add_to_queue(curr_iterations, curr_path_arr, last_path_position, direction):
+func add_to_queue(curr_path_arr, neighbor):
+	if seen.has(neighbor):
+		return
+	seen[neighbor] = true
 	var new_path_arr = curr_path_arr.duplicate()
-	var new_direction = last_path_position + direction
-#	if !seen.has(String(new_direction)):
-	new_path_arr.append(new_direction)
-	queue.append([curr_iterations, new_path_arr])
+	new_path_arr.append(neighbor)
+	queue.append(new_path_arr)
 
 
-func is_colliding_with_target(position):
-	path_area.global_position = position
-	var overlapping_areas = path_area.get_overlapping_areas()
-	var overlapping_bodies = path_area.get_overlapping_bodies()
-	for area in overlapping_areas:
-		if area == target:
-			print("overlapping area: ", area)
-			print("path found: ", path)
-			return true
+func str_to_vector2(strVec):
+	# Remove the "Vector2(" and ")" characters from the string
+	var string = strVec.replace("(", "").replace(")", "")
+	
+	# Split the string on the "," character to get the x and y components
+	var components = string.split(",")
 
-	for body in overlapping_bodies:
-		if body == target:
-			print("overlapping body: ", body)
-			print("path found: ", path)
-			return true
+	# Convert the x and y components into float values
+	var x = float(components[0])
+	var y = float(components[1])
+
+	# Return the Vector2
+	return Vector2(x, y)
 
 
-func position_has_collisions(pos):
-	path_area.global_position = pos
-	var overlapping_areas = path_area.get_overlapping_areas()
-	var overlapping_bodies = path_area.get_overlapping_bodies()
-	if overlapping_areas.size() > 0 or overlapping_bodies.size() > 0:
-		return true
-	return false
+func start_restart_timer():
+	$RestartTimer.start(rand_range(0.1, 2))
 
 
-func collisions_around_position(pos):
-	for direction in directions:
-		if position_has_collisions(pos + direction):
-			return true
-	return false
-
+func _restart_pathfinding():
+	if Global.pathfinding_manager.navmesh_done == false:
+		return
+	$RestartTimer.stop()
+#	print("restarting pathfinding on enemy")
+	nodes = Global.pathfinding_manager.nodes
+	colliding_nodes = Global.pathfinding_manager.colliding_nodes
+	find_target()
+	State = States.FINDING_TARGET
 
 func debug_path_viz(position : Vector2):
 	var new_viz = debug_viz.instance()

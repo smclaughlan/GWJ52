@@ -89,11 +89,12 @@ func get_nearest_target():
 func move(delta):
 	if tween.is_active():
 		return
-	
+
 	# Tween from point to point in pathfinder.path
 	var next_pos = pathfinder.path.pop_front()
 	if next_pos == null:
 		return
+	next_pos = pathfinder.str_to_vector2(next_pos)
 	tween.interpolate_property(self, "global_position", global_position, next_pos, 0.5)
 	tween.start()
 	
