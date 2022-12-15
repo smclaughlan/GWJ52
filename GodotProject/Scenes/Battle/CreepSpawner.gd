@@ -93,5 +93,10 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 func _on_DeathTimer_timeout():
 	$corpse.show()
 	$Sprite.hide()
+	$DecayTimer.start()
 	
 	
+
+
+func _on_DecayTimer_timeout() -> void:
+	queue_free()
