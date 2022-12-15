@@ -60,6 +60,7 @@ func increment_blueprint(value:int): # +1 == fwd, -1 == backward
 	tower_buildmode_visual.set_tower_type(tower_type)
 	#tower_base_scene = load(tower_base_scenes[tower_type])
 
+	Global.player.hud._on_tower_type_blueprint_changed(tower_type)
 	
 
 func attempt_to_spawn_tower(towerType):
@@ -67,11 +68,13 @@ func attempt_to_spawn_tower(towerType):
 	var cost_reference: CostReference = CostReference.new()
 	cost_reference.tower = tower_base_scene.instance()
 	cost_reference.cost = cost_reference.tower.cost
-	if tower_buildmode_visual.can_place and cost_reference.can_purchase():
+	if cost_reference.can_purchase() == false:
+		$InsufficientFundsNoise.play()
+	elif tower_buildmode_visual.can_place == false:
+		$IncorrectPlacementNoise.play()
+	else:
 		spawn_tower(towerType)
 		emit_signal("tower_built", -cost_reference.cost)
-	else:
-		$IncorrectPlacementNoise.play()
 	$ReloadTimer.start()
 	
 
