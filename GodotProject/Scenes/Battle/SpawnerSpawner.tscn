@@ -1,45 +1,51 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scenes/Battle/CreepSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Battle/SpawnerSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Enemies/creep.wav" type="AudioStream" id=2]
 [ext_resource path="res://_common/GUI/HealthBarUnder.png" type="Texture" id=3]
 [ext_resource path="res://_common/GUI/HealthBarOver.png" type="Texture" id=4]
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Enemies/shlorpVoice.wav" type="AudioStream" id=7]
+[ext_resource path="res://Scenes/Battle/CreepSpawner.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 34.0147
 
-[node name="CreepSpawner" type="StaticBody2D" groups=["EnemySpawners"]]
+[node name="SpawnerSpawner" type="StaticBody2D" groups=["EnemySpawners"]]
 collision_layer = 2
 collision_mask = 25
 script = ExtResource( 1 )
+num_spawners_per_wave = 3
+spawner = ExtResource( 8 )
 
 [node name="Sprite" type="Sprite" parent="."]
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
-color = Color( 0.329412, 0.0431373, 0.388235, 1 )
+color = Color( 0.607843, 0.282353, 0.121569, 1 )
 polygon = PoolVector2Array( -8, -13, -5, -39, 11, -22, 22, -42, 21, -8, 46, 8, 15, 13, 14, 38, -1, 19, -38, 27, -24, 1, -26, -23 )
 
 [node name="Label" type="Label" parent="Sprite"]
-margin_left = -55.0
-margin_top = -37.0
-margin_right = 55.0
-margin_bottom = -23.0
+margin_left = -18.0
+margin_top = -39.0
+margin_right = 22.0
+margin_bottom = -25.0
 rect_pivot_offset = Vector2( 18, 7 )
-text = "Spawner Spawner"
+text = "Spawn"
 align = 1
 
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 15.0
+wait_time = 120.0
 one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 10.0
 one_shot = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
 [node name="NewCreepNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
 volume_db = -12.0
 
 [node name="HealthBar" type="TextureProgress" parent="."]
@@ -68,6 +74,9 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="NewSpawnerNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

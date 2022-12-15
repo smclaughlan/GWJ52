@@ -14,7 +14,7 @@ enum States { INITIALIZING, READY, DEAD }
 var State = States.READY
 
 signal creep_spawned(creep, location)
-
+signal wave_started(location)
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,11 +25,14 @@ func _ready():
 	if creep == null:
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
+	connect("wave_started", Global.player, "_on_creep_wave_started")
 
+func init(location):
+	set_global_position(location)
 
 
 func spawn_creep():
-
+	#print("spawning creep")
 	var newCreep = creep.instance()
 	newCreep.init(global_position, current_wave_wayfinder)
 	current_wave_wayfinder.add_creep(newCreep)
@@ -79,6 +82,7 @@ func _on_WaveTimer_timeout():
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
 		$SpawnTimer.start()
+		emit_signal("wave_started", global_position)
 
 
 func _on_SpawnTimer_timeout():

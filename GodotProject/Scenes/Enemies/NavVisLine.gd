@@ -14,6 +14,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if not visible:
+		return
+	
 	if creep.State == creep.States.DEAD:
 		queue_free()
 		return
@@ -26,4 +29,7 @@ func _process(delta):
 
 func update_vis_line():
 	self.points = get_parent().get_node("NavigationAgent2D").get_nav_path()
+	
+
+
 	

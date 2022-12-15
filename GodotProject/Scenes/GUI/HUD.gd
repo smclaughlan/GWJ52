@@ -44,9 +44,13 @@ func update_health() -> void:
 	$Footer/HBoxContainer/Health.value = float(Global.player.health) / float(Global.player.max_health)
 	$Footer/HBoxContainer/Health/HealthAmount.text = str(Global.player.health)
 
+
+
+
 func _on_PauseButton_pressed():
 	$PauseMenuPopupDialog.popup_centered_ratio(0.75)
 	Global.pause()
+
 
 
 func _on_UpdateTimer_timeout():
@@ -54,3 +58,6 @@ func _on_UpdateTimer_timeout():
 
 func _on_tower_type_blueprint_changed(currentTowerType):
 	change_tower_instructions(currentTowerType)
+
+
+	

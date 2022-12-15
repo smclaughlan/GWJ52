@@ -246,3 +246,7 @@ func _on_stopped_attacking():
 		State = States.MOVING
 		select_animation("walk")
 
+
+
+func _on_Timer_timeout():
+	pass # Replace with function body.
