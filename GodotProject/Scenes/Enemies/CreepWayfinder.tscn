@@ -11,4 +11,5 @@ avoidance_enabled = true
 max_speed = 50.0
 
 [node name="TargetSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 1 )

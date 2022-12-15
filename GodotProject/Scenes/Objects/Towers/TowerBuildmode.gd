@@ -7,7 +7,7 @@ extends Node2D
 var can_place = true
 var player
 export var MAX_PLACEMENT_RANGE = 800.0
-export var MIN_DISTANCE_BETWEEN_TOWERS = 50.0
+export var MIN_DISTANCE_BETWEEN_TOWERS = 150.0
 
 onready var build_area = $Area2D
 #onready var green_sprite = $GreenSprite
