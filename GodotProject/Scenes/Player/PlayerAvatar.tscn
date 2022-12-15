@@ -86,6 +86,7 @@ visible = false
 
 [node name="Flashlight" parent="Toolbelt" instance=ExtResource( 11 )]
 visible = false
+shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -160,7 +161,13 @@ align = 1
 [node name="NotificationTimer" type="Timer" parent="DeathNotice"]
 wait_time = 5.0
 
+[node name="DelayInitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
 [connection signal="area_exited" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_exited"]
 [connection signal="timeout" from="DeathNotice/NotificationTimer" to="." method="_on_NotificationTimer_timeout"]
+[connection signal="timeout" from="DelayInitTimer" to="." method="_on_DelayInitTimer_timeout"]

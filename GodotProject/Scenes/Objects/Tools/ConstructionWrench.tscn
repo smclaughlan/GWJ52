@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Objects/Tools/ConstructionWrench.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Tools/NotThereNoise.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Objects/Tools/BuildNoise.wav" type="AudioStream" id=3]
+[ext_resource path="res://Scenes/Shop/InsufficientFunds.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -39,5 +40,8 @@ shape = SubResource( 1 )
 [node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 0.3
 one_shot = true
+
+[node name="InsufficientFundsNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_ReloadTimer_timeout"]

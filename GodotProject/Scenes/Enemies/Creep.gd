@@ -45,6 +45,9 @@ func init(initialPos, navTarget):
 	#set_attack_target(Global.player)
 	
 	State = States.MOVING
+	select_animation("walk")
+	$Sprite/AnimatedSprite.play("walk")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
