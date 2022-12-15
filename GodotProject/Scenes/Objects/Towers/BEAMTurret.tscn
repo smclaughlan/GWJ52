@@ -55,6 +55,7 @@ animations = [ {
 script = ExtResource( 2 )
 bullet_scene_1 = ExtResource( 7 )
 bullet_scene_2 = ExtResource( 8 )
+target_tracking_method = 0
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0

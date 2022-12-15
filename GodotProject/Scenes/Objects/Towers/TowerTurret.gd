@@ -18,7 +18,7 @@ var projectile_speed : float # declared in bullet scene
 var target = null
 
 enum target_tracking_methods { AIM_AT, AIM_AHEAD, AIM_RANDOM }
-export var target_tracking_method = target_tracking_methods.AIM_AHEAD
+export (target_tracking_methods) var target_tracking_method = target_tracking_methods.AIM_AHEAD
 
 var shine_playing : bool = false
 
@@ -40,15 +40,24 @@ var upgrades = {
 func _ready():
 	if current_bullet_scene == null:
 		current_bullet_scene = bullet_scene_1
-	if projectile_speed == null or projectile_speed == 0.0:
-		var referenceBullet = current_bullet_scene.instance()
-		projectile_speed = referenceBullet.bullet_speed
 
-		referenceBullet.queue_free()
+	lookup_bullet_speed_for_slow_projectiles()
+
 	for gem in $Upgrades.get_children():
 		gem.hide()
 	if has_node("Sprite/Crystal/Shine"):
 		$Sprite/Crystal/Shine.hide()
+
+
+
+func lookup_bullet_speed_for_slow_projectiles():
+	if target_tracking_method == target_tracking_methods.AIM_AHEAD:
+		if projectile_speed == null or projectile_speed == 0.0:
+			var referenceBullet = current_bullet_scene.instance()
+			if referenceBullet.get("bullet_speed"): # will return null if there's no bullet_speed property, eg: laser beams
+				projectile_speed = referenceBullet.bullet_speed
+			referenceBullet.queue_free()
+
 	
 
 func _process(delta):
@@ -59,14 +68,25 @@ func _process(delta):
 
 
 
-func aim(myTarget, delta):
+func aim(myTarget, _delta):
 	var distance = global_position.distance_to(target.global_position)
-	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
-		if myTarget.get("velocity") and target_tracking_method == target_tracking_methods.AIM_AHEAD: # verify that they are mobile
-			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
-			point_toward(myTarget.global_position + aim_lead_vector)
-		else:
-			point_toward(myTarget.global_position)
+	if distance > 600.0 or projectile_speed == 0: # hax, to prevent them looking at the origin of the universe sometimes
+		return
+
+	if myTarget.get("velocity") and target_tracking_method == target_tracking_methods.AIM_AHEAD: # verify that they are mobile
+		var time_for_bullet_to_arrive = distance / projectile_speed
+		var aim_lead_vector = myTarget.velocity * time_for_bullet_to_arrive
+
+		point_toward(myTarget.global_position + aim_lead_vector)
+
+
+
+		# I was getting divide by zero errors
+#		if myTarget.get("velocity") and target_tracking_method == target_tracking_methods.AIM_AHEAD: # verify that they are mobile
+#			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
+#			point_toward(myTarget.global_position + aim_lead_vector)
+#		else:
+#			point_toward(myTarget.global_position)
 
 	
 
@@ -124,7 +144,12 @@ func shoot():
 	var new_projectile = current_bullet_scene.instance()
 	Global.stage_manager.current_map.add_child(new_projectile)
 	var muzzle_location = $InvisibleTurret/MuzzleLocation
+
+	# short on time, hard coding if statements based on parameters available for a custom projectile.
+	if new_projectile.has_method("set_target"):
+		new_projectile.set_target(target)
 	new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
+
 	
 	shine_crystal()
 
