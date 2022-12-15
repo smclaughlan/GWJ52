@@ -88,6 +88,22 @@ func spawn_tower(towerType):
 		Global.current_map.add_child(new_tower)
 		new_tower.init(towerType)
 		Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
+		build_tilemap_walls_under_tower(new_tower)
+		
+func build_tilemap_walls_under_tower(new_tower):
+	# This might be causing slowdowns. We may need to remove it.
+
+	var tilemap = Global.current_map.get_node("tilemap")
+	var local_position = tilemap.to_local(new_tower.global_position)
+	var map_position = tilemap.world_to_map(local_position)
+	#var specific_tile = tilemap.get_cell(map_position.x, map_position.y)
+	
+	for row in range(3):
+		for col in range(3):
+			var posX = map_position.x + col - 1
+			var posY = map_position.y + row - 1
+			tilemap.set_cell(posX, posY, 1)
+
 
 func set_towerbuildmode(enabled:bool):
 	is_placing_tower = enabled
