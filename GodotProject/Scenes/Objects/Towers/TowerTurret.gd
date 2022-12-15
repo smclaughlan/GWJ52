@@ -17,6 +17,9 @@ export var turret_reload_delay = 0.75
 var projectile_speed : float # declared in bullet scene
 var target = null
 
+enum target_tracking_methods { AIM_AT, AIM_AHEAD, AIM_RANDOM }
+export var target_tracking_method = target_tracking_methods.AIM_AHEAD
+
 # it's the base that should get attacked, not the turret
 #var health = 100
 #var max_health = 100
@@ -28,6 +31,7 @@ var upgrades = {
 	Global.UpgradeTypes.FASTER:false, # shoot timer speed
 	Global.UpgradeTypes.STRONGER:false, # bullet_scene ( damage, fx )
 }
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,19 +46,23 @@ func _ready():
 
 
 func _process(delta):
-	update()
-	if !target or !is_instance_valid(target):
-		return
-	
-	var distance = global_position.distance_to(target.global_position)
-	
-	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
-		if target.get("velocity"): # verify that they are mobile
-			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
-			point_toward(target.global_position + aim_lead_vector)
-		else:
-			point_toward(target.global_position)
+	update() # invokes the draw function to draw a circle
+	if target != null and is_instance_valid(target):
 
+		aim(target, delta)
+
+
+
+func aim(myTarget, delta):
+	var distance = global_position.distance_to(target.global_position)
+	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
+		if myTarget.get("velocity") and target_tracking_method == target_tracking_methods.AIM_AHEAD: # verify that they are mobile
+			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
+			point_toward(myTarget.global_position + aim_lead_vector)
+		else:
+			point_toward(myTarget.global_position)
+
+	
 
 func point_toward(targetPos):
 	$InvisibleTurret.look_at(targetPos)

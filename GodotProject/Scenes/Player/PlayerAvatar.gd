@@ -51,7 +51,7 @@ func _ready():
 	Global.player = self
 	
 	initialize_hud()
-	initialize_weapons()
+	#initialize_weapons() # moved to delayed init timer
 		
 	$Sprite/AnimatedSprite.animation = "golem"
 	$DeathNotice.hide()
@@ -198,3 +198,7 @@ func _on_NotificationTimer_timeout():
 func _on_golem_entered():
 	if State == States.GHOST:
 		resurrect()
+
+
+func _on_DelayInitTimer_timeout():
+	set_tool("build", "left")
