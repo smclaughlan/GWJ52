@@ -78,13 +78,7 @@ func exceeds_maximum_distance():
 		return false
 
 func outside_map_extents():
-	# hard code this for now, but a dynamic solution is preferable.
-	if ( 
-			global_position.x < 4358
-			and global_position.x > -4211
-			and global_position.y < 2680
-			and global_position.y > -2497
-	):
+	if Global.current_map.extents.has_point(global_position):
 		return false
 	else:
 		return true

@@ -129,3 +129,10 @@ position = Vector2( -738, -363 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
+
+[node name="Extents" type="ReferenceRect" parent="."]
+margin_left = -4190.0
+margin_top = -2481.0
+margin_right = 4326.0
+margin_bottom = 2665.0
+mouse_filter = 2

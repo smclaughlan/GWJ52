@@ -10,7 +10,7 @@ extends Camera2D
 func _ready():
 	pass # Replace with function body.
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if Input.is_action_just_pressed("zoom_out"):
 		set_zoom(Vector2.ONE*4.0)
 	elif Input.is_action_just_pressed("zoom_in"):

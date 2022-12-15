@@ -7,7 +7,7 @@ func _ready():
 	Global.nav_manager = self
 
 func cut_object_from_nav(object):
-	var dist = (Global.minimum_separation_between_towers / 2) - 1 # NOTE: Distance must be less than 1/2 the minimum separation between towers. Nav Outlines must not overlap, ever.
+	var dist = (int(Global.minimum_separation_between_towers) / 2) - 1 # NOTE: Distance must be less than 1/2 the minimum separation between towers. Nav Outlines must not overlap, ever.
 	
 	# as of now, TowerBuildMode sets min_distance to 
 	var testPoly = [ Vector2(-dist, -dist), Vector2(dist, -dist), Vector2(dist, dist), Vector2(-dist, dist) ]
