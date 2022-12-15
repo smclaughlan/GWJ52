@@ -66,10 +66,19 @@ func aim(myTarget, delta):
 
 func point_toward(targetPos):
 	$InvisibleTurret.look_at(targetPos)
-	update_spritesheet()
-	
+		
 
-func update_spritesheet():
+func update_spritesheet_for_upgrades():
+	var num_upgrades = 0
+	for upgrade in upgrades.keys():
+		if upgrades[upgrade] == true:
+			num_upgrades += 1
+	$Sprite.frame = min(2, num_upgrades)
+	
+	$Sprite/Crystal.position.y = -10 * $Sprite.frame
+
+
+func deprecated_rotate_8_way_spritesheet():
 	# change the spritesheet frame for animated 8-way turrets
 	if $Sprite.hframes > 1 or $Sprite.vframes > 1:
 		var total_frames = $Sprite.hframes * $Sprite.vframes
@@ -82,7 +91,9 @@ func update_spritesheet():
 
 
 func upgrade(upgradeType): # [bigger, faster, stronger]
+	
 	if upgradeType == Global.UpgradeTypes.BIGGER:
+		print("Bigger")
 		tower_base.max_health = 3 * tower_base.max_health
 		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
@@ -91,7 +102,9 @@ func upgrade(upgradeType): # [bigger, faster, stronger]
 		$ShootTimer.set_wait_time( turret_reload_delay )
 	elif upgradeType == Global.UpgradeTypes.STRONGER:
 		current_bullet_scene = bullet_scene_2
-		
+	upgrades[upgradeType] = true
+	update_spritesheet_for_upgrades()
+
 
 
 

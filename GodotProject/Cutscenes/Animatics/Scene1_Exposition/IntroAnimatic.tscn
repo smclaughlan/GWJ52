@@ -1,11 +1,11 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/queen_bust.png" type="Texture" id=1]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_2_of_story.png" type="Texture" id=1]
 [ext_resource path="res://Cutscenes/Animatics/AnimaticSlide.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/IntroAnimatic.gd" type="Script" id=3]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Empire_concept_copy.jpg" type="Texture" id=4]
 [ext_resource path="res://_common/Music/GODOT_TD-THEME_V2-WIP.wav" type="AudioStream" id=5]
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/GreatWarPlaceholder.png" type="Texture" id=6]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_5.png" type="Texture" id=6]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/strife creep.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Battle/Battle.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/towers placeholder.png" type="Texture" id=9]

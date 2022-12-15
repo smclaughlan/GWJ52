@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Light_click.png-2eeb1a1332ae8827869c509a51135719.stex"
+path="res://.import/Frame_5.png-6fd25cc12f95b7cc5c73d558316d87dc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/GUI/buttons/Light_click.png"
-dest_files=[ "res://.import/Light_click.png-2eeb1a1332ae8827869c509a51135719.stex" ]
+source_file="res://Cutscenes/Animatics/Scene1_Exposition/Frame_5.png"
+dest_files=[ "res://.import/Frame_5.png-6fd25cc12f95b7cc5c73d558316d87dc.stex" ]
 
 [params]
 

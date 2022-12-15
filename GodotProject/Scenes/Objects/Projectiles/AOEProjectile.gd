@@ -27,7 +27,7 @@ func init(pos, rot):
 	set_global_position(pos)
 	set_global_rotation(rot)
 	set_visible(true)
-	$CollisionShape2D.set_deferred("disabled", false)
+	#$CollisionShape2D.set_deferred("disabled", false)
 	State = States.MOVING
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
