@@ -60,6 +60,7 @@ func increment_blueprint(value:int): # +1 == fwd, -1 == backward
 	tower_buildmode_visual.set_tower_type(tower_type)
 	#tower_base_scene = load(tower_base_scenes[tower_type])
 
+	Global.player.hud._on_tower_type_blueprint_changed(tower_type)
 	
 
 func attempt_to_spawn_tower(towerType):

@@ -4,6 +4,8 @@ export var num_creeps_per_wave : int = 5
 export var creep : PackedScene
 var creeps_spawned_this_wave : int = 0
 var current_wave_wayfinder
+var time_between_creeps = 1.2 # rand jitter will be applied later.
+var time_between_waves = 20.0 # rand jitter will be applied later.
 
 export var max_health : float = 200.0
 var health : float = max_health
@@ -43,8 +45,10 @@ func spawn_creep():
 
 	
 	if creeps_spawned_this_wave >= num_creeps_per_wave:
+		$WaveTimer.set_wait_time(rand_range(time_between_waves* 0.75, time_between_waves* 1.25))
 		$WaveTimer.start() # wait a bit before the next set of creeps
 	else:
+		$SpawnTimer.set_wait_time(rand_range(time_between_creeps*0.75, time_between_creeps*1.25))
 		$SpawnTimer.start() # short delay before launching another crepep
 
 
@@ -71,13 +75,14 @@ func _on_WaveTimer_timeout():
 
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
-
 		$SpawnTimer.start()
 
 
 func _on_SpawnTimer_timeout():
 	if State == States.READY:
-		spawn_creep()
+		spawn_creep() # timer gets restarted inside spawn_creep() method
+
+
 
 func _on_hit(damage, _impactVector, _damageAttributes):
 	health -= damage

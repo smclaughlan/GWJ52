@@ -17,8 +17,22 @@ func init(myPlayer):
 func _on_ActionButton_pressed(action : String):
 	if action in [ "melee", "range", "build", "flashlight" ] and player != null and is_instance_valid(player):
 		player.set_tool(action)
+	if action == "build":
+		$ExtraInstructionsPanel/ExtraInstructions.text = "Press < , > to change tower type."
+		$ExtraInstructionsPanel.show()
+	else:
+		$ExtraInstructionsPanel.hide()
+		
 #	elif action == "shop":
 #		$ShoppingPopupPanel.popup()
+
+func change_tower_instructions(towerType):
+	var towerTypes = Global.TowerTypes.keys()
+	var prevTower = towerTypes[(towerType-1) % towerTypes.size()]
+	var currentTower = towerTypes[towerType]
+	var nextTower = towerTypes[(towerType+1) % towerTypes.size()]
+	$ExtraInstructionsPanel/ExtraInstructions.text = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
+	
 	
 
 func update_sun(sun: int) -> void:
@@ -37,3 +51,6 @@ func _on_PauseButton_pressed():
 
 func _on_UpdateTimer_timeout():
 	update_health()
+
+func _on_tower_type_blueprint_changed(currentTowerType):
+	change_tower_instructions(currentTowerType)
