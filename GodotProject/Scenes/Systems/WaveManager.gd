@@ -77,7 +77,7 @@ func _on_creep_spawn(creep: Object) -> void:
 	spawn_amount -= 1
 
 
-func _on_creep_dies(creep: Object) -> void:
+func _on_creep_died(creep: Object) -> void:
 	if creep in creep_array:
 		creep_array.erase(creep)
 		if creep_array.empty():
