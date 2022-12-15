@@ -8,7 +8,7 @@ extends Area2D
 
 
 export var bullet_speed = 400.0
-export var bullet_damage = 20.0
+export var bullet_damage = 10.0
 export var bullet_range = 300.0
 
 
@@ -64,7 +64,7 @@ func explode():
 		if body.has_method("_on_hit") and body != Global.player:
 			if not is_connected("hit", body, "_on_hit"):
 				var _err = connect("hit", body, "_on_hit")
-			var impactVector = (body.global_position - global_position)*bullet_damage
+			var impactVector = (body.global_position - global_position)*(bullet_damage/5.0)
 			emit_signal("hit", bullet_damage, impactVector, damage_attributes)
 	bullet_speed = 0.0
 	
