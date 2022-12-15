@@ -9,14 +9,14 @@
 [ext_resource path="res://Scenes/GUI/Diablo_Style_Mana_Under.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/GUI/buttons/Melee_Hover.png" type="Texture" id=8]
 [ext_resource path="res://Scenes/GUI/buttons/Range_hover.png" type="Texture" id=9]
-[ext_resource path="res://Scenes/GUI/buttons/Light_Default.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/GUI/buttons/Range-Default.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/GUI/buttons/Melee_Default.png" type="Texture" id=11]
-[ext_resource path="res://Scenes/GUI/buttons/Light_click.png" type="Texture" id=12]
-[ext_resource path="res://Scenes/GUI/buttons/Range_click.png" type="Texture" id=13]
+[ext_resource path="res://Scenes/GUI/buttons/Range_Click.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/GUI/buttons/Light_Click.png" type="Texture" id=13]
 [ext_resource path="res://Scenes/GUI/buttons/Light_hover.png" type="Texture" id=14]
-[ext_resource path="res://Scenes/GUI/buttons/Range_Default.png" type="Texture" id=15]
+[ext_resource path="res://Scenes/GUI/buttons/Light_default.png" type="Texture" id=15]
 [ext_resource path="res://Scenes/GUI/buttons/Melee_Click.png" type="Texture" id=16]
-[ext_resource path="res://Scenes/GUI/buttons/Build_Click.png" type="Texture" id=17]
+[ext_resource path="res://Scenes/GUI/buttons/Build_click.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/GUI/buttons/Build_hover.png" type="Texture" id=18]
 [ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=19]
 
@@ -74,11 +74,11 @@ custom_constants/margin_bottom = -30
 margin_left = -30.0
 margin_top = 5.0
 margin_right = 1054.0
-margin_bottom = 133.0
+margin_bottom = 151.0
 
 [node name="Mana" type="TextureProgress" parent="Footer/HBoxContainer"]
 margin_right = 128.0
-margin_bottom = 128.0
+margin_bottom = 146.0
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
@@ -95,9 +95,9 @@ margin_bottom = 69.0
 text = "0"
 
 [node name="GridContainer" type="GridContainer" parent="Footer/HBoxContainer"]
-margin_left = 392.0
-margin_right = 691.0
-margin_bottom = 82.0
+margin_left = 335.0
+margin_right = 749.0
+margin_bottom = 146.0
 size_flags_horizontal = 6
 size_flags_vertical = 0
 custom_constants/hseparation = 10
@@ -105,20 +105,21 @@ columns = 10
 
 [node name="Melee" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
 margin_right = 64.0
-margin_bottom = 82.0
+margin_bottom = 146.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Footer/HBoxContainer/GridContainer/Melee"]
+margin_top = 32.0
 margin_right = 64.0
-margin_bottom = 14.0
+margin_bottom = 46.0
 size_flags_horizontal = 3
 text = "1. Melee"
 align = 1
 
 [node name="ActionButton" type="TextureButton" parent="Footer/HBoxContainer/GridContainer/Melee"]
-margin_top = 18.0
+margin_top = 50.0
 margin_right = 64.0
-margin_bottom = 82.0
+margin_bottom = 114.0
 shortcut = SubResource( 2 )
 texture_normal = ExtResource( 11 )
 texture_pressed = ExtResource( 16 )
@@ -126,12 +127,12 @@ texture_hover = ExtResource( 8 )
 
 [node name="Range" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
 margin_left = 74.0
-margin_right = 138.0
-margin_bottom = 82.0
+margin_right = 202.0
+margin_bottom = 146.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Footer/HBoxContainer/GridContainer/Range"]
-margin_right = 64.0
+margin_right = 128.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "2. Range"
@@ -139,43 +140,44 @@ align = 1
 
 [node name="ActionButton" type="TextureButton" parent="Footer/HBoxContainer/GridContainer/Range"]
 margin_top = 18.0
-margin_right = 64.0
-margin_bottom = 82.0
+margin_right = 128.0
+margin_bottom = 146.0
 shortcut = SubResource( 4 )
-texture_normal = ExtResource( 15 )
-texture_pressed = ExtResource( 13 )
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 12 )
 texture_hover = ExtResource( 9 )
 
 [node name="Build" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
-margin_left = 148.0
-margin_right = 212.0
-margin_bottom = 82.0
+margin_left = 212.0
+margin_right = 276.0
+margin_bottom = 146.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Footer/HBoxContainer/GridContainer/Build"]
+margin_top = 32.0
 margin_right = 64.0
-margin_bottom = 14.0
+margin_bottom = 46.0
 size_flags_horizontal = 3
 text = "3. Build"
 align = 1
 
 [node name="ActionButton" type="TextureButton" parent="Footer/HBoxContainer/GridContainer/Build"]
-margin_top = 18.0
+margin_top = 50.0
 margin_right = 64.0
-margin_bottom = 82.0
+margin_bottom = 114.0
 shortcut = SubResource( 6 )
 texture_normal = ExtResource( 1 )
 texture_pressed = ExtResource( 17 )
 texture_hover = ExtResource( 18 )
 
 [node name="Flashlight" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
-margin_left = 222.0
-margin_right = 299.0
-margin_bottom = 82.0
+margin_left = 286.0
+margin_right = 414.0
+margin_bottom = 146.0
 alignment = 1
 
 [node name="Label" type="Label" parent="Footer/HBoxContainer/GridContainer/Flashlight"]
-margin_right = 77.0
+margin_right = 128.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 text = "4. Flashlight"
@@ -183,17 +185,17 @@ align = 1
 
 [node name="ActionButton" type="TextureButton" parent="Footer/HBoxContainer/GridContainer/Flashlight"]
 margin_top = 18.0
-margin_right = 77.0
-margin_bottom = 82.0
+margin_right = 128.0
+margin_bottom = 146.0
 shortcut = SubResource( 8 )
-texture_normal = ExtResource( 10 )
-texture_pressed = ExtResource( 12 )
+texture_normal = ExtResource( 15 )
+texture_pressed = ExtResource( 13 )
 texture_hover = ExtResource( 14 )
 
 [node name="Health" type="TextureProgress" parent="Footer/HBoxContainer"]
 margin_left = 956.0
 margin_right = 1084.0
-margin_bottom = 128.0
+margin_bottom = 146.0
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
