@@ -7,7 +7,7 @@
 [ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Enemies/BloodStain.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Enemies/strife_walk_eyes_only.png" type="Texture" id=7]
-[ext_resource path="res://Scenes/Enemies/NavVisLine.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Enemies/NavVisLine.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Enemies/strife_death.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Enemies/strife_attack.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Enemies/strife_walk.png" type="Texture" id=11]
@@ -286,10 +286,7 @@ radius = 100.0
 neighbor_dist = 300.0
 max_speed = 2.0
 
-[node name="NavVisLine" type="Line2D" parent="."]
-width = 2.0
-default_color = Color( 0.815686, 0.192157, 0.92549, 0.752941 )
-script = ExtResource( 8 )
+[node name="NavVisLine" parent="." instance=ExtResource( 8 )]
 
 [node name="TargetLabel" type="Label" parent="."]
 margin_right = 40.0

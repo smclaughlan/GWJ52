@@ -57,7 +57,7 @@ func explode():
 	$explosion.visible = true
 	$explosion.play("explode")
 	$BoomNoise.play()
-	var incinerate_timer = get_tree().create_timer(0.1)
+	var incinerate_timer = get_tree().create_timer(0.05)
 	yield(incinerate_timer, "timeout") # give the collision shape a chance to appear
 	for body in self.get_overlapping_bodies():
 

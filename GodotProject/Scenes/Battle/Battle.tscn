@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Battle/CreepSpawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Battle/SpawnerSpawner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Region/Village.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Resources/Currency.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
@@ -41,15 +41,6 @@ tile_data = PoolIntArray( -2555971, 0, 0, -2555970, 0, 0, -2555969, 0, 0, -25559
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 6, 6 )
-
-[node name="CreepSpawner" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1585, -545 )
-
-[node name="CreepSpawner2" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1473, 837 )
-
-[node name="CreepSpawner3" parent="." instance=ExtResource( 3 )]
-position = Vector2( 1392, -300 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
 navpoly = SubResource( 4 )
@@ -138,3 +129,19 @@ margin_top = -2481.0
 margin_right = 4326.0
 margin_bottom = 2665.0
 mouse_filter = 2
+
+[node name="SafeZone" type="ReferenceRect" parent="."]
+margin_left = -2095.0
+margin_top = -1288.0
+margin_right = 6421.0
+margin_bottom = 3858.0
+rect_scale = Vector2( 0.494656, 0.568948 )
+mouse_filter = 2
+
+[node name="SpawnerSpawner" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( -4048, -2325 )
+
+[node name="SpawnerSpawner2" parent="." instance=ExtResource( 3 )]
+visible = false
+position = Vector2( 3319, 2569 )

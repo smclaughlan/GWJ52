@@ -56,7 +56,7 @@ func _ready():
 		
 	$Sprite/AnimatedSprite.animation = "golem"
 	$DeathNotice.hide()
-	
+	$ThreatIndicator.hide()
 	State = States.READY
 
 
@@ -203,3 +203,12 @@ func _on_golem_entered():
 
 func _on_DelayInitTimer_timeout():
 	set_tool("build", "left")
+
+func _on_creep_wave_started(location):
+	$ThreatIndicator.show()
+	$ThreatIndicator.look_at(location)
+	$ThreatIndicator/ThreatIndicatorTimer.start()
+	
+
+func _on_ThreatIndicatorTimer_timeout():
+	$ThreatIndicator.hide()

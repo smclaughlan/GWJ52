@@ -12,6 +12,8 @@ var is_placing_tower : bool = false
 var tower_buildmode_visual = null
 var tower_to_deconstruct = null
 
+var num_towers_placed : int = 0
+
 const TowerTypes = Global.TowerTypes
 var tower_type = TowerTypes.BEAM
 
@@ -30,12 +32,13 @@ enum States { INITIALIZING, STORED, ACTIVE, BUILDING, PAUSED }
 var State = States.INITIALIZING
 
 signal tower_built
+signal tutorial_ended
 
 func _ready():
 	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
 	yield(delay_let_ancestors_initialize_first, "timeout")
 	var _err = connect("tower_built", Global.currency_tracker, "update_amount")
-
+	_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
 
 func init(myPlayer):
 	player = myPlayer
@@ -89,6 +92,11 @@ func spawn_tower(towerType):
 		new_tower.init(towerType)
 		Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
 		
+		num_towers_placed += 1
+		
+		if num_towers_placed == 3:
+			emit_signal("tutorial_ended")
+
 		#build_tilemap_walls_under_tower(new_tower)
 		#causes too much slowdown
 		
