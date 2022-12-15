@@ -88,9 +88,12 @@ func spawn_tower(towerType):
 		Global.current_map.add_child(new_tower)
 		new_tower.init(towerType)
 		Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
-		build_tilemap_walls_under_tower(new_tower)
+		
+		#build_tilemap_walls_under_tower(new_tower)
+		#causes too much slowdown
 		
 func build_tilemap_walls_under_tower(new_tower):
+	assert(false) # deprecated function, don't use it.
 	# This might be causing slowdowns. We may need to remove it.
 
 	var tilemap = Global.current_map.get_node("tilemap")
