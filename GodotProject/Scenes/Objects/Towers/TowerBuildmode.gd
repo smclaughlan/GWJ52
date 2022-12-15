@@ -46,6 +46,8 @@ func safe_placement_location():
 		safe_placement_location = false
 	if exceeds_maximum_distance():
 		safe_placement_location = false
+	if outside_map_extents():
+		safe_placement_location = false
 
 	return safe_placement_location
 
@@ -74,7 +76,18 @@ func exceeds_maximum_distance():
 		return true
 	else:
 		return false
-		
+
+func outside_map_extents():
+	# hard code this for now, but a dynamic solution is preferable.
+	if ( 
+			global_position.x < 4358
+			and global_position.x > -4211
+			and global_position.y < 2680
+			and global_position.y > -2497
+	):
+		return false
+	else:
+		return true
 
 func _physics_process(_delta):
 	if self != null and is_instance_valid(self):
