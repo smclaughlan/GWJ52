@@ -35,3 +35,16 @@ func _on_upgrade_selected(_upgradeType):
 	Global.resume()
 	hide()
 	
+
+
+func _on_TowerUpgradePopupDialog_about_to_show():
+	var disabled_button_count = 0
+	for button in $MarginContainer/VBoxContainer/TowerUpgrades.get_children():
+		if tower_base.turret.upgrades[button.upgrade_type] == true:
+			button.disable_upgrade_button()
+			disabled_button_count += 1
+	if disabled_button_count == 3:
+		$MarginContainer/VBoxContainer/TowerUpdatesLabel.hide()
+		$MarginContainer/VBoxContainer/TowerUpgrades.hide()
+	
+	
