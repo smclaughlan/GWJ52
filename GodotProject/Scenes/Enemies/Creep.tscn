@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://Scenes/GUI/FloatText.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemies/Creep.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Enemies/BloodStain.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Enemies/strife_walk_eyes_only.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Enemies/NavVisLine.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Enemies/strife_death.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Enemies/strife_attack.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Enemies/strife_walk.png" type="Texture" id=11]
@@ -257,7 +258,7 @@ wait_time = 0.2
 one_shot = true
 
 [node name="PathfindTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.5
 autostart = true
 
 [node name="corpse" type="Sprite" parent="."]
@@ -281,7 +282,14 @@ anims/RESET = SubResource( 5 )
 anims/die = SubResource( 6 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
 radius = 100.0
+neighbor_dist = 300.0
+
+[node name="NavVisLine" type="Line2D" parent="."]
+width = 2.0
+default_color = Color( 0.815686, 0.192157, 0.92549, 0.752941 )
+script = ExtResource( 8 )
 
 [node name="TargetLabel" type="Label" parent="."]
 margin_right = 40.0
