@@ -87,7 +87,7 @@ func spawn_tower(towerType):
 		$BuildNoise.play()
 		Global.current_map.add_child(new_tower)
 		new_tower.init(towerType)
-
+		Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
 
 func set_towerbuildmode(enabled:bool):
 	is_placing_tower = enabled
