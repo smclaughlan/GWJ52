@@ -18,6 +18,8 @@ signal creep_spawned(creep, location)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# connect to WaveManager
+	connect("creep_spawned", Global.wave_manager, "_on_creep_spawn")
 	# make the spawn timers have a bit of variation, so player doesn't get 3 waves simultaneously
 	$WaveTimer.set_wait_time($WaveTimer.get_wait_time() * rand_range(0.8, 1.2))
 	$WaveTimer.start()
