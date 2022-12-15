@@ -72,6 +72,7 @@ scale = Vector2( 30, 30 )
 shape = SubResource( 1 )
 
 [node name="ShootTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [node name="InvisibleTurret" type="Sprite" parent="."]
 position = Vector2( -2, -140 )
