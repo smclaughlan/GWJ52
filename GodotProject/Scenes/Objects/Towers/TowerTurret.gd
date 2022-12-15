@@ -20,6 +20,8 @@ var target = null
 enum target_tracking_methods { AIM_AT, AIM_AHEAD, AIM_RANDOM }
 export var target_tracking_method = target_tracking_methods.AIM_AHEAD
 
+var shine_playing : bool = false
+
 # it's the base that should get attacked, not the turret
 #var health = 100
 #var max_health = 100
@@ -43,7 +45,11 @@ func _ready():
 		projectile_speed = referenceBullet.bullet_speed
 
 		referenceBullet.queue_free()
-
+	for gem in $Upgrades.get_children():
+		gem.hide()
+	if has_node("Sprite/Crystal/Shine"):
+		$Sprite/Crystal/Shine.hide()
+	
 
 func _process(delta):
 	update() # invokes the draw function to draw a circle
@@ -76,6 +82,7 @@ func update_spritesheet_for_upgrades():
 	$Sprite.frame = min(2, num_upgrades)
 	
 	$Sprite/Crystal.position.y = -10 * $Sprite.frame
+	$InvisibleTurret.global_position = $Sprite/Crystal.global_position
 
 
 func deprecated_rotate_8_way_spritesheet():
@@ -97,11 +104,14 @@ func upgrade(upgradeType): # [bigger, faster, stronger]
 		tower_base.max_health = 3 * tower_base.max_health
 		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
+		$Upgrades/Gem0.show()
 	elif upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
 		$ShootTimer.set_wait_time( turret_reload_delay )
+		$Upgrades/Gem1.show()
 	elif upgradeType == Global.UpgradeTypes.STRONGER:
 		current_bullet_scene = bullet_scene_2
+		$Upgrades/Gem2.show()
 	upgrades[upgradeType] = true
 	update_spritesheet_for_upgrades()
 
@@ -113,8 +123,20 @@ func shoot():
 		current_bullet_scene = bullet_scene_1
 	var new_projectile = current_bullet_scene.instance()
 	Global.stage_manager.current_map.add_child(new_projectile)
-	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
+	var muzzle_location = $InvisibleTurret/MuzzleLocation
+	new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
+	
+	shine_crystal()
 
+	
+func shine_crystal():
+	if has_node("Sprite/Crystal/Shine"):
+		var shine = get_node("Sprite/Crystal/Shine")
+		if shine_playing == false:
+			shine.frame = 0
+			$Sprite/Crystal/Shine.show()
+			shine.play("shine")
+			shine_playing = true
 
 func init(towerType : int, towerBase : StaticBody2D):
 	tower_type = towerType
@@ -167,3 +189,9 @@ func _on_base_destroyed():
 func _draw():
 	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.05))
 	
+
+
+func _on_Shine_animation_finished():
+	shine_playing = false
+	if has_node("Sprite/Crystal/Shine"):
+		$Sprite/Crystal/Shine.hide()

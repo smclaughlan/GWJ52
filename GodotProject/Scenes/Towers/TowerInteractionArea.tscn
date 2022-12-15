@@ -32,6 +32,8 @@ text = "[F to upgrade]"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerUpgradePopupDialog" parent="CanvasLayer" instance=ExtResource( 2 )]
+visible = true
 
 [connection signal="body_entered" from="." to="." method="_on_InteractArea_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_InteractArea_body_exited"]
+[connection signal="popup_hide" from="CanvasLayer/TowerUpgradePopupDialog" to="." method="_on_TowerUpgradePopupDialog_popup_hide"]

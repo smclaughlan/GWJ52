@@ -1,14 +1,55 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scenes/Objects/Towers/crystal_beam.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Towers/tower_beam.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Objects/Towers/crystal_beam_shine.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Objects/Projectiles/BEAMProjectile1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Objects/Projectiles/BEAMProjectile2.tscn" type="PackedScene" id=8]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 6 )
+region = Rect2( 18, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 6 )
+region = Rect2( 36, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 54, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 72, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 90, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 108, 0, 18, 21 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 126, 0, 18, 21 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": false,
+"name": "shine",
+"speed": 30.0
+} ]
 
 [node name="BEAMTurret" type="Node2D"]
 script = ExtResource( 2 )
@@ -32,7 +73,7 @@ texture = ExtResource( 3 )
 offset = Vector2( 142.085, 22.1163 )
 
 [node name="MuzzleLocation" type="Position2D" parent="InvisibleTurret"]
-position = Vector2( 134.624, 20.6741 )
+position = Vector2( 40.6348, 2.61032 )
 
 [node name="Line2D" type="Line2D" parent="InvisibleTurret"]
 visible = false
@@ -56,12 +97,41 @@ texture = ExtResource( 5 )
 hframes = 3
 
 [node name="Crystal" type="Sprite" parent="Sprite"]
-position = Vector2( 0, -10 )
+position = Vector2( 0.333333, -0.666666 )
+texture = ExtResource( 1 )
+offset = Vector2( -0.333333, -9.33333 )
+hframes = 2
+
+[node name="Shine" type="AnimatedSprite" parent="Sprite/Crystal"]
+position = Vector2( 1.16667, 0.666666 )
+frames = SubResource( 10 )
+animation = "shine"
+offset = Vector2( 0, -10 )
+
+[node name="Upgrades" type="Node2D" parent="."]
+
+[node name="Gem0" type="Sprite" parent="Upgrades"]
+visible = false
+position = Vector2( 0, 11 )
+scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
 hframes = 2
 
-[node name="Upgrades" type="Node2D" parent="."]
+[node name="Gem1" type="Sprite" parent="Upgrades"]
+visible = false
+position = Vector2( -1, -49 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Gem2" type="Sprite" parent="Upgrades"]
+visible = false
+position = Vector2( -1, -105 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+hframes = 2
 
 [connection signal="body_entered" from="EnemyDetectionArea" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="EnemyDetectionArea" to="." method="_on_Area2D_body_exited"]
 [connection signal="timeout" from="ShootTimer" to="." method="_on_ShootTimer_timeout"]
+[connection signal="animation_finished" from="Sprite/Crystal/Shine" to="." method="_on_Shine_animation_finished"]
