@@ -6,6 +6,7 @@ var player_speed : float = 400.0
 var dash_multiple : float = 8.0
 
 onready var weapons = $Weapons.get_children()
+onready var hud = $HUD
 
 export var health : int = 100
 export var max_health : int = 100
