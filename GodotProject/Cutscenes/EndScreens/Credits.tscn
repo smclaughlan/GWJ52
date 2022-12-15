@@ -62,7 +62,7 @@ align = 1
 margin_top = 108.0
 margin_right = 150.0
 margin_bottom = 122.0
-text = "Mikuls Lucky"
+text = "MikulsLucky"
 align = 1
 
 [node name="Contributor8" type="Label" parent="CenterContainer/VBoxContainer"]

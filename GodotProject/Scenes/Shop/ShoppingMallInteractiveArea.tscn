@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Region/Welcome.wav" type="AudioStream" id=1]
+[ext_resource path="res://Scenes/GUI/ShoppingPopupPanel.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/GUI/ShoppingPopupPanel.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 148.5, 147 )
+
+[node name="ShoppingMall" type="Node2D"]
+visible = false
+
+[node name="InteractArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
+position = Vector2( -0.5, 99 )
+shape = SubResource( 1 )
+
+[node name="InteractLabel" type="Label" parent="InteractArea"]
+visible = false
+margin_left = -88.0
+margin_top = 111.0
+margin_right = -48.0
+margin_bottom = 125.0
+rect_scale = Vector2( 2.68653, 2.68653 )
+text = "[F]"
+
+[node name="Fullscreen" type="CanvasLayer" parent="InteractArea"]
+
+[node name="ShoppingPopupPanel" type="PopupPanel" parent="InteractArea/Fullscreen" instance=ExtResource( 3 )]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+script = ExtResource( 2 )
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="InteractArea"]
+stream = ExtResource( 1 )
+
+[connection signal="popup_hide" from="InteractArea/Fullscreen/ShoppingPopupPanel" to="InteractArea/Fullscreen/ShoppingPopupPanel" method="_on_ShoppingPopupPanel_popup_hide"]
