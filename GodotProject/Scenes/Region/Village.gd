@@ -13,5 +13,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.village = self
 	Global.village_location = self.get_global_position()
 
+func get_random_golem(): # creeps need to know who to attack.
+	# This isn't needed. Creeps already get a list of "houses" aka golems from the group called "village"
+	var golems = $Golemms.get_children()
+	var randGolem = golems[randi()%golems.get_child_count()]
+	return randGolem

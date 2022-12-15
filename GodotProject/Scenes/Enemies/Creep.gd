@@ -36,18 +36,20 @@ func _ready():
 	if Global.pickable_object_spawner != null:
 		var _err = connect("died", Global.pickable_object_spawner, "spawn_pickable")
 	$corpse.hide()
+	set_attack_target(choose_target())
 
 
 func init(initialPos, navTarget):
 	set_global_position(initialPos)
 	nav_target = navTarget
-	set_attack_target(Global.player)
+	#set_attack_target(Global.player)
+	
 	State = States.MOVING
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if State == States.MOVING:
+	if State in [ States.MOVING, States.READY ]:
 		move(delta)
 
 
@@ -58,7 +60,7 @@ func set_attack_target(target):
 			weapon.set_target(target)
 
 
-func choose_target_location():
+func choose_target():
 	var target : Object
 	var targetLocation : Vector2
 	
@@ -68,23 +70,46 @@ func choose_target_location():
 		target = get_nearest_target()
 		targetLocation = target.global_position
 	else:
+		target = Global.player
 		targetLocation = Global.player.global_position
 		
 	nav_agent.set_target_location(targetLocation)
+	return target
+
 
 
 func get_nearest_target():
 	var potentialTargets = []
-	potentialTargets.append_array(get_tree().get_nodes_in_group("village"))
-	potentialTargets.append_array(get_tree().get_nodes_in_group("towers"))
+	var houses = get_tree().get_nodes_in_group("village")
+	for house in houses:
+		if house.State in [ house.States.READY ]:
+			potentialTargets.append(house)
+
+	var towers = get_tree().get_nodes_in_group("towers")
+	for tower in towers:
+		if randf() < 0.2: # mostly creeps should march past towers.
+			potentialTargets.append(tower)
+		
 	potentialTargets.append(Global.player)
 	
 	return Global.get_closest_object(potentialTargets, self)
 
 
+func select_animation(anim_name):
+	var animSprite = $Sprite/AnimatedSprite
+	if animSprite.get_animation() != anim_name:
+		animSprite.play(anim_name)
+	if anim_name == "walk":
+		$Sprite/AnimatedSprite/eyes.play("walk")
+		$Sprite/AnimatedSprite/eyes.frame = $Sprite/AnimatedSprite.frame
+	else:
+		$Sprite/AnimatedSprite/eyes.visible = false
 
 
 func move(delta):
+	
+	#select_animation("walk")
+	
 	if nav_agent.is_navigation_finished():
 		velocity = Vector2.ZERO
 		return
@@ -100,7 +125,13 @@ func move(delta):
 	var steering = (desired_velocity - velocity) * delta * 4.0
 	velocity += steering
 	var new_angle = velocity.angle()
-	sprite.rotation = new_angle
+	#sprite.rotation = new_angle
+	if velocity.x > 0:
+		$Sprite.scale.x = 1
+	else:
+		$Sprite.scale.x = -1
+		
+	
 	weapons.rotation = new_angle
 	var _collision = move_and_collide(velocity)
 
@@ -163,7 +194,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 	knockback(impactVector)
 
 	health -= damage
-	if health < 0 and State != States.DEAD:
+	if health <= 0 and State != States.DEAD:
 		begin_dying()
 	else:
 		State = States.INVULNERABLE
@@ -187,6 +218,19 @@ func _on_DecayTimer_timeout():
 
 func _on_PathfindTimer_timeout():
 	if State != States.DEAD:
-		choose_target_location()
+		choose_target()
 	else:
 		$PathfindTimer.stop()
+
+func _on_used_melee_attack(_damage, _impactVector, _damage_attributes):
+	if health > 0 and State != States.DEAD:
+		State = States.ATTACKING
+		select_animation("attack")
+#		$Sprite/AnimatedSprite.play("attack")
+#		$Sprite/AnimatedSprite/eyes.visible = false
+	
+func _on_stopped_attacking():
+	if health > 0 and State != States.DEAD:
+		State = States.MOVING
+		select_animation("walk")
+

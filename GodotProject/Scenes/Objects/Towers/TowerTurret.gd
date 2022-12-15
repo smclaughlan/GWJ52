@@ -9,21 +9,29 @@ export var bullet_scene_2 : PackedScene
 
 var current_bullet_scene = bullet_scene_1
 
-#var turret_type = "beam"
+var tower_base : StaticBody2D
+
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
 export var turret_reload_delay = 0.75
 var projectile_speed : float # declared in bullet scene
 var target = null
 
-var health = 100
-var max_health = 100
+enum target_tracking_methods { AIM_AT, AIM_AHEAD, AIM_RANDOM }
+export var target_tracking_method = target_tracking_methods.AIM_AHEAD
+
+# it's the base that should get attacked, not the turret
+#var health = 100
+#var max_health = 100
+
+
 
 var upgrades = {
 	Global.UpgradeTypes.BIGGER:false, # health and range
 	Global.UpgradeTypes.FASTER:false, # shoot timer speed
 	Global.UpgradeTypes.STRONGER:false, # bullet_scene ( damage, fx )
 }
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,19 +46,23 @@ func _ready():
 
 
 func _process(delta):
-	update()
-	if !target or !is_instance_valid(target):
-		return
-	
-	var distance = global_position.distance_to(target.global_position)
-	
-	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
-		if target.get("velocity"): # verify that they are mobile
-			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
-			point_toward(target.global_position + aim_lead_vector)
-		else:
-			point_toward(target.global_position)
+	update() # invokes the draw function to draw a circle
+	if target != null and is_instance_valid(target):
 
+		aim(target, delta)
+
+
+
+func aim(myTarget, delta):
+	var distance = global_position.distance_to(target.global_position)
+	if distance < 600.0: # hax, to prevent them looking at the origin of the universe sometimes
+		if myTarget.get("velocity") and target_tracking_method == target_tracking_methods.AIM_AHEAD: # verify that they are mobile
+			var aim_lead_vector = target.velocity * (distance/projectile_speed) / delta
+			point_toward(myTarget.global_position + aim_lead_vector)
+		else:
+			point_toward(myTarget.global_position)
+
+	
 
 func point_toward(targetPos):
 	$InvisibleTurret.look_at(targetPos)
@@ -71,8 +83,8 @@ func update_spritesheet():
 
 func upgrade(upgradeType): # [bigger, faster, stronger]
 	if upgradeType == Global.UpgradeTypes.BIGGER:
-		max_health = 3 * max_health
-		health = max_health
+		tower_base.max_health = 3 * tower_base.max_health
+		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
 	elif upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
@@ -91,10 +103,10 @@ func shoot():
 	new_projectile.init(global_position, $InvisibleTurret.global_rotation)
 
 
-func init(towerType : int):
+func init(towerType : int, towerBase : StaticBody2D):
 	tower_type = towerType
 	update_turret_range(turret_range)
-
+	tower_base = towerBase
 
 
 func update_turret_range(_turret_range):

@@ -49,3 +49,8 @@ func _on_Bullet_body_entered(body):
 		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
 		die()
 		
+
+
+func _on_Timer_timeout():
+	if is_instance_valid(self):
+		call_deferred("queue_free")

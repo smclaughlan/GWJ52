@@ -1,0 +1,147 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=1]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/queen_ghost_bust.png" type="Texture" id=2]
+[ext_resource path="res://Cutscenes/Animatics/animatic_slide.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 0.501961 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.376471, 0.862745, 0.937255, 1 )
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 16.0
+expand_margin_right = 16.0
+expand_margin_top = 8.0
+expand_margin_bottom = 8.0
+shadow_size = 2
+shadow_offset = Vector2( 2, 2 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../SpaceToContinue:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "RevealText"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("TextToReveal:percent_visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.3, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../SpaceToContinue:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="AnimaticSlide" type="TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+script = ExtResource( 4 )
+text_to_reveal = "It wasn't always this way. I was a great queen once, of a thriving underground empire."
+
+[node name="TextPanel" type="PanelContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -191.0
+margin_top = -174.0
+margin_right = 209.0
+margin_bottom = -74.0
+rect_min_size = Vector2( 400, 100 )
+rect_pivot_offset = Vector2( 247, 56 )
+mouse_filter = 2
+custom_styles/panel = SubResource( 1 )
+
+[node name="TextToReveal" type="Label" parent="TextPanel"]
+margin_left = 2.0
+margin_top = 12.0
+margin_right = 398.0
+margin_bottom = 87.0
+rect_min_size = Vector2( 300, 75 )
+autowrap = true
+percent_visible = 0.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../TextPanel")
+anims/RESET = SubResource( 4 )
+anims/RevealText = SubResource( 3 )
+
+[node name="SpaceToContinue" type="PanelContainer" parent="."]
+visible = false
+margin_left = 437.0
+margin_top = 541.0
+margin_right = 600.0
+margin_bottom = 571.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="SpaceToContinue"]
+margin_left = 16.0
+margin_top = 8.0
+margin_right = 147.0
+margin_bottom = 22.0
+text = "[ Space to Continue ]"
