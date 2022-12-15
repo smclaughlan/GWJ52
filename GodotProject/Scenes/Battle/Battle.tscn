@@ -35,6 +35,7 @@ glow_enabled = true
 script = ExtResource( 7 )
 
 [node name="tilemap" parent="." instance=ExtResource( 8 )]
+z_index = -1000
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 6, 6 )
