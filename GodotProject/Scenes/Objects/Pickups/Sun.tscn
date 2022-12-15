@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Objects/Pickups/PickableObject.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Objects/Pickups/sun_icon.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Objects/Pickups/ichor_drops.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Objects/Pickups/Sun.gd" type="Script" id=3]
 
 [node name="Sun" instance=ExtResource( 1 )]

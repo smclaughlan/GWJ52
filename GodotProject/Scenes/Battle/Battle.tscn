@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
@@ -7,26 +7,7 @@
 [ext_resource path="res://Scenes/Resources/Currency.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=7]
-
-[sub_resource type="CanvasItemMaterial" id=3]
-light_mode = 2
-
-[sub_resource type="OpenSimplexNoise" id=1]
-lacunarity = 1.46
-
-[sub_resource type="NoiseTexture" id=2]
-width = 1024
-height = 600
-seamless = true
-as_normalmap = true
-noise = SubResource( 1 )
-
-[sub_resource type="OpenSimplexNoise" id=8]
-
-[sub_resource type="NoiseTexture" id=9]
-width = 1024
-height = 640
-noise = SubResource( 8 )
+[ext_resource path="res://Scenes/Battle/Tileset.tscn" type="PackedScene" id=8]
 
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 2112 )
@@ -36,8 +17,14 @@ outlines = [ PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 211
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 3875.25, 66 )
 
+[sub_resource type="OccluderPolygon2D" id=8]
+polygon = PoolVector2Array( -3884, -125, 3933, -118, 3958, 115, -3896, 96 )
+
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 85, 2173 )
+
+[sub_resource type="OccluderPolygon2D" id=9]
+polygon = PoolVector2Array( 3685, -2109, 3855, -2109, 3874, 2319, 3697, 2306 )
 
 [sub_resource type="Environment" id=7]
 background_energy = 0.1
@@ -47,23 +34,8 @@ glow_enabled = true
 [node name="Battle" type="Node2D"]
 script = ExtResource( 7 )
 
-[node name="FloorTexture" type="Sprite" parent="."]
-self_modulate = Color( 0.262745, 0.403922, 0.27451, 1 )
-material = SubResource( 3 )
-position = Vector2( -3782, -2141 )
-scale = Vector2( 7.49029, 7.56907 )
-z_index = -100
-texture = SubResource( 2 )
-centered = false
-
-[node name="FloorTexture2" type="Sprite" parent="."]
-visible = false
-self_modulate = Color( 0.262745, 0.403922, 0.27451, 1 )
-position = Vector2( -3796, -2280 )
-scale = Vector2( 7.49029, 7.56907 )
-z_index = -100
-texture = SubResource( 9 )
-centered = false
+[node name="tilemap" parent="." instance=ExtResource( 8 )]
+z_index = -1000
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 6, 6 )
@@ -90,7 +62,8 @@ position = Vector2( -80, 293 )
 position = Vector2( -738, -363 )
 
 [node name="Wall1" type="StaticBody2D" parent="InvisibleWalls"]
-position = Vector2( 587, -1605 )
+position = Vector2( 601, -2090 )
+scale = Vector2( 1.14355, 1 )
 collision_layer = 4
 collision_mask = 11
 
@@ -98,8 +71,13 @@ collision_mask = 11
 position = Vector2( 216.75, -111 )
 shape = SubResource( 5 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="InvisibleWalls/Wall1"]
+position = Vector2( 164.4, -206 )
+occluder = SubResource( 8 )
+
 [node name="Wall2" type="StaticBody2D" parent="InvisibleWalls"]
-position = Vector2( 755, 2577 )
+position = Vector2( 750, 3102 )
+scale = Vector2( 1.14758, 0.989146 )
 collision_layer = 4
 collision_mask = 11
 
@@ -107,8 +85,13 @@ collision_mask = 11
 position = Vector2( -31, 15 )
 shape = SubResource( 5 )
 
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="InvisibleWalls/Wall2"]
+position = Vector2( -20.0421, 128.394 )
+occluder = SubResource( 8 )
+
 [node name="Wall3" type="StaticBody2D" parent="InvisibleWalls"]
-position = Vector2( -3045, 357 )
+position = Vector2( -3527, 363 )
+scale = Vector2( 1.31469, 1.2942 )
 collision_layer = 4
 collision_mask = 11
 
@@ -116,14 +99,23 @@ collision_mask = 11
 position = Vector2( -51, -11 )
 shape = SubResource( 6 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="InvisibleWalls/Wall3"]
+position = Vector2( -3879, -22 )
+occluder = SubResource( 9 )
+
 [node name="Wall4" type="StaticBody2D" parent="InvisibleWalls"]
-position = Vector2( 4699, 369 )
+position = Vector2( 5214, 364 )
+scale = Vector2( 1, 1.25272 )
 collision_layer = 4
 collision_mask = 11
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InvisibleWalls/Wall4"]
 position = Vector2( -27, 63 )
 shape = SubResource( 6 )
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="InvisibleWalls/Wall4"]
+position = Vector2( -3752, -75.835 )
+occluder = SubResource( 9 )
 
 [node name="NavManager" type="Node" parent="."]
 script = ExtResource( 1 )

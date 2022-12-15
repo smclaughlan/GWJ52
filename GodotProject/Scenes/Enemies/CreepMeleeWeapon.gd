@@ -1,5 +1,7 @@
 extends Area2D
 
+var myCreep
+
 enum States { INITIALIZING, READY, ATTACKING, COCKING, RELOADING, DISABLED }
 var State = States.INITIALIZING
 
@@ -13,23 +15,29 @@ var attacks_this_set : int = 0
 var current_target
 
 signal hit(damage, impactVector, damageAttributes)
+signal stopped_attacking()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	myCreep = get_parent().get_parent()
+	var _err = connect("hit", myCreep, "_on_used_melee_attack")
+	_err = connect("stopped_attacking", myCreep,"_on_stopped_attacking")
 	State = States.READY
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if current_target != null:
-		look_at(current_target.get_global_position())
+		if is_instance_valid(current_target):
+			look_at(current_target.get_global_position())
 	$DebugInfo.set_global_rotation(0)
 	$DebugInfo/StateLabel.text = States.keys()[State]
 
 func bite(targetObj):
 	if State == States.ATTACKING:
 		if get_overlapping_bodies().has(targetObj):
-			$AnimationPlayer.play("bite")
+			
+			#$AnimationPlayer.play("bite") # use signal to myCreep instead.
 			$NomNomNoise.play()
 			var impactVector = targetObj.global_position - global_position * knockback_factor
 			emit_signal("hit", damage, impactVector, damage_attributes)
@@ -51,6 +59,7 @@ func disable():
 	
 
 func _on_CreepMeleeWeapon_body_entered(body):
+
 	if body == current_target and State == States.READY:
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
@@ -64,6 +73,7 @@ func _on_CreepMeleeWeapon_body_exited(body):
 			$CockTimer.stop()
 			$ReloadTimer.stop()
 			State = States.READY
+			emit_signal("stopped_attacking")
 
 
 func set_target(target):
@@ -81,6 +91,7 @@ func _on_CockTimer_timeout():
 			bite(current_target)
 		else:
 			State = States.READY
+			emit_signal("stopped_attacking")
 
 
 
@@ -90,6 +101,8 @@ func _on_ReloadTimer_timeout(): # ready to fight again
 		State = States.COCKING
 		$CockTimer.start()
 	else:
+		
 		State = States.READY
+		emit_signal("stopped_attacking")
 
 	

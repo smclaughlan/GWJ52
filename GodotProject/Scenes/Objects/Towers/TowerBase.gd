@@ -5,6 +5,9 @@ onready var collision_polygon_2d = $CollisionPolygon2D
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
+var max_health = 200
+var health = max_health 
+
 var TowerTypes = Global.TowerTypes
 var tower_type : int
 
@@ -22,6 +25,11 @@ func _ready():
 
 
 func init(turret_type):
+	spawn_turret(turret_type)
+
+
+func spawn_turret(turret_type):
+
 	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
@@ -30,7 +38,7 @@ func init(turret_type):
 		new_turret.global_position = global_position
 	else:
 		Global.current_map.add_child(new_turret)
-	new_turret.init(turret_type)
+	new_turret.init(turret_type, self)
 	turret = new_turret
 
 func mark_for_deconstruction():
@@ -60,3 +68,11 @@ func _on_demolition_requested(): # from InteractArea probably
 
 func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
 	turret.upgrade(upgrade_type)
+
+func _on_hit(damage, _impactVector, _damageAttributes):
+	health -= damage
+	if health <= 0:
+		# might want better animations
+		destroy()
+		
+	
