@@ -31,7 +31,7 @@ text = "Spawn"
 align = 1
 
 [node name="WaveTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
