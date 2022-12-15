@@ -86,6 +86,7 @@ visible = false
 
 [node name="Flashlight" parent="Toolbelt" instance=ExtResource( 11 )]
 visible = false
+shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
