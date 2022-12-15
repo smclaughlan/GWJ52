@@ -25,11 +25,13 @@ var tower_type = TowerTypes.BEAM
 
 var action_to_use : String
 var equipped : bool = false
+var first_tower_built:bool = false
 
 enum States { INITIALIZING, STORED, ACTIVE, BUILDING, PAUSED }
 var State = States.INITIALIZING
 
 signal tower_built
+signal first_tower_built
 
 func _ready():
 	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
@@ -74,6 +76,9 @@ func attempt_to_spawn_tower(towerType):
 	else:
 		spawn_tower(towerType)
 		emit_signal("tower_built", -cost_reference.cost)
+		if not first_tower_built:
+			first_tower_built = true
+			emit_signal("first_tower_built")
 	$ReloadTimer.start()
 	
 
