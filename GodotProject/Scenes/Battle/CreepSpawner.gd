@@ -57,8 +57,10 @@ func spawn_creep():
 func spawn_creep_wayfinder():
 	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
 	var navTarget = navTargetScene.instance()
+	
 	navTarget.init(Global.village_location)
 	Global.current_map.add_child(navTarget)
+	navTarget.set_global_position(self.global_position)
 	current_wave_wayfinder = navTarget
 
 

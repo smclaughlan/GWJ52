@@ -10,9 +10,9 @@
 [ext_resource path="res://Scenes/Battle/Tileset.tscn" type="PackedScene" id=8]
 
 [sub_resource type="NavigationPolygon" id=4]
-vertices = PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 2112 )
-polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
-outlines = [ PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 2112 ) ]
+vertices = PoolVector2Array( -3705, -1964, 3840, -1971, -1094, -832, -1227, -841, -3719, 2112, -2021, 269, 3798, 2132, -1104, 345, -1217, 345, -2035, 364, -1222, -137, -1227, 222 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ), PoolIntArray( 4, 0, 3, 5 ), PoolIntArray( 2, 1, 6, 7 ), PoolIntArray( 8, 7, 6, 4, 9 ), PoolIntArray( 10, 11, 5, 3 ), PoolIntArray( 4, 5, 9 ) ]
+outlines = [ PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 2112 ), PoolVector2Array( -1222, -137, -1227, -841, -1094, -832, -1104, 345, -1217, 345, -2035, 364, -2021, 269, -1227, 222 ) ]
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 3875.25, 66 )
@@ -50,7 +50,6 @@ position = Vector2( -1473, 837 )
 position = Vector2( 1392, -300 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
-visible = false
 navpoly = SubResource( 4 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationPolygonInstance"]

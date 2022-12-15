@@ -4,7 +4,7 @@ extends Node2D
 
 
 var target_location : Vector2
-var speed = 0.5
+var speed = 0.05
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
