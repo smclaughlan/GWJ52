@@ -31,20 +31,48 @@ func _on_CloseButton_pressed():
 	Global.resume()
 	hide()
 
+func get_upgrade_count() -> int:
+	var upgradeCount = 0
+	for upgradeType in Global.UpgradeTypes.values():
+		if tower_base.turret.upgrades[upgradeType] == true:
+			upgradeCount += 1
+	return upgradeCount
+	
+	
+
 func _on_upgrade_selected(_upgradeType):
+	var cost_reference: CostReference = CostReference.new()
+	cost_reference.tower = tower_base
+	var price = cost_reference.get_upgrade_price(get_upgrade_count()-1) # -1 to prevent double billing.
+		
+	Global.currency_tracker.update_amount(-1*price)
 	Global.resume()
 	hide()
 	
 
 
 func _on_TowerUpgradePopupDialog_about_to_show():
-	var disabled_button_count = 0
+	var num_upgrades = 0
 	for button in $MarginContainer/VBoxContainer/TowerUpgrades.get_children():
 		if tower_base.turret.upgrades[button.upgrade_type] == true:
 			button.disable_upgrade_button()
-			disabled_button_count += 1
-	if disabled_button_count == 3:
+			num_upgrades += 1
+	if num_upgrades == 3:
 		$MarginContainer/VBoxContainer/TowerUpdatesLabel.hide()
 		$MarginContainer/VBoxContainer/TowerUpgrades.hide()
-	
+	else:
+		var cost_reference: CostReference = CostReference.new()
+		cost_reference.tower = tower_base
+		var price = cost_reference.get_upgrade_price(num_upgrades)
+		var cash_available = Global.currency_tracker.sun
+		
+		
+		if price > cash_available:
+			$MarginContainer/VBoxContainer/TowerUpdatesLabel.text = "I love this tower, but I can't afford any upgrades. I need " + str(price) + ", but I only have " + str(cash_available)
+			$MarginContainer/VBoxContainer/TowerUpdatesLabel.show()
+			$MarginContainer/VBoxContainer/TowerUpgrades.hide()
+		else:
+			$MarginContainer/VBoxContainer/TowerUpdatesLabel.text = "I love this tower. Let's upgrade for " + str(price) + " ichor."
+
+		
 	
