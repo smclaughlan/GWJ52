@@ -188,6 +188,11 @@ func knockback(impactVector):
 	
 
 func _on_hit(damage, impactVector, _damageAttributes):
+	# don't keep taking damage when you're dying or dead.
+	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
+		return
+	
+	
 	# worry about damage attributes later
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
