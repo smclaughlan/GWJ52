@@ -105,6 +105,7 @@ position = Vector2( -59, -57 )
 [node name="TextureProgress" type="TextureProgress" parent="StatusBars"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 value = 100.0
 texture_under = ExtResource( 4 )
 texture_over = ExtResource( 5 )
