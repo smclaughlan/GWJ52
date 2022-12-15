@@ -18,6 +18,7 @@ var _current_wave: int = 0
 
 func _ready() -> void:
 	randomize()
+	connect("wave_ended", self, "_on_wave_ended")
 	Global.wave_manager = self
 	prepare_new_wave()
 
@@ -70,3 +71,22 @@ func _get_spawner_children() -> Array:
 			children.append(n)
 	return children
 
+
+func _on_creep_spawn(creep: Object) -> void:
+	creep_array.append(creep)
+	spawn_amount -= 1
+
+
+func _on_creep_dies(creep: Object) -> void:
+	if creep in creep_array:
+		creep_array.erase(creep)
+		if creep_array.empty():
+			emit_signal("wave_ended")
+
+
+func _on_wave_ended() -> void:
+	$NewWaveWaitTime.start()
+
+
+func _on_NewWaveWaitTime_timeout() -> void:
+	prepare_new_wave()
