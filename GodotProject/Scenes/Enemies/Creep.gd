@@ -30,11 +30,13 @@ var State = States.INITIALIZING
 export (PackedScene) var dropped_pickable
 
 signal died
+signal cleared # Called for wave manager.. Clean-up later
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Global.pickable_object_spawner != null:
 		var _err = connect("died", Global.pickable_object_spawner, "spawn_pickable")
+	connect("cleared", Global.wave_manager, "_on_creep_died")
 	$corpse.hide()
 	set_attack_target(choose_target())
 
@@ -158,6 +160,7 @@ func begin_dying(): # death animation and loot spawn
 	disable_weapons()
 	$AnimationPlayer.play("die")
 	$DeathTimer.start()
+	emit_signal("cleared", self)
 
 func die_for_real_this_time(): # blood smear
 	$corpse.show()
