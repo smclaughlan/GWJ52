@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scenes/GUI/buttons/build_Default.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GUI/HUD.gd" type="Script" id=2]
@@ -19,6 +19,13 @@
 [ext_resource path="res://Scenes/GUI/buttons/Build_click.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/GUI/buttons/Build_hover.png" type="Texture" id=18]
 [ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=19]
+[ext_resource path="res://Scenes/GUI/ThreatInfoContainer.tscn" type="PackedScene" id=20]
+
+[sub_resource type="InputEventKey" id=9]
+scancode = 16777217
+
+[sub_resource type="ShortCut" id=10]
+shortcut = SubResource( 9 )
 
 [sub_resource type="InputEventKey" id=1]
 scancode = 49
@@ -45,19 +52,28 @@ scancode = 52
 shortcut = SubResource( 7 )
 
 [node name="HUD" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="header" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 50 )
+size_flags_horizontal = 3
+alignment = 1
 
 [node name="PauseButton" type="Button" parent="header"]
-margin_right = 50.0
+pause_mode = 2
+margin_left = 466.0
+margin_right = 558.0
 margin_bottom = 50.0
-text = "Pause"
+size_flags_horizontal = 0
+shortcut = SubResource( 10 )
+text = "Pause [ esc ]"
+align = 0
 
 [node name="Footer" type="MarginContainer" parent="."]
+pause_mode = 1
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -95,8 +111,8 @@ margin_bottom = 69.0
 text = "0"
 
 [node name="GridContainer" type="GridContainer" parent="Footer/HBoxContainer"]
-margin_left = 399.0
-margin_right = 685.0
+margin_left = 436.0
+margin_right = 648.0
 margin_bottom = 82.0
 size_flags_horizontal = 6
 size_flags_vertical = 0
@@ -183,6 +199,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Flashlight" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
+visible = false
 margin_left = 222.0
 margin_right = 286.0
 margin_bottom = 82.0
@@ -239,6 +256,7 @@ dialog_text = "You are dead."
 [node name="PauseMenuPopupDialog" parent="." instance=ExtResource( 4 )]
 
 [node name="UpdateTimer" type="Timer" parent="."]
+pause_mode = 1
 wait_time = 0.5
 autostart = true
 
@@ -247,20 +265,40 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -126.0
-margin_top = -148.0
-margin_right = 115.0
+margin_left = -187.0
+margin_top = -156.0
+margin_right = 184.0
 margin_bottom = -108.0
+grow_horizontal = 2
 rect_min_size = Vector2( 200, 0 )
+rect_pivot_offset = Vector2( 187, 26 )
 custom_styles/panel = ExtResource( 19 )
 
-[node name="ExtraInstructions" type="Label" parent="ExtraInstructionsPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExtraInstructionsPanel"]
 margin_left = 16.0
-margin_top = 13.0
-margin_right = 225.0
-margin_bottom = 27.0
-text = "Press < , > to change Tower Type"
+margin_top = 8.0
+margin_right = 355.0
+margin_bottom = 40.0
+grow_horizontal = 2
+
+[node name="ExtraInstructions" type="Label" parent="ExtraInstructionsPanel/VBoxContainer"]
+margin_right = 339.0
+margin_bottom = 14.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 169, 8 )
+text = "Press < , > or use mousewheel to change Tower Type"
 align = 1
+
+[node name="Tutorial" type="Label" parent="ExtraInstructionsPanel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 339.0
+margin_bottom = 32.0
+grow_horizontal = 2
+rect_pivot_offset = Vector2( 171, 8 )
+text = "Build three towers, one of each type."
+align = 1
+
+[node name="ThreatInfoContainer" parent="." instance=ExtResource( 20 )]
 
 [connection signal="pressed" from="header/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Footer/HBoxContainer/GridContainer/Melee/ActionButton" to="." method="_on_ActionButton_pressed" binds= [ "melee" ]]

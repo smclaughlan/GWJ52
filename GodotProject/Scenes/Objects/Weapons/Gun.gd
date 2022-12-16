@@ -9,6 +9,9 @@ var State = States.INITIALIZING
 var equipped : bool = false
 var action_to_use : String
 
+enum gun_types { PROJECTILE, BEAM }
+export (gun_types) var gun_type = gun_types.PROJECTILE
+
 var shooter
 
 signal shot(impulseVector)
@@ -50,6 +53,7 @@ func shoot(ammo):
 		rand_offset.y = rand_range(-5.0, 5.0)
 		var rand_aim_tremble = rand_range(-0.05, 0.05)
 		flash_muzzle()
+		$Sprite/Cannon.play("shoot")
 		$Sprite.rotation = rand_aim_tremble
 		var pos = $Sprite/MuzzlePosition.global_position + rand_offset
 		var rot = $Sprite/MuzzlePosition.global_rotation + rand_aim_tremble
@@ -62,20 +66,27 @@ func shoot(ammo):
 		$CockTimer.start()
 
 func make_shooty_noise():
-	# should probably depend on the bullet, rather than the gun.. but whatever
-	$LaserNoise.set_pitch_scale(rand_range(0.9, 1.1))
-	$LaserNoise.play()
+	if gun_type == gun_types.BEAM:
+		# should probably depend on the bullet, rather than the gun.. but whatever
+		$LaserNoise.set_pitch_scale(rand_range(0.9, 1.1))
+		$LaserNoise.play()
+	else:
+		$BangNoise.set_pitch_scale(rand_range(0.9, 1.1))
+		$BangNoise.play()
+		
 
 func flash_muzzle():
-#	$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
-#	var colorChange = rand_range(0.8, 1.0)
-#	$Sprite/MuzzleFlash.set_self_modulate(Color(colorChange, colorChange, colorChange))
-#	$Sprite/MuzzleFlash.visible = true
-	$Sprite/MuzzleBubbles.emitting = true
+	if gun_type == gun_types.PROJECTILE:
+		$Sprite/MuzzleFlash.rotation = rand_range(-1.0,1.0)
+		var colorChange = rand_range(0.8, 1.0)
+		$Sprite/MuzzleFlash.set_self_modulate(Color(colorChange, colorChange, colorChange))
+		$Sprite/MuzzleFlash.visible = true
+	elif gun_type == gun_types.BEAM:
+		$Sprite/MuzzleBubbles.emitting = true
 	$Sprite/MuzzleFlash/FlashTimer.start()
 
 func knockback_shooter():
-	var knockbackPower = 10.0
+	var knockbackPower = 3.0
 	var impulseVector = (Vector2.RIGHT * knockbackPower).rotated(get_global_rotation() - PI)
 	if shooter != null:
 		emit_signal("shot", impulseVector)
@@ -98,8 +109,11 @@ func stow():
 	disable()
 
 func _process(_delta):
-	var mousePos = get_global_mouse_position()
+	aim_chiral_sprite() # sprites the would look upside down if rotated
 
+
+func aim_chiral_sprite(): # for sprites the would look upside down if rotated 180
+	var mousePos = get_global_mouse_position()
 	# flip if needed
 	if mousePos.x < get_global_position().x:
 		scale.x = -abs(scale.x)

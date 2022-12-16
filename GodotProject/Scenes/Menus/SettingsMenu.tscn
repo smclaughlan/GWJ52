@@ -35,6 +35,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="LeftSide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Body"]
+visible = false
 margin_right = 510.0
 margin_bottom = 373.0
 mouse_filter = 2
@@ -101,7 +102,6 @@ margin_bottom = 16.0
 rect_min_size = Vector2( 150, 0 )
 
 [node name="RightSide" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Body"]
-margin_left = 514.0
 margin_right = 1024.0
 margin_bottom = 373.0
 mouse_filter = 2
@@ -112,9 +112,10 @@ alignment = 1
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 58.0
+visible = false
+margin_top = 105.0
 margin_right = 510.0
-margin_bottom = 78.0
+margin_bottom = 125.0
 alignment = 1
 
 [node name="GraphicsLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer"]
@@ -133,9 +134,10 @@ items = [ "Lo-spec for Potatoes", null, false, 0, null, "Mid-spec for decent mac
 selected = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 103.0
+visible = false
+margin_top = 105.0
 margin_right = 510.0
-margin_bottom = 123.0
+margin_bottom = 125.0
 alignment = 1
 
 [node name="WindowLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer4"]
@@ -154,43 +156,44 @@ items = [ "800 x 600", null, false, 0, null, "1024 x 600", null, false, 1, null,
 selected = 1
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 148.0
-margin_right = 510.0
-margin_bottom = 172.0
+margin_top = 127.0
+margin_right = 1024.0
+margin_bottom = 151.0
 alignment = 1
 
 [node name="FullscreenLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer5"]
-margin_left = 208.0
+margin_left = 465.0
 margin_top = 5.0
-margin_right = 274.0
+margin_right = 531.0
 margin_bottom = 19.0
 text = "Fullscreen"
 
 [node name="CheckButton3" type="CheckBox" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer5"]
-margin_left = 278.0
-margin_right = 302.0
+margin_left = 535.0
+margin_right = 559.0
 margin_bottom = 24.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 197.0
-margin_right = 510.0
-margin_bottom = 221.0
+margin_top = 176.0
+margin_right = 1024.0
+margin_bottom = 200.0
 alignment = 1
 
 [node name="EnableVsyncLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer3"]
-margin_left = 199.0
+margin_left = 456.0
 margin_top = 5.0
-margin_right = 282.0
+margin_right = 539.0
 margin_bottom = 19.0
 text = "Enable Vsync"
 
 [node name="CheckButton2" type="CheckBox" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer3"]
-margin_left = 286.0
-margin_right = 310.0
+margin_left = 543.0
+margin_right = 567.0
 margin_bottom = 24.0
 pressed = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
+visible = false
 margin_top = 246.0
 margin_right = 510.0
 margin_bottom = 270.0
@@ -209,21 +212,21 @@ margin_right = 298.0
 margin_bottom = 24.0
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Body/RightSide"]
-margin_top = 295.0
-margin_right = 510.0
-margin_bottom = 315.0
+margin_top = 225.0
+margin_right = 1024.0
+margin_bottom = 245.0
 alignment = 1
 
 [node name="FpsCapLabel" type="Label" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer6"]
-margin_left = 206.0
+margin_left = 463.0
 margin_top = 3.0
-margin_right = 255.0
+margin_right = 512.0
 margin_bottom = 17.0
 text = "Fps Cap"
 
 [node name="OptionButton2" type="OptionButton" parent="MarginContainer/VBoxContainer/Body/RightSide/HBoxContainer6"]
-margin_left = 259.0
-margin_right = 304.0
+margin_left = 516.0
+margin_right = 561.0
 margin_bottom = 20.0
 text = "60"
 items = [ "30", null, false, 0, null, "60", null, false, 1, null, "90", null, false, 2, null, "120", null, false, 3, null, "180", null, false, 4, null, "240", null, false, 5, null, "320", null, false, 6, null ]
