@@ -18,7 +18,7 @@ func _on_ActionButton_pressed(action : String):
 	if action in [ "melee", "range", "build", "flashlight" ] and player != null and is_instance_valid(player):
 		player.set_tool(action)
 	if action == "build":
-		$ExtraInstructionsPanel/ExtraInstructions.text = "Press < , > to change tower type."
+		$ExtraInstructionsPanel/VBoxContainer/ExtraInstructions.text = "Press < , > to change tower type."
 		$ExtraInstructionsPanel.show()
 	else:
 		$ExtraInstructionsPanel.hide()
@@ -31,7 +31,7 @@ func change_tower_instructions(towerType):
 	var prevTower = towerTypes[(towerType-1) % towerTypes.size()]
 	var currentTower = towerTypes[towerType]
 	var nextTower = towerTypes[(towerType+1) % towerTypes.size()]
-	$ExtraInstructionsPanel/ExtraInstructions.text = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
+	find_node("ExtraInstructions").text = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
 	
 	
 
@@ -48,8 +48,14 @@ func update_health() -> void:
 
 
 func _on_PauseButton_pressed():
-	$PauseMenuPopupDialog.popup_centered_ratio(0.5)
-	Global.pause()
+	var pauseMenu = $PauseMenuPopupDialog
+	if pauseMenu.visible == false:
+		pauseMenu.popup_centered_ratio(0.5)
+		Global.pause()
+	else:
+		Global.resume()
+		pauseMenu.hide()
+		
 
 
 
@@ -62,3 +68,5 @@ func _on_tower_type_blueprint_changed(currentTowerType):
 func _on_creep_wave_started(location):
 	$ThreatInfoContainer.alert()
 	
+func _on_tutorial_ended():
+	$ExtraInstructionsPanel/VBoxContainer/Tutorial.hide()

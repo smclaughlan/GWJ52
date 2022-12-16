@@ -86,6 +86,8 @@ func _on_WaveTimer_timeout():
 			time_between_spawner_waves = time_between_spawner_waves * 0.95
 			num_spawners_per_wave += randi()%2
 
+		if State == States.READY:
+			spawn_spawner()
 		$SpawnTimer.start()
 
 

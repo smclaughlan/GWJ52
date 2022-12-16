@@ -83,6 +83,7 @@ func _on_WaveTimer_timeout():
 
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
+		spawn_creep()
 		$SpawnTimer.start()
 		emit_signal("wave_started", global_position)
 

@@ -11,6 +11,7 @@ avoidance_enabled = true
 max_speed = 0.1
 
 [node name="TargetSprite" type="Sprite" parent="."]
+visible = false
 self_modulate = Color( 0.72549, 0.129412, 0.847059, 1 )
 texture = ExtResource( 1 )
 
