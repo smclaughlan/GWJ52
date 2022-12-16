@@ -11,24 +11,16 @@ func _ready():
 		$Currency.update_amount( starting_currency )
 			
 
-func get_random_dangerous_location():
-	assert(false) # deprecated. Not working.
+func audio_fade_in():
+	var fade_duration = 3.0
+	var tween = get_node("Tween")
+	tween.interpolate_property($Music, "volume_db",
+		-20, 0, fade_duration,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
 	
-#	var found = false
-#	var count = 0
-#	var escape = 100
-#	while not found and count < escape:
-#		var testLocation = Vector2(randi()%int(extents.size.x),  randi()%int(extents.size.y))-extents.position
-#		if extents.has_point(testLocation) and !$SafeZone.has_point(testLocation):
-#			found = true
-#			return testLocation
-#		count += 1
-#		if count%10 == 0:
-#			printerr("Battle.gd, get_random_dangerous_location(). uh oh, this doesn't seem right. " + str(count) + " " + str(testLocation))
-#
-#	if count > 90:
-#		printerr("Nope.")
-	
+
+
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -10,9 +10,17 @@ export var next_scene: PackedScene
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#$AnimationPlayer.play("intro_exposition")
+	audio_fade_in() # audio comes first, otherwise we'll be yielding for the fog.
 	fade_in()
 	tab_container.current_tab = 0
-
+	
+func audio_fade_in():
+	var tween = get_node("Tween")
+	tween.interpolate_property($Music, "volume_db",
+		-20, 0, fade_duration*2.0,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	
 	
 func fade_out():
 	$FogFade.visible = true

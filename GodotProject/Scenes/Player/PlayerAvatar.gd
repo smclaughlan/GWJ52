@@ -55,9 +55,18 @@ func _ready():
 	#initialize_weapons() # moved to delayed init timer
 		
 	$Sprite/AnimatedSprite.animation = "GolemIdle"
+	
+	hide_things_for_later()
+	State = States.READY
+
+
+
+func hide_things_for_later():
 	$DeathNotice.hide()
 	$ThreatIndicator.hide()
-	State = States.READY
+	$GolemCorpse.hide()
+
+
 
 
 func initialize_weapons():
@@ -143,6 +152,13 @@ func begin_dying():
 	State = States.DYING
 	$DeathTimer.start()
 
+
+func drop_a_broken_golem():
+	var newCorpse = $GolemCorpse.duplicate()
+	Global.current_map.add_child(newCorpse)
+	newCorpse.set_global_position(global_position)
+	newCorpse.show()
+
 func turn_into_a_ghost():
 	$Sprite/AnimatedSprite.animation = "ghost"
 	$Sprite/AnimatedSprite.play()
@@ -160,14 +176,13 @@ func turn_into_a_ghost():
 	
 func resurrect():
 	# turn back into a golem
-	$Sprite/AnimatedSprite.play("golem")
+	$Sprite/AnimatedSprite.play("GolemIdle")
 	$DeathNotice.hide()
 	health = max_health
 	$StatusBars/TextureProgress.value = health
 		
-	initialize_weapons()
-	
 	State = States.READY
+	initialize_weapons()
 
 
 func die_for_real_this_time():
@@ -197,6 +212,7 @@ func _on_hit(damage, impulseVector, _damageAttributes):
 
 func _on_DeathTimer_timeout():
 	if lives_remaining > 0:
+		drop_a_broken_golem()
 		turn_into_a_ghost()
 	else:
 		die_for_real_this_time()
@@ -226,9 +242,10 @@ func _on_DelayInitTimer_timeout():
 	set_tool("build", "left")
 
 func _on_creep_wave_started(location):
-	$ThreatIndicator.show()
-	$ThreatIndicator.look_at(location)
-	$ThreatIndicator/ThreatIndicatorTimer.start()
+	pass
+#	$ThreatIndicator.show()
+#	$ThreatIndicator.look_at(location)
+#	$ThreatIndicator/ThreatIndicatorTimer.start()
 	
 
 func _on_ThreatIndicatorTimer_timeout():

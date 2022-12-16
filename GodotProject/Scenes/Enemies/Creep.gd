@@ -9,8 +9,8 @@
 extends KinematicBody2D
 
 
-var health = 20.0
-var speed = 2.0
+export var health = 20.0
+export var speed = 2.0
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D
@@ -42,8 +42,9 @@ func _ready():
 
 func init(initialPos, wayFinder):
 	set_global_position(initialPos)
-	nav_target = wayFinder
-	var _err = connect("died", wayFinder, "_on_creep_died")
+	if wayFinder:
+		nav_target = wayFinder
+		var _err = connect("died", wayFinder, "_on_creep_died")
 	#set_attack_target(Global.player)
 	
 	State = States.MOVING

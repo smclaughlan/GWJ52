@@ -44,12 +44,12 @@ texture = ExtResource( 4 )
 position = Vector2( 2.83492, -223.959 )
 texture = ExtResource( 6 )
 
-[node name="GLUE" type="Sprite" parent="TowerTypes"]
+[node name="SHARDS" type="Sprite" parent="TowerTypes"]
 visible = false
 position = Vector2( 1, -45 )
 scale = Vector2( 0.352744, 0.352744 )
 texture = ExtResource( 4 )
 
-[node name="BlueCrystal" type="Sprite" parent="TowerTypes/GLUE"]
+[node name="BlueCrystal" type="Sprite" parent="TowerTypes/SHARDS"]
 position = Vector2( 2.83492, -223.959 )
 texture = ExtResource( 7 )
