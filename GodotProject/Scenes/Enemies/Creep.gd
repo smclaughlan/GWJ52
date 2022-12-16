@@ -42,8 +42,9 @@ func _ready():
 
 func init(initialPos, wayFinder):
 	set_global_position(initialPos)
-	nav_target = wayFinder
-	var _err = connect("died", wayFinder, "_on_creep_died")
+	if wayFinder:
+		nav_target = wayFinder
+		var _err = connect("died", wayFinder, "_on_creep_died")
 	#set_attack_target(Global.player)
 	
 	State = States.MOVING

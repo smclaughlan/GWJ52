@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Menus/PauseMenuPopupDialog.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Weapons/lasernoise.wav" type="AudioStream" id=2]
 
 [node name="PauseMenuPopupDialog" type="PopupDialog"]
 pause_mode = 2
@@ -28,7 +29,7 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 290.0
-margin_bottom = 228.0
+margin_bottom = 252.0
 custom_constants/separation = 10
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
@@ -107,6 +108,11 @@ margin_right = 150.0
 margin_bottom = 68.0
 text = "Die Instantly"
 
+[node name="SpawnCreepsButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Spawn Creeps Nearby"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 171.0
 margin_right = 280.0
@@ -133,9 +139,13 @@ margin_bottom = 232.0
 text = "[ ctrl-c to cheat ]
 Cheaters never win!"
 
+[node name="WhistleNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/DieNowButton" to="." method="_on_DieNowButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/SpawnCreepsButton" to="." method="_on_SpawnCreepsButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
