@@ -12,9 +12,9 @@ var TowerTypes = Global.TowerTypes
 var tower_type : int
 
 var turret_scenes = [
-	"res://Scenes/Objects/Towers/BEAMTurret.tscn",
-	"res://Scenes/Objects/Towers/AOETurret.tscn",
-	"res://Scenes/Objects/Towers/GLUETurret.tscn",
+	preload("res://Scenes/Objects/Towers/BEAMTurret.tscn"),
+	preload("res://Scenes/Objects/Towers/AOETurret.tscn"),
+	preload("res://Scenes/Objects/Towers/GLUETurret.tscn"),
 ]
 
 export var cost: int = 10
@@ -29,10 +29,9 @@ func init(turret_type):
 	spawn_turret(turret_type)
 
 
-func spawn_turret(turret_type):
-
-	tower_turret_scene = load(turret_scenes[turret_type])
-	var new_turret = tower_turret_scene.instance()
+func spawn_turret(turret_type: int) -> void:
+	tower_turret_scene = turret_scenes[turret_type]
+	var new_turret:Node2D = tower_turret_scene.instance()
 	new_turret.global_position = global_position
 	if Global.current_map.has_node("Towers"):
 		Global.current_map.get_node("Towers").add_child(new_turret)
