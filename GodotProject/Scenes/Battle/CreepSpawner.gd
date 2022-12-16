@@ -1,9 +1,9 @@
 extends StaticBody2D
 
 export var num_creeps_per_wave : int = 5
-export var creep : PackedScene
+var creep = load("res://Scenes/Enemies/Creep.tscn")
 var creeps_spawned_this_wave : int = 0
-var current_wave_wayfinder
+#var current_wave_wayfinder
 var time_between_creeps = 1.2 # rand jitter will be applied later.
 var time_between_waves = 20.0 # rand jitter will be applied later.
 
@@ -34,10 +34,6 @@ func init(location):
 func spawn_creep():
 	#print("spawning creep")
 	var newCreep = creep.instance()
-	newCreep.init(global_position, current_wave_wayfinder)
-	
-	if current_wave_wayfinder != null and is_instance_valid(current_wave_wayfinder):
-		current_wave_wayfinder.add_creep(newCreep)
 	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
 
@@ -48,6 +44,7 @@ func spawn_creep():
 		emit_signal("creep_spawned", newCreep)
 	else: # dumb map: just add the creep yourself.
 		Global.current_map.add_child(newCreep)
+		newCreep.init(global_position)
 
 	
 	if creeps_spawned_this_wave >= num_creeps_per_wave:
@@ -60,14 +57,14 @@ func spawn_creep():
 
 
 
-func spawn_creep_wayfinder():
-	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
-	var navTarget = navTargetScene.instance()
-	
-	navTarget.init(Global.village_location)
-	Global.current_map.add_child(navTarget)
-	navTarget.set_global_position(self.global_position)
-	current_wave_wayfinder = navTarget
+#func spawn_creep_wayfinder():
+#	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
+#	var navTarget = navTargetScene.instance()
+#
+#	navTarget.init(Global.village_location)
+#	Global.current_map.add_child(navTarget)
+#	navTarget.set_global_position(self.global_position)
+#	current_wave_wayfinder = navTarget
 
 
 func begin_dying():
@@ -79,7 +76,7 @@ func begin_dying():
 
 func _on_WaveTimer_timeout():
 	if State == States.READY:
-		spawn_creep_wayfinder()
+#		spawn_creep_wayfinder()
 
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave

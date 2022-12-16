@@ -49,7 +49,7 @@ colors = PoolColorArray( 0.959033, 0.732193, 0.0932675, 1, 0.619189, 0, 0, 1, 0,
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 110.5, 99 )
 
-[node name="SpareGolem" type="StaticBody2D" groups=["village"]]
+[node name="SpareGolem" type="StaticBody2D" groups=["obstacles", "village"]]
 collision_layer = 32
 collision_mask = 258
 script = ExtResource( 5 )
@@ -101,7 +101,7 @@ color_ramp = SubResource( 4 )
 wait_time = 3.0
 
 [node name="DecayTimer" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 10.0
 
 [node name="Corpse" type="Sprite" parent="."]
 visible = false
@@ -113,6 +113,13 @@ texture = ExtResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2( 1, -14 )
 shape = SubResource( 5 )
+
+[node name="PathfindingObstacle" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PathfindingObstacle"]
+polygon = PoolVector2Array( 48, -48, -48, -48, -48, 32, 48, 32 )
 
 [connection signal="possessed_by_player" from="." to="." method="_on_SpareGolem_possessed_by_player"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
