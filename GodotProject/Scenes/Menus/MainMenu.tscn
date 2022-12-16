@@ -61,18 +61,18 @@ custom_constants/separation = 25
 alignment = 1
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
-margin_top = 54.0
+margin_top = 26.0
 margin_right = 416.0
-margin_bottom = 73.0
+margin_bottom = 45.0
 custom_fonts/font = ExtResource( 8 )
 text = "The Glass Queen"
 align = 1
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
 margin_left = 127.0
-margin_top = 98.0
+margin_top = 70.0
 margin_right = 289.0
-margin_bottom = 164.0
+margin_bottom = 136.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 8 )
 text = "Play"
@@ -83,9 +83,9 @@ target_scene = ExtResource( 2 )
 
 [node name="CreditsButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
 margin_left = 127.0
-margin_top = 189.0
+margin_top = 161.0
 margin_right = 289.0
-margin_bottom = 255.0
+margin_bottom = 227.0
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 8 )
 text = "Credits"
@@ -124,9 +124,9 @@ target_scene = ExtResource( 4 )
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
 margin_left = 127.0
-margin_top = 280.0
+margin_top = 252.0
 margin_right = 289.0
-margin_bottom = 346.0
+margin_bottom = 318.0
 rect_min_size = Vector2( 150, 60 )
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 8 )
@@ -135,6 +135,15 @@ icon = ExtResource( 7 )
 flat = true
 icon_align = 1
 script = ExtResource( 6 )
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
+margin_top = 343.0
+margin_right = 416.0
+margin_bottom = 374.0
+text = "Siege style tower defense ARPG.
+Made in 9 days for Godot Wild Jam 52."
+align = 1
+autowrap = true
 
 [node name="GWJLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 724.0
