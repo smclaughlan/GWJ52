@@ -4,11 +4,11 @@ extends Node2D
 # by spawners.
 signal wave_ended
 
-const MIN_NUMBER:int = 50
-const MAX_NUMBER:int = 100
+const MIN_NUMBER:int = 10
+const MAX_NUMBER:int = 20
 # Number of creeps to be spawned
 export var spawn_amount: int = 0
-export var minimum_spawners: int = 5
+export var minimum_spawners: int = 3
 
 var creep = preload("res://Scenes/Enemies/Creep.tscn")
 var spawner = preload("res://Scenes/Battle/CreepSpawner.tscn")
@@ -33,6 +33,7 @@ func prepare_new_wave() -> void:
 	# Check the number of children spawners.
 	if is_less_than_minimum_spawners:
 		create_spawners(minimum_spawners - current_number_of_spawners)
+	_pause_spawning(false)
 	
 	
 
@@ -72,14 +73,18 @@ func _get_spawner_children() -> Array:
 	return children
 
 
-func _on_creep_spawned(creep: Object) -> void:
-	creep_array.append(creep)
+func _on_creep_spawned(_creep: Object) -> void:
+	creep_array.append(_creep)
 	spawn_amount -= 1
+	if spawn_amount <= 0:
+		spawn_amount = 0
+		_pause_spawning(true)
+		
 
 
-func _on_creep_died(creep: Object) -> void:
-	if creep in creep_array:
-		creep_array.erase(creep)
+func _on_creep_died(_creep: Object) -> void:
+	if _creep in creep_array:
+		creep_array.erase(_creep)
 		if creep_array.empty():
 			emit_signal("wave_ended")
 			print("Wave ended")
@@ -91,3 +96,10 @@ func _on_wave_ended() -> void:
 
 func _on_NewWaveWaitTime_timeout() -> void:
 	prepare_new_wave()
+
+
+func _pause_spawning(value: bool) -> void:
+	if _get_spawner_children().empty():
+		return
+	for _spawner in _get_spawner_children():
+		_spawner.pause_spawning(value)

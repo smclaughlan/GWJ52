@@ -1,9 +1,8 @@
 class_name CreepSpawner
 extends StaticBody2D
 
-export var num_creeps_per_wave : int = 5
+#export var num_creeps_per_wave : int = 5
 export var creep : PackedScene
-var creeps_spawned_this_wave : int = 0
 var current_wave_wayfinder
 
 export var max_health : float = 200.0
@@ -33,7 +32,6 @@ func spawn_creep():
 
 	var newCreep = creep.instance()
 	newCreep.init(global_position, current_wave_wayfinder)
-	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
 
 
@@ -44,10 +42,7 @@ func spawn_creep():
 		Global.current_map.add_child(newCreep)
 
 	
-	if creeps_spawned_this_wave >= num_creeps_per_wave:
-		$WaveTimer.start() # wait a bit before the next set of creeps
-	else:
-		$SpawnTimer.start() # short delay before launching another crepep
+	$SpawnTimer.start()
 	emit_signal("creep_spawned", newCreep)
 
 
@@ -73,7 +68,7 @@ func _on_WaveTimer_timeout():
 		spawn_creep_wayfinder()
 
 		# modify this later to accommodate game progression
-		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
+		#num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
 
 		$SpawnTimer.start()
 
@@ -94,9 +89,16 @@ func _on_DeathTimer_timeout():
 	$corpse.show()
 	$Sprite.hide()
 	$DecayTimer.start()
-	
-	
 
 
 func _on_DecayTimer_timeout() -> void:
 	queue_free()
+
+
+func pause_spawning(value: bool) -> void:
+	if value == true:
+		$SpawnTimer.stop()
+		print("Pausing timer")
+	else:
+		$SpawnTimer.start()
+		print("Resume")
