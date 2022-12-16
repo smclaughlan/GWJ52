@@ -28,44 +28,41 @@ custom_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 390.0
+margin_right = 409.0
 margin_bottom = 390.0
 
 [node name="PausedTitle" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_right = 380.0
+margin_right = 399.0
 margin_bottom = 14.0
 text = "Game Paused"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 18.0
-margin_right = 380.0
-margin_bottom = 97.0
+margin_right = 399.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 0
 
-[node name="Settings" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Audio" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 370.0
-margin_bottom = 79.0
-
-[node name="Audio" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/Settings"]
-margin_right = 360.0
-margin_bottom = 25.0
+margin_right = 389.0
+margin_bottom = 50.0
 size_flags_horizontal = 3
+alignment = 1
 
-[node name="VolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio"]
-margin_top = 5.0
+[node name="VolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
+margin_top = 13.0
 margin_right = 75.0
-margin_bottom = 19.0
+margin_bottom = 27.0
 rect_min_size = Vector2( 75, 0 )
 text = "Volume"
 
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio"]
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
 margin_left = 79.0
 margin_right = 229.0
 margin_bottom = 25.0
@@ -74,29 +71,30 @@ max_value = 1.0
 step = 0.1
 value = 0.5
 
-[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/MarginContainer/Settings"]
-margin_top = 29.0
-margin_right = 360.0
-margin_bottom = 69.0
+[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
+margin_left = 233.0
+margin_right = 379.0
+margin_bottom = 40.0
 text = "Fullscreen"
 
 [node name="StartWaveButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 120.0
-margin_top = 101.0
-margin_right = 260.0
-margin_bottom = 141.0
+margin_left = 129.0
+margin_top = 72.0
+margin_right = 269.0
+margin_bottom = 112.0
 rect_min_size = Vector2( 140, 40 )
 size_flags_horizontal = 6
 text = "Start Next Wave!"
 
 [node name="InstructionText" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_left = 53.0
-margin_top = 189.0
-margin_right = 327.0
-margin_bottom = 288.0
+margin_left = 62.0
+margin_top = 166.0
+margin_right = 336.0
+margin_bottom = 282.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Use WASD and mouse to move, 
+Sprint to dash.
 1,2,3 to select a tool or weapon.
 Protect your spare shells at your base.
 Build towers with the construction wrench.
@@ -154,26 +152,26 @@ text = "Spawn Creeps Nearby"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 336.0
-margin_right = 380.0
+margin_right = 399.0
 margin_bottom = 356.0
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 126.0
+margin_left = 66.0
+margin_right = 130.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Resume"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 245.0
-margin_right = 327.0
+margin_left = 259.0
+margin_right = 341.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Quit Game"
 
 [node name="CheatLabel" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 360.0
-margin_right = 380.0
+margin_right = 399.0
 margin_bottom = 380.0
 text = "[ ctrl-c to cheat ] Cheaters never win!"
 
@@ -181,8 +179,8 @@ text = "[ ctrl-c to cheat ] Cheaters never win!"
 stream = ExtResource( 2 )
 
 [connection signal="popup_hide" from="." to="." method="_on_PauseMenuPopupDialog_popup_hide"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer/Settings/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer/Audio/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]

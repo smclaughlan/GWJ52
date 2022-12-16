@@ -10,7 +10,6 @@
 [ext_resource path="res://Scenes/GUI/HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Objects/Weapons/Sword.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Player/PickupRadius.gd" type="Script" id=10]
-[ext_resource path="res://Scenes/Objects/Tools/Flashlight.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Player/Automaton_walk.png" type="Texture" id=12]
 [ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=13]
 [ext_resource path="res://Scenes/Player/Camera2D.gd" type="Script" id=14]
@@ -22,6 +21,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31, 31.5 )
+
+[sub_resource type="CanvasItemMaterial" id=25]
+light_mode = 1
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 16 )
@@ -123,6 +125,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
+material = SubResource( 25 )
 position = Vector2( 0, 2 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 8 )
@@ -142,10 +145,6 @@ visible = false
 
 [node name="Axe" parent="Toolbelt" instance=ExtResource( 9 )]
 visible = false
-
-[node name="Flashlight" parent="Toolbelt" instance=ExtResource( 11 )]
-visible = false
-shadow_enabled = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
