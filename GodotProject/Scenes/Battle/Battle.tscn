@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Battle/Tileset.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scenes/Enemies/PathfindingManager.tscn" type="PackedScene" id=9]
 
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( -3705, -1964, 3840, -1971, 3798, 2132, -3719, 2112 )
@@ -130,3 +131,5 @@ position = Vector2( -738, -363 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )
+
+[node name="PathfindingManager" parent="." instance=ExtResource( 9 )]
