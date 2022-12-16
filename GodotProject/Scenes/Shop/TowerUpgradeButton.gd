@@ -29,3 +29,8 @@ func _on_UpgradeButton_pressed():
 	$UpgradeButton.set_disabled(true)
 	emit_signal("upgrade", upgrade_type)
 	
+func disable_upgrade_button():
+	$UpgradeButton.disabled = true
+	self.hide()
+
+

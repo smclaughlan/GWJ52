@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/Menus/PauseMenuPopupDialog.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Weapons/lasernoise.wav" type="AudioStream" id=2]
 
 [node name="PauseMenuPopupDialog" type="PopupDialog"]
 pause_mode = 2
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -29,7 +29,7 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 290.0
-margin_bottom = 190.0
+margin_bottom = 252.0
 custom_constants/separation = 10
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
@@ -47,7 +47,7 @@ align = 1
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 38.0
 margin_right = 280.0
-margin_bottom = 89.0
+margin_bottom = 83.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 10
@@ -59,7 +59,7 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 270.0
-margin_bottom = 41.0
+margin_bottom = 35.0
 
 [node name="Audio" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/Settings"]
 margin_right = 260.0
@@ -84,9 +84,9 @@ value = 0.5
 
 [node name="SecretDebugOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_left = 65.0
-margin_top = 99.0
+margin_top = 93.0
 margin_right = 215.0
-margin_bottom = 150.0
+margin_bottom = 161.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 6
 size_flags_vertical = 3
@@ -102,10 +102,21 @@ margin_right = 150.0
 margin_bottom = 44.0
 text = "1000 health!"
 
+[node name="DieNowButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_top = 48.0
+margin_right = 150.0
+margin_bottom = 68.0
+text = "Die Instantly"
+
+[node name="SpawnCreepsButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Spawn Creeps Nearby"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 160.0
+margin_top = 171.0
 margin_right = 280.0
-margin_bottom = 180.0
+margin_bottom = 191.0
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 37.0
@@ -121,8 +132,20 @@ margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Quit Game"
 
+[node name="CheatLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 201.0
+margin_right = 280.0
+margin_bottom = 232.0
+text = "[ ctrl-c to cheat ]
+Cheaters never win!"
+
+[node name="WhistleNoise" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Settings/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/DieNowButton" to="." method="_on_DieNowButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/SpawnCreepsButton" to="." method="_on_SpawnCreepsButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

@@ -85,3 +85,6 @@ func _on_DamageArea_body_entered(body):
 				if player != null and is_instance_valid(player):
 					var impactVector = (body.global_position - player.global_position).rotated(rand_range(-PI/3,PI/3)).normalized()*knockback_factor
 					body._on_hit(damage, impactVector, damage_attributes)
+		if body.is_in_group("EnemySpawners"):
+			$CrunchNoise.play()
+			

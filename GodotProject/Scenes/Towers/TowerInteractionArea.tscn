@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Towers/TowerInteractionArea.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Shop/TowerUpgradePopupMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=3]
+[ext_resource path="res://_common/Themes/MainMenuFont.tres" type="DynamicFont" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 143, 111 )
@@ -15,23 +16,27 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="InteractLabel" type="PanelContainer" parent="."]
-margin_left = -183.0
-margin_top = 61.0
-margin_right = -64.0
-margin_bottom = 91.0
-rect_scale = Vector2( 2.99193, 2.99193 )
+margin_left = -157.0
+margin_top = 67.0
+margin_right = 17.0
+margin_bottom = 102.0
+rect_scale = Vector2( 1.78282, 1.78282 )
 custom_styles/panel = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="InteractLabel"]
 margin_left = 16.0
 margin_top = 8.0
-margin_right = 103.0
-margin_bottom = 22.0
+margin_right = 158.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 4 )
 text = "[F to upgrade]"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TowerUpgradePopupDialog" parent="CanvasLayer" instance=ExtResource( 2 )]
+visible = true
+custom_styles/panel = ExtResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_InteractArea_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_InteractArea_body_exited"]
+[connection signal="popup_hide" from="CanvasLayer/TowerUpgradePopupDialog" to="." method="_on_TowerUpgradePopupDialog_popup_hide"]
