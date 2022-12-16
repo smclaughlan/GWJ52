@@ -71,8 +71,10 @@ disabled = true
 
 [node name="DurationTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="TravelTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="explosion" type="AnimatedSprite" parent="."]
 scale = Vector2( 15, 15 )
