@@ -274,14 +274,14 @@ position = Vector2( 40, -5 )
 scale = Vector2( 4.85374, 4.85374 )
 frames = SubResource( 34 )
 animation = "walk"
-frame = 1
+frame = 3
 playing = true
 
 [node name="eyes" type="AnimatedSprite" parent="Sprite/AnimatedSprite"]
 material = SubResource( 35 )
 frames = SubResource( 40 )
 animation = "walk"
-frame = 1
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -345,6 +345,7 @@ max_speed = 2.0
 [node name="NavVisLine" parent="." instance=ExtResource( 8 )]
 
 [node name="TargetLabel" type="Label" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 

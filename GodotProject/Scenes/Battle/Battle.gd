@@ -20,24 +20,7 @@ func audio_fade_in():
 	tween.start()
 	
 
-func get_random_dangerous_location():
-	assert(false) # deprecated. Not working.
-	
-#	var found = false
-#	var count = 0
-#	var escape = 100
-#	while not found and count < escape:
-#		var testLocation = Vector2(randi()%int(extents.size.x),  randi()%int(extents.size.y))-extents.position
-#		if extents.has_point(testLocation) and !$SafeZone.has_point(testLocation):
-#			found = true
-#			return testLocation
-#		count += 1
-#		if count%10 == 0:
-#			printerr("Battle.gd, get_random_dangerous_location(). uh oh, this doesn't seem right. " + str(count) + " " + str(testLocation))
-#
-#	if count > 90:
-#		printerr("Nope.")
-	
+
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
