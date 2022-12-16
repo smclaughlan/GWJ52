@@ -59,7 +59,7 @@ func update_health() -> void:
 func _on_PauseButton_pressed():
 	var pauseMenu = $PauseMenuPopupDialog
 	if pauseMenu.visible == false:
-		pauseMenu.popup_centered_ratio(0.5)
+		pauseMenu.popup_centered_ratio(0.75)
 		Global.pause()
 	else:
 		Global.resume()
