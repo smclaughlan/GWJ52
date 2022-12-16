@@ -19,7 +19,7 @@ signal creep_spawned(creep, location)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# connect to WaveManager
-	connect("creep_spawned", Global.wave_manager, "_on_creep_spawn")
+	connect("creep_spawned", Global.wave_manager, "_on_creep_spawned")
 	# make the spawn timers have a bit of variation, so player doesn't get 3 waves simultaneously
 	$WaveTimer.set_wait_time($WaveTimer.get_wait_time() * rand_range(0.8, 1.2))
 	$WaveTimer.start()
@@ -40,7 +40,6 @@ func spawn_creep():
 	if Global.current_map.has_method("_on_creep_spawn_requested"):
 		if not is_connected("creep_spawned", Global.current_map, "_on_creep_spawn_requested"):
 			var _err = connect("creep_spawned", Global.current_map, "_on_creep_spawn_requested")
-		emit_signal("creep_spawned", newCreep)
 	else: # dumb map: just add the creep yourself.
 		Global.current_map.add_child(newCreep)
 
@@ -49,6 +48,7 @@ func spawn_creep():
 		$WaveTimer.start() # wait a bit before the next set of creeps
 	else:
 		$SpawnTimer.start() # short delay before launching another crepep
+	emit_signal("creep_spawned", newCreep)
 
 
 

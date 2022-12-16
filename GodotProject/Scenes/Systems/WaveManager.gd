@@ -40,7 +40,7 @@ func prepare_new_wave() -> void:
 func create_spawners(number: int = 1) -> void:
 	for n in number:
 		# Distance from the position
-		var distance := 1000
+		var distance := 1300
 		# Create a random vector
 		var randomized_vector: Vector2 = _generate_random_vector(distance)
 		var spawn_position : Vector2 = randomized_vector
@@ -72,7 +72,7 @@ func _get_spawner_children() -> Array:
 	return children
 
 
-func _on_creep_spawn(creep: Object) -> void:
+func _on_creep_spawned(creep: Object) -> void:
 	creep_array.append(creep)
 	spawn_amount -= 1
 
@@ -82,6 +82,7 @@ func _on_creep_died(creep: Object) -> void:
 		creep_array.erase(creep)
 		if creep_array.empty():
 			emit_signal("wave_ended")
+			print("Wave ended")
 
 
 func _on_wave_ended() -> void:
