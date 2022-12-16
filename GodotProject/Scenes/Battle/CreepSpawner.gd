@@ -25,7 +25,7 @@ func _ready():
 	if creep == null:
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
-	connect("wave_started", Global.player, "_on_creep_wave_started")
+	var _err = connect("wave_started", Global.player, "_on_creep_wave_started")
 
 func init(location):
 	set_global_position(location)
