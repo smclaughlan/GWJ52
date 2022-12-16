@@ -39,7 +39,7 @@ func _ready():
 	# Create nodes for searching later.
 	Global.pathfinding_manager = self
 	queue = [Vector2.ZERO]
-	max_iterations = 10000
+	max_iterations = 50000
 	create_nodes()
 	
 func _process(delta):
@@ -70,6 +70,7 @@ func create_nodes():
 		# I tried to use a collider, but that won't work.
 		
 		# Get all objects we want to check for collisions with.
+#		debug_path_viz(curr_vec)
 		for obstacle in get_tree().get_nodes_in_group("obstacles"):
 			var shape = obstacle.get_node("PathfindingObstacle/CollisionPolygon2D").get_polygon()
 			var new_shape = []
@@ -105,7 +106,7 @@ func rebuild_nodes():
 	queue = [Vector2.ZERO]
 	nodes = {}
 	colliding_nodes = {}
-	max_iterations = 10000
+	max_iterations = 50000
 	emit_signal("restart_pathfinding", nodes, colliding_nodes)
 
 

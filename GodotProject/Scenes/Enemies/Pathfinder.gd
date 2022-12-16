@@ -39,19 +39,24 @@ func _process(delta):
 func find_target():
 	var nearest = null
 	var lowest_dist = 99999999999999
-	for tower in get_tree().get_nodes_in_group("towers"):
-		var curr_dist = global_position.distance_to(tower.global_position)
+	var potential_targets = []
+	var towers = get_tree().get_nodes_in_group("towers")
+	var village_stuff = get_tree().get_nodes_in_group("village")
+	if towers != null:
+		potential_targets.append_array(towers)
+	if village_stuff != null:
+		potential_targets.append_array(village_stuff)
+	for potential_target in potential_targets:
+		if potential_target.has_method("get_health") and potential_target.get_health() <= 0:
+			continue
+		var curr_dist = global_position.distance_to(potential_target.global_position)
 		if curr_dist < lowest_dist:
 			lowest_dist = curr_dist
-			nearest = tower
-#	for player in get_tree().get_nodes_in_group("player"):
-#		var curr_dist = global_position.distance_to(player.global_position)
-#		if curr_dist < lowest_dist:
-#			lowest_dist = curr_dist
-#			nearest = player
+			nearest = potential_target
 	target = nearest
 	if target != null and is_instance_valid(target):
 		State = States.START_FINDING_PATH
+		get_parent().target = target
 
 
 func find_path():
@@ -138,6 +143,10 @@ func start_restart_timer(_nodes, _colliding_nodes):
 	$RestartTimer.start(rand_range(0.1, 0.3))
 
 
+func restart_pathfinding():
+	$RestartTimer.start(rand_range(0.1, 0.3))
+
+
 func _restart_pathfinding():
 	$RestartTimer.stop()
 #	print("restarting pathfinding on enemy")
@@ -161,3 +170,10 @@ func debug_path_viz(position : Vector2):
 func _on_FindTargetTimer_timeout():
 	if target == null:
 		State = States.FINDING_TARGET
+
+
+func _on_CheckTargetDeadTimer_timeout():
+	if target == null or !is_instance_valid(target):
+		find_target()
+	if target != null and target.has_method("get_health") and target.get_health() <= 0:
+		find_target()

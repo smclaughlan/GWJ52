@@ -1,4 +1,4 @@
-extends Node2D
+extends StaticBody2D
 
 var tower_turret_scene # set during init
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
@@ -67,5 +67,3 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 	if health <= 0:
 		# might want better animations
 		destroy()
-		
-	

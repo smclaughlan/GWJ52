@@ -20,5 +20,9 @@ shape = SubResource( 8 )
 [node name="RestartTimer" type="Timer" parent="."]
 wait_time = 0.1
 
+[node name="CheckTargetDeadTimer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="FindTargetTimer" to="." method="_on_FindTargetTimer_timeout"]
 [connection signal="timeout" from="RestartTimer" to="." method="_restart_pathfinding"]
+[connection signal="timeout" from="CheckTargetDeadTimer" to="." method="_on_CheckTargetDeadTimer_timeout"]

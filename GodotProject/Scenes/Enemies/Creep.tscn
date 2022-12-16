@@ -8,10 +8,10 @@
 [ext_resource path="res://Scenes/Enemies/BloodStain.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Enemies/strife_walk_eyes_only.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Enemies/NavVisLine.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Enemies/strife_death.png" type="Texture" id=8]
-[ext_resource path="res://Scenes/Enemies/Pathfinder.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Enemies/strife_death.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/Enemies/strife_attack.png" type="Texture" id=10]
 [ext_resource path="res://Scenes/Enemies/strife_walk.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/Enemies/Pathfinder.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CanvasItemMaterial" id=41]
 light_mode = 2
@@ -85,23 +85,23 @@ atlas = ExtResource( 10 )
 region = Rect2( 592, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 9 )
 region = Rect2( 0, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 9 )
 region = Rect2( 37, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 9 )
 region = Rect2( 74, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 9 )
 region = Rect2( 111, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 9 )
 region = Rect2( 148, 0, 37, 30 )
 
 [sub_resource type="AtlasTexture" id=30]
@@ -225,9 +225,6 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=4]
 radius = 39.0032
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 128.5, 31.5 )
-
 [sub_resource type="Animation" id=5]
 length = 0.001
 tracks/0/type = "value"
@@ -293,13 +290,6 @@ shape = SubResource( 4 )
 
 [node name="CreepMeleeWeapon" parent="Weapons" instance=ExtResource( 4 )]
 
-[node name="ObstacleDetectionZone" type="Area2D" parent="."]
-collision_layer = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ObstacleDetectionZone"]
-position = Vector2( 218.5, 0.5 )
-shape = SubResource( 2 )
-
 [node name="OwNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 
@@ -317,6 +307,10 @@ one_shot = true
 
 [node name="PathfindTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="StunTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="corpse" type="Sprite" parent="."]
 visible = false
@@ -346,22 +340,19 @@ max_speed = 2.0
 
 [node name="NavVisLine" parent="." instance=ExtResource( 8 )]
 
-[node name="Tween" type="Tween" parent="."]
-
-[node name="Pathfinder" parent="." instance=ExtResource( 9 )]
-tween = NodePath("../Tween")
-
 [node name="TargetLabel" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
 
-[node name="PathfindingObstacle" type="Area2D" parent="."]
+[node name="Pathfinder" parent="." instance=ExtResource( 12 )]
+tween = NodePath("../Tween")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PathfindingObstacle"]
-polygon = PoolVector2Array( 24, -32, -24, -32, -24, 32, 24, 32 )
+[node name="Tween" type="Tween" parent="."]
 
-[connection signal="area_entered" from="ObstacleDetectionZone" to="." method="_on_ObstacleDetectionZone_area_entered"]
+[node name="TweenKnockback" type="Tween" parent="."]
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="DecayTimer" to="." method="_on_DecayTimer_timeout"]
 [connection signal="timeout" from="InvulnerabiltyTimer" to="." method="_on_InvulnerabiltyTimer_timeout"]
 [connection signal="timeout" from="PathfindTimer" to="." method="_on_PathfindTimer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_StunTimer_timeout"]

@@ -13,13 +13,15 @@ var health = 20.0
 var speed = 2.0
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
-onready var nav_agent = $NavigationAgent2D
+#onready var nav_agent = $NavigationAgent2D
 onready var pathfinder = $Pathfinder
 onready var tween = $Tween
+onready var tween_knockback = $TweenKnockback
 onready var sprite = $Sprite
 onready var weapons = $Weapons
 export (PackedScene) var float_text
-var nav_target
+#var nav_target
+var target = null
 
 
 enum Goals { ATTACK_PLAYER, ATTACK_VILLAGE } #move toward is implicit when out of range
@@ -39,16 +41,10 @@ func _ready():
 		var _err = connect("died", Global.pickable_object_spawner, "_on_creep_died")
 
 	$corpse.hide()
-	set_attack_target(choose_target())
 
 
-func init(initialPos, wayFinder):
+func init(initialPos):
 	set_global_position(initialPos)
-	if wayFinder:
-		nav_target = wayFinder
-		var _err = connect("died", wayFinder, "_on_creep_died")
-	#set_attack_target(Global.player)
-
 	State = States.MOVING
 	select_animation("walk")
 	$Sprite/AnimatedSprite.play("walk")
@@ -66,41 +62,6 @@ func set_attack_target(target):
 	for weapon in $Weapons.get_children():
 		if weapon.has_method("set_target"):
 			weapon.set_target(target)
-
-
-func choose_target():
-	var target : Object
-	var targetLocation : Vector2
-
-	var vector_to_player = Global.player.global_position - self.global_position
-	var vector_to_village = Global.village_location - self.global_position
-	if vector_to_player.length_squared() > vector_to_village.length_squared():
-		target = get_nearest_target()
-		targetLocation = target.global_position
-	else:
-		target = Global.player
-		targetLocation = Global.player.global_position
-
-	nav_agent.set_target_location(targetLocation)
-	return target
-
-
-
-func get_nearest_target():
-	var potentialTargets = []
-	var houses = get_tree().get_nodes_in_group("village")
-	for house in houses:
-		if house.State in [ house.States.READY ]:
-			potentialTargets.append(house)
-
-	var towers = get_tree().get_nodes_in_group("towers")
-	for tower in towers:
-		if randf() < 0.2: # mostly creeps should march past towers.
-			potentialTargets.append(tower)
-
-	potentialTargets.append(Global.player)
-
-	return Global.get_closest_object(potentialTargets, self)
 
 
 func select_animation(anim_name):
@@ -125,15 +86,9 @@ func move(delta):
 	tween.interpolate_property(self, "global_position", global_position, next_pos, 0.2)
 	tween.start()
 
-
-#	if nav_agent.is_navigation_finished():
-#		velocity = Vector2.ZERO
-#		return
-#
-#	nav_agent.get_next_location()
-
-
-	var direction = global_position.direction_to(nav_agent.get_next_location())
+	var direction = Vector2.ZERO
+	if target != null and is_instance_valid(target):
+		direction = global_position.direction_to(target.global_position)
 	var desired_velocity = direction * speed
 	var steering = (desired_velocity - velocity) * delta * 4.0
 	velocity += steering
@@ -143,28 +98,14 @@ func move(delta):
 	else:
 		$Sprite.scale.x = -1
 	weapons.rotation = new_angle
-	var _collision = move_and_collide(velocity)
+#	var _collision = move_and_collide(velocity)
 
-#	var myPos = get_global_position()
-#
-#	var playerPos = Vector2.ZERO
-#	if Global.player != null:
-#		playerPos = Global.player.get_global_position()
-#
-#	var targetPos = nav_target.get_global_position()
-#	var dirToPlayer = myPos.direction_to(playerPos)
-#	var dirToNavTarget = myPos.direction_to(targetPos)
-#
-#	if Goal == Goals.ATTACK_PLAYER:
-#		var _collision = move_and_collide(dirToPlayer * delta * Global.game_speed * speed)
-#	elif Goal == Goals.ATTACK_VILLAGE:
-#		var _collision = move_and_collide(dirToNavTarget * delta * Global.game_speed * speed)
 
 func begin_dying(): # death animation and loot spawn
 	State = States.DEAD
 	# disable collisions
 	$CollisionShape2D.set_deferred("disabled", true)
-	$ObstacleDetectionZone/CollisionShape2D.set_deferred("disabled", true)
+#	$ObstacleDetectionZone/CollisionShape2D.set_deferred("disabled", true)
 	disable_weapons()
 	$AnimationPlayer.play("die")
 	$DeathTimer.start()
@@ -191,9 +132,13 @@ func _on_ObstacleDetectionZone_area_entered(area):
 func knockback(impactVector):
 	#var _collision = move_and_collide(impactVector)
 	#var _resultVel = move_and_slide(impactVector)
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", position+impactVector, 0.1)
-
+#	tween.interpolate_property(self, "position", position+impactVector, 0.1)
+	tween.stop_all()
+	tween_knockback.interpolate_property(self, "global_position", global_position, global_position+impactVector, 0.1)
+	tween_knockback.start()
+	pathfinder.path = []
+	pathfinder.restart_pathfinding()
+	State = States.STUNNED
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
@@ -235,7 +180,8 @@ func _on_DecayTimer_timeout():
 
 func _on_PathfindTimer_timeout():
 	if State != States.DEAD:
-		choose_target()
+		target = pathfinder.target
+		set_attack_target(target)
 	else:
 		$PathfindTimer.stop()
 
@@ -255,3 +201,7 @@ func _on_stopped_attacking():
 
 func _on_Timer_timeout():
 	pass # Replace with function body.
+
+
+func _on_StunTimer_timeout():
+	State = States.MOVING
