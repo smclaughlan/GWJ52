@@ -48,7 +48,7 @@ func update_health() -> void:
 
 
 func _on_PauseButton_pressed():
-	$PauseMenuPopupDialog.popup_centered_ratio(0.75)
+	$PauseMenuPopupDialog.popup_centered_ratio(0.5)
 	Global.pause()
 
 
@@ -59,5 +59,6 @@ func _on_UpdateTimer_timeout():
 func _on_tower_type_blueprint_changed(currentTowerType):
 	change_tower_instructions(currentTowerType)
 
-
+func _on_creep_wave_started(location):
+	$ThreatInfoContainer.alert()
 	

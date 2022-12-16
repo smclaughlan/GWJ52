@@ -9,8 +9,8 @@
 extends KinematicBody2D
 
 
-var health = 20.0
-var speed = 2.0
+export var health = 20.0
+export var speed = 2.0
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D

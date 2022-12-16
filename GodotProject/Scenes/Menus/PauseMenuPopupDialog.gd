@@ -14,7 +14,11 @@ func _on_VolumeSlider_value_changed(value):
 	
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("debug"):
-		$MarginContainer/VBoxContainer/SecretDebugOptions.show()
+		show_cheat_options()
+
+func show_cheat_options():
+	$MarginContainer/VBoxContainer/SecretDebugOptions.show()
+
 
 func _on_ResumeButton_pressed():
 	Global.resume()
@@ -54,7 +58,10 @@ func _on_SpawnCreepsButton_pressed():
 			"res://Scenes/Enemies/Creep2Bigger.tscn",
 			"res://Scenes/Enemies/Creep3Faster.tscn",
 		]
-		var creep = load(creepScenes[randi()%creepScenes.size()]).instance()
+		var creepScene = creepScenes[randi()%creepScenes.size()]
+		print(creepScene + " wave spawned")
+		var creep = load(creepScene).instance()
+
 		Global.current_map.add_child(creep)
 		var randLocation = (Vector2.ONE*rand_range(150, 500)).rotated(rand_range(-PI,PI))
 		creep.init(Global.player.global_position + randLocation, null)
@@ -63,6 +70,24 @@ func _on_SpawnCreepsButton_pressed():
 		
 
 
-func _on_Button_toggled(button_pressed):
+func _on_FPS_Button_toggled(button_pressed):
 	Global.enable_fps_counter = button_pressed
 	Global.show_fps_counter()
+
+
+func _on_StartWaveButton_pressed():
+	var availableSpawners = get_tree().get_nodes_in_group("EnemySpawners")
+	if availableSpawners.size() > 0:
+		var randomSpawner = availableSpawners[randi()%availableSpawners.size()]
+		randomSpawner.start_wave_now()
+	else:
+		var availableSpawnerSpawners = get_tree().get_nodes_in_group("SpawnerSpawners")
+		if availableSpawnerSpawners.size() > 0:
+			var randomSpawnerSpawner = availableSpawnerSpawners[randi()%availableSpawnerSpawners.size()]
+			randomSpawnerSpawner.start_wave_now()
+			
+	
+
+
+func _on_CheatLabel_pressed():
+	show_cheat_options()
