@@ -33,7 +33,10 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 		$HealthBar.value = health / max_health
 		if health <= 0:
 			begin_dying()
-		
+
+
+func get_health():
+	return health
 
 
 func _on_DecayTimer_timeout():
