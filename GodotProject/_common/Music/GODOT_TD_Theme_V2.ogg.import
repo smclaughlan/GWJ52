@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GODOT_TD_Theme_V2.ogg-b202d59da0c4b59e028d1e0539e382eb.oggstr"
+
+[deps]
+
+source_file="res://_common/Music/GODOT_TD_Theme_V2.ogg"
+dest_files=[ "res://.import/GODOT_TD_Theme_V2.ogg-b202d59da0c4b59e028d1e0539e382eb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

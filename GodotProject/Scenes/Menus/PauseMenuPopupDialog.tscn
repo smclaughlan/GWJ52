@@ -113,6 +113,11 @@ margin_right = 12.0
 margin_bottom = 20.0
 text = "Spawn Creeps Nearby"
 
+[node name="Button" type="CheckButton" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Show FPS"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 171.0
 margin_right = 280.0
@@ -147,5 +152,6 @@ stream = ExtResource( 2 )
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/DieNowButton" to="." method="_on_DieNowButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/SpawnCreepsButton" to="." method="_on_SpawnCreepsButton_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/SecretDebugOptions/Button" to="." method="_on_Button_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

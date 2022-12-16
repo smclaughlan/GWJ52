@@ -61,3 +61,8 @@ func _on_SpawnCreepsButton_pressed():
 		Global.resume()
 		hide()
 		
+
+
+func _on_Button_toggled(button_pressed):
+	Global.enable_fps_counter = button_pressed
+	Global.show_fps_counter()
