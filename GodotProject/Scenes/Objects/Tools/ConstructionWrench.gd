@@ -7,10 +7,10 @@ extends Node2D
 var player
 var tower_buildmode = load("res://Scenes/Objects/Towers/TowerBuildmode.tscn")
 var tower_base_scene = load("res://Scenes/Objects/Towers/TowerBase.tscn")
-onready var deconstruct_area_2d = $DeconstructArea2D
+#onready var deconstruct_area_2d = $DeconstructArea2D
 var is_placing_tower : bool = false
 var tower_buildmode_visual = null
-var tower_to_deconstruct = null
+#var tower_to_deconstruct = null
 
 var num_towers_placed : int = 0
 
@@ -90,7 +90,9 @@ func spawn_tower(towerType):
 		$BuildNoise.play()
 		Global.current_map.add_child(new_tower)
 		new_tower.init(towerType)
-		Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
+		
+		#Removed because of slowdowns
+		#Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
 		
 		num_towers_placed += 1
 		
@@ -141,7 +143,18 @@ func update_tower_build_visual():
 
 
 func _process(_delta):
-	$Sprite.look_at(get_global_mouse_position())
+	aim_chiral_sprite()
+
+
+func aim_chiral_sprite(): # for sprites the would look upside down if rotated 180
+	var mousePos = get_global_mouse_position()
+	# flip if needed
+	if mousePos.x < get_global_position().x:
+		scale.x = -abs(scale.x)
+		rotation = global_position.direction_to(mousePos).angle() - PI
+	else:
+		scale.x = abs(scale.x)
+		look_at(get_global_mouse_position())
 
 
 func _physics_process(_delta):
