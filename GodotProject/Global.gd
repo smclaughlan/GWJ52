@@ -17,6 +17,7 @@ enum TowerTypes { BEAM, AOE, GLUE }
 enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 var enable_fps_counter: bool # Shows an fps counter
 var previous_window_index = 1
+var battle_map: Node2D
 
 
 func pause():

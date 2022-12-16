@@ -20,7 +20,7 @@ func _ready() -> void:
 	randomize()
 	connect("wave_ended", self, "_on_wave_ended")
 	Global.wave_manager = self
-	prepare_new_wave()
+	#prepare_new_wave()
 
 
 func prepare_new_wave() -> void:
