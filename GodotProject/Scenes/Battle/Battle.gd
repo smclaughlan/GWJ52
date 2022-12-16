@@ -11,6 +11,15 @@ func _ready():
 		$Currency.update_amount( starting_currency )
 			
 
+func audio_fade_in():
+	var fade_duration = 3.0
+	var tween = get_node("Tween")
+	tween.interpolate_property($Music, "volume_db",
+		-20, 0, fade_duration,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	
+
 func get_random_dangerous_location():
 	assert(false) # deprecated. Not working.
 	

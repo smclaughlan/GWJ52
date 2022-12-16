@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Battle/PickableObjectSpawner.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Battle/Battle.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Battle/Tileset.tscn" type="PackedScene" id=8]
+[ext_resource path="res://_common/Music/GODOT_TD_V2_Loop_.ogg" type="AudioStream" id=9]
 
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( -4175, -2467, 4313, -2472, 4315, 2664, -4175, 2661 )
@@ -145,3 +146,9 @@ position = Vector2( -4048, -2325 )
 [node name="SpawnerSpawner2" parent="." instance=ExtResource( 3 )]
 visible = false
 position = Vector2( 3319, 2569 )
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+autoplay = true
+
+[node name="Tween" type="Tween" parent="."]
