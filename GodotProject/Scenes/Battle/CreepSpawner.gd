@@ -95,13 +95,23 @@ func _on_SpawnTimer_timeout():
 	if State == States.READY:
 		spawn_creep() # timer gets restarted inside spawn_creep() method
 
-
+func show_damage():
+	$HealthBar.value = health/max_health
+	#var newFrame = int(1.0-(min(health/max_health,1.0)) * 3.0) # should be 0 to 3 with 0 being max health
+	var newFrame = min(3, 4 - (health/max_health * 4.0))
+	$Sprite.set_frame(newFrame)
+	if health < 50:
+		print(newFrame)
+	if health < 20:
+		pass# breakpoint
 
 func _on_hit(damage, _impactVector, _damageAttributes):
 	health -= damage
-	$HealthBar.value = health/max_health
+	$ImpactParticles.emitting = true
+	show_damage()
 	if health <= 0:
 		begin_dying()
+	
 
 
 
