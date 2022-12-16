@@ -7,8 +7,8 @@
 period = 128.0
 
 [sub_resource type="NoiseTexture" id=2]
-width = 3096
-height = 1800
+width = 1024
+height = 574
 seamless = true
 noise = SubResource( 1 )
 
@@ -27,15 +27,16 @@ anchor_bottom = 1.0
 mouse_filter = 2
 
 [node name="FadeRect" type="TextureRect" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -1548.0
-margin_top = -900.0
-margin_right = 1548.0
-margin_bottom = 900.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4796.0
+margin_top = -2451.0
+margin_right = -4796.0
+margin_bottom = -2451.0
+rect_scale = Vector2( 11.3511, 11.3511 )
 mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 texture = SubResource( 2 )
-stretch_mode = 7
+expand = true
+stretch_mode = 1

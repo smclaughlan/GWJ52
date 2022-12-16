@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Region/Base.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Region/HomeBaseShoppingMall.png" type="Texture" id=6]
+
+[sub_resource type="CanvasItemMaterial" id=1]
+light_mode = 1
 
 [node name="Base" type="Node2D"]
 position = Vector2( -6, -60 )
@@ -16,8 +19,9 @@ scale = Vector2( 1.42824, 1.42824 )
 visible = false
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 1 )
 position = Vector2( -3, -36 )
-scale = Vector2( 13.5152, 13.5152 )
+scale = Vector2( 10, 10 )
 texture = ExtResource( 6 )
 
 [editable path="TowerTurret"]
