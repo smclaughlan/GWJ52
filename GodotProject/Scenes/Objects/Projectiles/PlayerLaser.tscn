@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scenes/Objects/Projectiles/PlayerBullet.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Weapons/LaserLight.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.166667, 0.371345, 0.660819, 0.827485, 1 )
+colors = PoolColorArray( 0.238281, 0.0918743, 0.00403012, 1, 0.0655104, 0.430367, 0.173827, 1, 0.652344, 0.535126, 0, 1, 0.857022, 0.863281, 0.062054, 1, 0, 0, 0, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 64
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 66.5, 9 )
+
+[node name="LaserBullet" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+bullet_speed = 1200.0
+
+[node name="Sprite" type="Sprite" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+position = Vector2( 28.4929, 0 )
+scale = Vector2( 9.83374, 0.557938 )
+texture = SubResource( 2 )
+texture_offset = Vector2( 7, 0 )
+texture_scale = Vector2( 4, 1 )
+texture_rotation_degrees = 90.0
+polygon = PoolVector2Array( -7, -8, 15.963, -7.16926, 16.8305, -3.58463, 16.8305, 3.58463, 16, 7, -7, 7 )
+
+[node name="Line2D" type="Line2D" parent="Sprite"]
+position = Vector2( -13, 0 )
+points = PoolVector2Array( 2, -9, -53, -9 )
+width = 1.0
+default_color = Color( 1, 0.960784, 0.4, 0.231373 )
+
+[node name="Line2D2" type="Line2D" parent="Sprite"]
+position = Vector2( -12, 17 )
+points = PoolVector2Array( 2, -9, -53, -9 )
+width = 1.0
+default_color = Color( 1, 0.960784, 0.4, 0.231373 )
+
+[node name="Line2D3" type="Line2D" parent="Sprite"]
+position = Vector2( -32, 9 )
+points = PoolVector2Array( 2, -9, -53, -9 )
+width = 1.0
+default_color = Color( 1, 0.960784, 0.4, 0.231373 )
+
+[node name="Light2D" type="Light2D" parent="Sprite"]
+position = Vector2( 79, 0 )
+scale = Vector2( 3.23916, 7.77821 )
+texture = ExtResource( 2 )
+energy = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 25.5, 0 )
+shape = SubResource( 3 )
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

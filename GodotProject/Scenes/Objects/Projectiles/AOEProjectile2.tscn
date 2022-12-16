@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Objects/Projectiles/AOEProjectile.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Projectiles/explosion_pixelated.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Objects/Projectiles/boom-voice.wav" type="AudioStream" id=3]
+
+[sub_resource type="CanvasItemMaterial" id=11]
+light_mode = 1
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 164.757
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ) ],
+"loop": false,
+"name": "explode",
+"speed": 5.0
+} ]
+
+[node name="AOEBomb" type="Area2D"]
+collision_layer = 8
+collision_mask = 2
+script = ExtResource( 1 )
+
+[node name="BulletSprite" type="Sprite" parent="."]
+material = SubResource( 11 )
+
+[node name="Line2D" type="Line2D" parent="BulletSprite"]
+position = Vector2( -8.00957, 0 )
+scale = Vector2( 0.110048, 1 )
+points = PoolVector2Array( 1, 0, 190, 0 )
+default_color = Color( 0.929412, 0.952941, 0.533333, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2( 1.5, 1.5 )
+shape = SubResource( 1 )
+disabled = true
+
+[node name="DurationTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="TravelTimer" type="Timer" parent="."]
+
+[node name="explosion" type="AnimatedSprite" parent="."]
+scale = Vector2( 15, 15 )
+frames = SubResource( 10 )
+animation = "explode"
+
+[node name="BoomNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = 14.0
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_DurationTimer_timeout"]
+[connection signal="timeout" from="TravelTimer" to="." method="_on_TravelTimer_timeout"]
+[connection signal="animation_finished" from="explosion" to="." method="_on_explosion_animation_finished"]

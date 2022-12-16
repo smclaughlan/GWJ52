@@ -58,7 +58,6 @@ animations = [ {
 script = ExtResource( 2 )
 bullet_scene_1 = ExtResource( 1 )
 bullet_scene_2 = ExtResource( 1 )
-turret_reload_delay = 0.1
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0

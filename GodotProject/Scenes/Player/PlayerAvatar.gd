@@ -54,9 +54,9 @@ func _ready():
 	initialize_hud()
 	#initialize_weapons() # moved to delayed init timer
 		
-	$Sprite/AnimatedSprite.animation = "golem"
+	$Sprite/AnimatedSprite.animation = "GolemIdle"
 	$DeathNotice.hide()
-	
+	$ThreatIndicator.hide()
 	State = States.READY
 
 
@@ -116,6 +116,27 @@ func _process(_delta):
 	velocity = velocity.normalized() * player_speed * dashFactor
 
 	velocity = move_and_slide(velocity * Global.game_speed) # delta not required
+
+	flip_sprite_toward_mouse()
+	choose_walk_or_idle_animation()
+	
+	
+func choose_walk_or_idle_animation():
+	if State in [States.READY]: # not dead, not a ghost.
+		if velocity.length_squared() > 0:
+			if $Sprite/AnimatedSprite.get_animation() == "GolemIdle":
+				$Sprite/AnimatedSprite.play("GolemWalk")
+		else:
+			if $Sprite/AnimatedSprite.get_animation() == "GolemWalk":
+				$Sprite/AnimatedSprite.play("GolemIdle")
+
+
+
+func flip_sprite_toward_mouse():
+	if get_global_mouse_position().x > global_position.x:
+		$Sprite.scale.x = -abs($Sprite.scale.x)
+	else:
+		$Sprite.scale.x = abs($Sprite.scale.x)
 
 func begin_dying():
 	# start a timer and play an animation. Maybe give the player a chance for a miracle recovery?
@@ -203,3 +224,12 @@ func _on_golem_entered():
 
 func _on_DelayInitTimer_timeout():
 	set_tool("build", "left")
+
+func _on_creep_wave_started(location):
+	$ThreatIndicator.show()
+	$ThreatIndicator.look_at(location)
+	$ThreatIndicator/ThreatIndicatorTimer.start()
+	
+
+func _on_ThreatIndicatorTimer_timeout():
+	$ThreatIndicator.hide()
