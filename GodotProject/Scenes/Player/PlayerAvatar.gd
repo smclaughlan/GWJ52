@@ -160,7 +160,7 @@ func turn_into_a_ghost():
 	
 func resurrect():
 	# turn back into a golem
-	$Sprite/AnimatedSprite.play("golem")
+	$Sprite/AnimatedSprite.play("GolemIdle")
 	$DeathNotice.hide()
 	health = max_health
 	$StatusBars/TextureProgress.value = health
