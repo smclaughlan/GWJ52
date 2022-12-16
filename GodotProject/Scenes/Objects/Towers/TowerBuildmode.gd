@@ -7,7 +7,7 @@ extends Node2D
 var can_place = true
 var player
 export var MAX_PLACEMENT_RANGE = 800.0
-export var MIN_DISTANCE_BETWEEN_TOWERS = 50.0
+var MIN_DISTANCE_BETWEEN_TOWERS = Global.minimum_separation_between_towers
 
 onready var build_area = $Area2D
 #onready var green_sprite = $GreenSprite
@@ -46,6 +46,10 @@ func safe_placement_location():
 		safe_placement_location = false
 	if exceeds_maximum_distance():
 		safe_placement_location = false
+	if outside_map_extents():
+		safe_placement_location = false
+	if on_tilemap_wall():
+		safe_placement_location = false
 
 	return safe_placement_location
 
@@ -67,14 +71,31 @@ func on_another_tower():
 			location_already_occupied = true
 	return location_already_occupied
 
-
+func on_tilemap_wall():
+	var tilemap = Global.current_map.get_node("tilemap")
+	var local_position = tilemap.to_local(global_position)
+	var map_position = tilemap.world_to_map(local_position)
+	var specific_tile = tilemap.get_cell(map_position.x, map_position.y)
+	
+	if specific_tile == 1: # tile index in tilemap. 1 is a gem
+		return true
+	else:
+		return false
+	
+	
+	
 func exceeds_maximum_distance():
 	var distance_sq = global_position.distance_squared_to(get_global_mouse_position())
 	if distance_sq > MAX_PLACEMENT_RANGE * MAX_PLACEMENT_RANGE:
 		return true
 	else:
 		return false
-		
+
+func outside_map_extents():
+	if Global.current_map.extents.has_point(global_position):
+		return false
+	else:
+		return true
 
 func _physics_process(_delta):
 	if self != null and is_instance_valid(self):

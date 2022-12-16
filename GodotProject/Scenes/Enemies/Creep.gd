@@ -9,8 +9,8 @@
 extends KinematicBody2D
 
 
-var health = 20.0
-var speed = 2.0
+export var health = 20.0
+export var speed = 2.0
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 onready var nav_agent = $NavigationAgent2D
@@ -41,12 +41,17 @@ func _ready():
 	set_attack_target(choose_target())
 
 
-func init(initialPos, navTarget):
+func init(initialPos, wayFinder):
 	set_global_position(initialPos)
-	nav_target = navTarget
+	if wayFinder:
+		nav_target = wayFinder
+		var _err = connect("died", wayFinder, "_on_creep_died")
 	#set_attack_target(Global.player)
 	
 	State = States.MOVING
+	select_animation("walk")
+	$Sprite/AnimatedSprite.play("walk")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -166,6 +171,7 @@ func die_for_real_this_time(): # blood smear
 	$corpse.show()
 	$Sprite.hide()
 	$DecayTimer.start()
+	emit_signal("died", self, dropped_pickable, position)
 
 
 func disable_weapons():
@@ -188,6 +194,11 @@ func knockback(impactVector):
 	
 
 func _on_hit(damage, impactVector, _damageAttributes):
+	# don't keep taking damage when you're dying or dead.
+	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
+		return
+	
+	
 	# worry about damage attributes later
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
@@ -206,7 +217,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 
 func _on_DeathTimer_timeout():
 	die_for_real_this_time()
-	emit_signal("died", dropped_pickable, position)
+	
 
 
 func _on_InvulnerabiltyTimer_timeout():
@@ -237,3 +248,7 @@ func _on_stopped_attacking():
 		State = States.MOVING
 		select_animation("walk")
 
+
+
+func _on_Timer_timeout():
+	pass # Replace with function body.

@@ -7,10 +7,12 @@ extends Node2D
 var player
 var tower_buildmode = load("res://Scenes/Objects/Towers/TowerBuildmode.tscn")
 var tower_base_scene = load("res://Scenes/Objects/Towers/TowerBase.tscn")
-onready var deconstruct_area_2d = $DeconstructArea2D
+#onready var deconstruct_area_2d = $DeconstructArea2D
 var is_placing_tower : bool = false
 var tower_buildmode_visual = null
-var tower_to_deconstruct = null
+#var tower_to_deconstruct = null
+
+var num_towers_placed : int = 0
 
 const TowerTypes = Global.TowerTypes
 var tower_type = TowerTypes.BEAM
@@ -31,11 +33,14 @@ var State = States.INITIALIZING
 
 signal tower_built_for_cost
 signal tower_built
+signal tutorial_ended
 
 func _ready():
 	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
 	yield(delay_let_ancestors_initialize_first, "timeout")
 	var _err = connect("tower_built_for_cost", Global.currency_tracker, "update_amount")
+	_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
+	_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
 	var towerbuilt = connect("tower_built", Global.battle_map, "first_three_towers")
 
 
@@ -62,6 +67,7 @@ func increment_blueprint(value:int): # +1 == fwd, -1 == backward
 	tower_buildmode_visual.set_tower_type(tower_type)
 	#tower_base_scene = load(tower_base_scenes[tower_type])
 
+	Global.player.hud._on_tower_type_blueprint_changed(tower_type)
 	
 
 func attempt_to_spawn_tower(towerType):
@@ -88,6 +94,32 @@ func spawn_tower(towerType):
 		$BuildNoise.play()
 		Global.current_map.add_child(new_tower)
 		new_tower.init(towerType)
+		
+		#Removed because of slowdowns
+		#Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
+		
+		num_towers_placed += 1
+		
+		if num_towers_placed == 3:
+			emit_signal("tutorial_ended")
+
+		#build_tilemap_walls_under_tower(new_tower)
+		#causes too much slowdown
+		
+func build_tilemap_walls_under_tower(new_tower):
+	assert(false) # deprecated function, don't use it.
+	# This might be causing slowdowns. We may need to remove it.
+
+	var tilemap = Global.current_map.get_node("tilemap")
+	var local_position = tilemap.to_local(new_tower.global_position)
+	var map_position = tilemap.world_to_map(local_position)
+	#var specific_tile = tilemap.get_cell(map_position.x, map_position.y)
+	
+	for row in range(3):
+		for col in range(3):
+			var posX = map_position.x + col - 1
+			var posY = map_position.y + row - 1
+			tilemap.set_cell(posX, posY, 1)
 	emit_signal("tower_built")
 
 
@@ -116,7 +148,18 @@ func update_tower_build_visual():
 
 
 func _process(_delta):
-	$Sprite.look_at(get_global_mouse_position())
+	aim_chiral_sprite()
+
+
+func aim_chiral_sprite(): # for sprites the would look upside down if rotated 180
+	var mousePos = get_global_mouse_position()
+	# flip if needed
+	if mousePos.x < get_global_position().x:
+		scale.x = -abs(scale.x)
+		rotation = global_position.direction_to(mousePos).angle() - PI
+	else:
+		scale.x = abs(scale.x)
+		look_at(get_global_mouse_position())
 
 
 func _physics_process(_delta):

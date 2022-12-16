@@ -38,9 +38,9 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GWJ 52 - The Glass Queen"
+config/name="GWJ52GlassQueen"
 run/main_scene="res://Main.tscn"
-config/icon="res://icon.png"
+config/icon="res://Scenes/Player/staticAvatarImage.png"
 
 [autoload]
 
@@ -52,6 +52,7 @@ settings/fps/force_fps=60
 
 [display]
 
+window/size/height=574
 window/size/resizable=false
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
@@ -178,6 +179,21 @@ next_slide={
 prev_slide={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+zoom_out={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":48,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+zoom_in={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":57,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":true,"meta":true,"command":true,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 
