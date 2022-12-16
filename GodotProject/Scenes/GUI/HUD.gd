@@ -31,13 +31,22 @@ func change_tower_instructions(towerType):
 	var prevTower = towerTypes[(towerType-1) % towerTypes.size()]
 	var currentTower = towerTypes[towerType]
 	var nextTower = towerTypes[(towerType+1) % towerTypes.size()]
-	find_node("ExtraInstructions").text = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
+	var instructionText : String
+	if Global.currency_tracker.sun >= 10:
+		instructionText = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
+	else:
+		instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
+	find_node("ExtraInstructions").text = instructionText
 	
 	
 
 func update_sun(sun: int) -> void:
 	$Footer/HBoxContainer/Mana/IchorAmount.text = str(sun)
 	$Footer/HBoxContainer/Mana.value = float(sun)/100.0
+	if sun < 10:
+		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
+		find_node("ExtraInstructions").text = instructionText
+	
 	# if mana hits 100, should win automatically
 
 func update_health() -> void:
