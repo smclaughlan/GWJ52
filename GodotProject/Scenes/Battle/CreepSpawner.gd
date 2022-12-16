@@ -35,7 +35,9 @@ func spawn_creep():
 	#print("spawning creep")
 	var newCreep = creep.instance()
 	newCreep.init(global_position, current_wave_wayfinder)
-	current_wave_wayfinder.add_creep(newCreep)
+	
+	if current_wave_wayfinder != null and is_instance_valid(current_wave_wayfinder):
+		current_wave_wayfinder.add_creep(newCreep)
 	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
 
