@@ -114,22 +114,6 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=24]
-animations = [ {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=24]
-animations = [ {
-"frames": [ ExtResource( 17 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
 [node name="Player" type="KinematicBody2D" groups=["obstacles", "player"]]
 collision_mask = 5
 script = ExtResource( 3 )
