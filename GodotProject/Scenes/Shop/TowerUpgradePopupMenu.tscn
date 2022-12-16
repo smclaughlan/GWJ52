@@ -1,7 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Shop/TowerUpgradeButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Shop/TowerUpgradePopupMenu.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeFaster-h.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeBigger-h.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeStronger-h.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeFaster.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeFaster-p.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeBigger-p.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeStronger.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeBigger.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/GUI/buttons/TowerUpgradeStronger-p.png" type="Texture" id=11]
 
 [node name="TowerUpgradePopupDialog" type="PopupPanel"]
 pause_mode = 2
@@ -26,51 +35,91 @@ custom_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 10.0
 margin_top = 20.0
-margin_right = 382.0
-margin_bottom = 186.0
+margin_right = 402.0
+margin_bottom = 250.0
 custom_constants/separation = 10
 
 [node name="DeconstructButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 49.0
-margin_right = 323.0
+margin_left = 59.0
+margin_right = 333.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "This tower sucks. I want my money back."
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="TowerUpdatesLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_top = 30.0
-margin_right = 372.0
+margin_right = 392.0
 margin_bottom = 44.0
 text = "I love this tower. Let's upgrade:"
 align = 1
 
 [node name="TowerUpgrades" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 54.0
-margin_right = 372.0
-margin_bottom = 136.0
+margin_right = 392.0
+margin_bottom = 200.0
 alignment = 1
 
 [node name="Bigger" parent="MarginContainer/VBoxContainer/TowerUpgrades" instance=ExtResource( 1 )]
-margin_left = 86.0
-margin_right = 150.0
+margin_right = 128.0
+margin_bottom = 146.0
+
+[node name="UpgradeLabel" parent="MarginContainer/VBoxContainer/TowerUpgrades/Bigger" index="0"]
+margin_right = 128.0
+
+[node name="UpgradeButton" parent="MarginContainer/VBoxContainer/TowerUpgrades/Bigger" index="1"]
+margin_right = 128.0
+margin_bottom = 146.0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 8 )
+texture_hover = ExtResource( 4 )
+texture_disabled = ExtResource( 8 )
 
 [node name="Faster" parent="MarginContainer/VBoxContainer/TowerUpgrades" instance=ExtResource( 1 )]
-margin_left = 154.0
-margin_right = 218.0
+margin_left = 132.0
+margin_right = 260.0
+margin_bottom = 146.0
 upgrade_type = 1
 
+[node name="UpgradeLabel" parent="MarginContainer/VBoxContainer/TowerUpgrades/Faster" index="0"]
+margin_right = 128.0
+
+[node name="UpgradeButton" parent="MarginContainer/VBoxContainer/TowerUpgrades/Faster" index="1"]
+margin_right = 128.0
+margin_bottom = 146.0
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 3 )
+texture_disabled = ExtResource( 7 )
+
 [node name="Stronger" parent="MarginContainer/VBoxContainer/TowerUpgrades" instance=ExtResource( 1 )]
-margin_left = 222.0
-margin_right = 286.0
+margin_left = 264.0
+margin_right = 392.0
+margin_bottom = 146.0
 upgrade_type = 2
 
+[node name="UpgradeLabel" parent="MarginContainer/VBoxContainer/TowerUpgrades/Stronger" index="0"]
+margin_right = 128.0
+
+[node name="UpgradeButton" parent="MarginContainer/VBoxContainer/TowerUpgrades/Stronger" index="1"]
+margin_right = 128.0
+margin_bottom = 146.0
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 11 )
+texture_hover = ExtResource( 5 )
+texture_disabled = ExtResource( 11 )
+
 [node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 162.0
-margin_top = 146.0
-margin_right = 209.0
-margin_bottom = 166.0
+margin_left = 172.0
+margin_top = 210.0
+margin_right = 219.0
+margin_bottom = 230.0
 size_flags_horizontal = 6
 text = "Close"
 
+[connection signal="about_to_show" from="." to="." method="_on_TowerUpgradePopupDialog_about_to_show"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/DeconstructButton" to="." method="_on_DeconstructButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="_on_CloseButton_pressed"]
+
+[editable path="MarginContainer/VBoxContainer/TowerUpgrades/Bigger"]
+[editable path="MarginContainer/VBoxContainer/TowerUpgrades/Faster"]
+[editable path="MarginContainer/VBoxContainer/TowerUpgrades/Stronger"]

@@ -33,8 +33,7 @@ func _on_InteractArea_body_entered(body):
 		$InteractLabel.show()
 
 
-func _on_PopupDialog_popup_hide():
-	Global.resume()
+
 
 
 func _on_InteractArea_body_exited(body):
@@ -51,4 +50,9 @@ func _on_PopupDialog_about_to_show():
 	# tell the player to pause their tools.
 	pass
 	
+	
+
+
+func _on_TowerUpgradePopupDialog_popup_hide():
+	Global.resume() # double-check
 	
