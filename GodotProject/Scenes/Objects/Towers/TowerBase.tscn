@@ -26,6 +26,7 @@ wait_time = 0.1
 one_shot = true
 
 [node name="InteractArea" parent="." instance=ExtResource( 1 )]
+input_pickable = false
 
 [node name="PathfindingObstacle" type="Area2D" parent="."]
 
