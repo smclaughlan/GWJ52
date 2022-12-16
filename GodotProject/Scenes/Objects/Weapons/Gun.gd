@@ -21,6 +21,7 @@ func _ready():
 	if current_ammo == null:
 		current_ammo = $Ammo/Bullet
 
+	$Sprite/MuzzleFlash.hide()
 	State = States.READY
 
 func init(myShooter): # aka human player
