@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/PlayerSpiritMoteSpriteSheet.png" type="Texture" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://Scenes/Objects/Weapons/Sword.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Player/PickupRadius.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Objects/Tools/Flashlight.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Player/staticAvatarImage.png" type="Texture" id=12]
+[ext_resource path="res://Scenes/Player/Automaton_walk.png" type="Texture" id=12]
 [ext_resource path="res://_common/Themes/black_panel_styleboxflat.tres" type="StyleBox" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -37,6 +37,30 @@ region = Rect2( 48, 0, 16, 16 )
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 16, 16 )
 
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 31, 28 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 12 )
+region = Rect2( 31, 0, 31, 28 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 12 )
+region = Rect2( 62, 0, 31, 28 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 12 )
+region = Rect2( 93, 0, 31, 28 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 12 )
+region = Rect2( 124, 0, 31, 28 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 12 )
+region = Rect2( 155, 0, 31, 28 )
+
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
@@ -44,10 +68,10 @@ animations = [ {
 "name": "ghost",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 12 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
 "name": "golem",
-"speed": 5.0
+"speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -64,10 +88,12 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
-position = Vector2( 0, 18 )
+position = Vector2( 0, 2 )
 scale = Vector2( 2.52817, 2.52817 )
 frames = SubResource( 8 )
 animation = "golem"
+frame = 2
+playing = true
 
 [node name="LeftHand" type="Node2D" parent="."]
 
