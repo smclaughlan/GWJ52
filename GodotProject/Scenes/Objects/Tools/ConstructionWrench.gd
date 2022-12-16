@@ -39,6 +39,7 @@ func _ready():
 	yield(delay_let_ancestors_initialize_first, "timeout")
 	var _err = connect("tower_built", Global.currency_tracker, "update_amount")
 	_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
+	_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
 
 func init(myPlayer):
 	player = myPlayer

@@ -25,7 +25,7 @@ func _ready():
 	if creep == null:
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
-	var _err = connect("wave_started", Global.player, "_on_creep_wave_started")
+	var _err = connect("wave_started", Global.player.hud, "_on_creep_wave_started")
 
 func init(location):
 	set_global_position(location)
@@ -80,9 +80,16 @@ func _on_WaveTimer_timeout():
 
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
+		spawn_creep()
 		$SpawnTimer.start()
 		emit_signal("wave_started", global_position)
 
+
+func start_wave_now(): # accelerated start
+	$SpawnTimer.stop()
+	_on_WaveTimer_timeout()
+
+	
 
 func _on_SpawnTimer_timeout():
 	if State == States.READY:
