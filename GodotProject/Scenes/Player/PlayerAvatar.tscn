@@ -53,7 +53,7 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=2]
 radius = 300.0
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["obstacles", "player"]]
 collision_mask = 5
 script = ExtResource( 3 )
 
@@ -165,6 +165,11 @@ wait_time = 5.0
 wait_time = 0.1
 one_shot = true
 autostart = true
+
+[node name="PathfindingObstacle" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PathfindingObstacle"]
+polygon = PoolVector2Array( 48, -32, -48, -32, -48, 64, 48, 64 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]

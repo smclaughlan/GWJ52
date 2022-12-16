@@ -5,6 +5,7 @@ export(NodePath) onready var tween = get_node(tween)
 onready var path_area = $PathArea
 onready var nodes = Global.pathfinding_manager.nodes
 onready var colliding_nodes = Global.pathfinding_manager.colliding_nodes
+onready var player_colliding_nodes = Global.pathfinding_manager.player_colliding_nodes
 # List of positions to move to.
 var path = []
 var offset = 10
@@ -19,6 +20,7 @@ func _ready():
 	# Connect signal from pathfinding_manager so pathfinding restarts when something is placed
 	# and the navmesh has been rebuilt.
 	Global.pathfinding_manager.connect("restart_pathfinding", self, "start_restart_timer")
+	Global.pathfinding_manager.connect("restart_player_pathfinding", self, "update_player_pathfinding")
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,14 +32,11 @@ func _process(delta):
 	elif State == States.START_FINDING_PATH:
 		find_path()
 	elif State == States.FINDING_PATH:
-		for i in 50:
+		for i in 40:
 			next_step()
 
 
 func find_target():
-	path = []
-	queue = []
-	seen = {}
 	var nearest = null
 	var lowest_dist = 99999999999999
 	for tower in get_tree().get_nodes_in_group("towers"):
@@ -45,24 +44,30 @@ func find_target():
 		if curr_dist < lowest_dist:
 			lowest_dist = curr_dist
 			nearest = tower
+#	for player in get_tree().get_nodes_in_group("player"):
+#		var curr_dist = global_position.distance_to(player.global_position)
+#		if curr_dist < lowest_dist:
+#			lowest_dist = curr_dist
+#			nearest = player
 	target = nearest
 	if target != null and is_instance_valid(target):
 		State = States.START_FINDING_PATH
 
 
 func find_path():
+	path = []
+	queue = []
+	seen = {}
 	# Find path by:
 	# * Put the start position at the nearest node on the navmesh. 
 	#		The first position in the path will always be there.
-	var closest_node = null
-	var closest_dist = 999999999999
-	for node in nodes:
-		var curr_dist = global_position.distance_to(str_to_vector2(node))
-		if curr_dist < closest_dist:
-			closest_dist = curr_dist
-			closest_node = node
+	# Need to find the closest node but without iterating.
+	# Stepify the global_position instead.
+	var stepify_offset = Global.pathfinding_manager.offset
+	var global_stepified = Vector2(stepify(global_position.x, stepify_offset), stepify(global_position.y, stepify_offset))
+	
 	queue = [
-			[closest_node], # [[path_array], [path_array]]
+			[global_stepified], # [[path_array], [path_array]]
 		]
 	State = States.FINDING_PATH
 
@@ -87,13 +92,19 @@ func next_step():
 		return
 	for neighbor in neighbors:
 		# Check if this is the target we're looking for.
+		var all_colliders = []
 		var colliders = colliding_nodes.get(neighbor)
+		var player_colliders = player_colliding_nodes.get(neighbor)
+		if colliders != null:
+			all_colliders.append_array(colliders)
+		if player_colliders != null:
+			all_colliders.append_array(player_colliders)
 #		print('looking for target:', target)
-		if colliders != null and colliders.has(target):
+		if all_colliders.has(target):
 			path = curr_path_arr
 			State = States.DONE
-
-		if colliders == null:
+		
+		if all_colliders.size() == 0:
 			add_to_queue(curr_path_arr, neighbor)
 
 
@@ -105,35 +116,41 @@ func add_to_queue(curr_path_arr, neighbor):
 	new_path_arr.append(neighbor)
 	queue.append(new_path_arr)
 
+#
+#func str_to_vector2(strVec):
+#	# Remove the "Vector2(" and ")" characters from the string
+#	var string = strVec.replace("(", "").replace(")", "")
+#
+#	# Split the string on the "," character to get the x and y components
+#	var components = string.split(",")
+#
+#	# Convert the x and y components into float values
+#	var x = float(components[0])
+#	var y = float(components[1])
+#
+#	# Return the Vector2
+#	return Vector2(x, y)
 
-func str_to_vector2(strVec):
-	# Remove the "Vector2(" and ")" characters from the string
-	var string = strVec.replace("(", "").replace(")", "")
-	
-	# Split the string on the "," character to get the x and y components
-	var components = string.split(",")
 
-	# Convert the x and y components into float values
-	var x = float(components[0])
-	var y = float(components[1])
-
-	# Return the Vector2
-	return Vector2(x, y)
-
-
-func start_restart_timer():
-	$RestartTimer.start(rand_range(0.1, 2))
+func start_restart_timer(_nodes, _colliding_nodes):
+	nodes = _nodes
+	colliding_nodes = _colliding_nodes
+	$RestartTimer.start(rand_range(0.1, 0.3))
 
 
 func _restart_pathfinding():
-	if Global.pathfinding_manager.navmesh_done == false:
-		return
 	$RestartTimer.stop()
 #	print("restarting pathfinding on enemy")
-	nodes = Global.pathfinding_manager.nodes
-	colliding_nodes = Global.pathfinding_manager.colliding_nodes
 	find_target()
 	State = States.FINDING_TARGET
+
+
+func update_player_pathfinding(_player_colliding_nodes):
+	if target != Global.player:
+		return
+	player_colliding_nodes = _player_colliding_nodes
+#	print("player colliding nodes:", player_colliding_nodes)
+	State = States.FINDING_PATH
 
 func debug_path_viz(position : Vector2):
 	var new_viz = debug_viz.instance()
