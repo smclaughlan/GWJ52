@@ -18,7 +18,7 @@ func _on_ActionButton_pressed(action : String):
 	if action in [ "melee", "range", "build", "flashlight" ] and player != null and is_instance_valid(player):
 		player.set_tool(action)
 	if action == "build":
-		$ExtraInstructionsPanel/VBoxContainer/ExtraInstructions.text = "Press < , > to change tower type."
+		$ExtraInstructionsPanel/VBoxContainer/ExtraInstructions.text = "Press Q , E to change tower type."
 		$ExtraInstructionsPanel.show()
 	else:
 		$ExtraInstructionsPanel.hide()

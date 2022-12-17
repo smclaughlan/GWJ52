@@ -45,6 +45,7 @@ tile_data = PoolIntArray( -2555971, 0, 0, -2555970, 0, 0, -2555969, 0, 0, -25559
 position = Vector2( 6, 6 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+visible = false
 navpoly = SubResource( 4 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationPolygonInstance"]
