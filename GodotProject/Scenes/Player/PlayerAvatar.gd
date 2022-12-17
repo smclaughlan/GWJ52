@@ -160,6 +160,8 @@ func drop_a_broken_golem():
 	newCorpse.show()
 
 func turn_into_a_ghost():
+	check_losing_conditions()
+	
 	$Sprite/AnimatedSprite.animation = "ghost"
 	$Sprite/AnimatedSprite.play()
 
@@ -173,6 +175,14 @@ func turn_into_a_ghost():
 	disable_tools("left")
 	disable_tools("right")
 	State = States.GHOST
+	
+	
+	
+func check_losing_conditions():
+	var golemsRemaining = Global.village.get_spare_golem_count()
+	if golemsRemaining == 0:
+		Global.stage_manager.lose()
+	
 	
 func resurrect():
 	# turn back into a golem

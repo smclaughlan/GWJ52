@@ -47,7 +47,10 @@ func update_sun(sun: int) -> void:
 		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
 		find_node("ExtraInstructions").text = instructionText
 	
-	# if mana hits 100, should win automatically
+	# if mana hits 500, should win automatically
+	if sun >= Global.sun_required_to_win:
+		Global.stage_manager.win()
+
 
 func update_health() -> void:
 	$Footer/HBoxContainer/Health.value = float(Global.player.health) / float(Global.player.max_health)

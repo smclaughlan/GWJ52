@@ -100,7 +100,6 @@ rect_pivot_offset = Vector2( 64.5772, -0.00939941 )
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
-value = 0.5
 texture_under = ExtResource( 7 )
 texture_over = ExtResource( 22 )
 texture_progress = ExtResource( 6 )
