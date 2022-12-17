@@ -13,6 +13,7 @@ script = ExtResource( 1 )
 [node name="LightAura" type="Light2D" parent="."]
 scale = Vector2( 3.43502, 3.43502 )
 texture = ExtResource( 3 )
+energy = 0.75
 
 [node name="ReconnectionTimer" type="Timer" parent="."]
 wait_time = 2.5
