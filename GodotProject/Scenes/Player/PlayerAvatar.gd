@@ -204,6 +204,8 @@ func die_for_real_this_time():
 
 func _on_knockback(impulseVector):
 	#var _remainingVel = move_and_slide(impulseVector)
+	if health <= 0:
+		return
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", position+impulseVector, 0.1)
