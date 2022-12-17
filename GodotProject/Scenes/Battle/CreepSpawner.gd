@@ -10,12 +10,15 @@ var time_between_waves = 20.0 # rand jitter will be applied later.
 export var max_health : float = 200.0
 var health : float = max_health
 
-enum States { INITIALIZING, READY, DEAD }
+export (PackedScene) var dropped_pickable
+
+enum States { INITIALIZING, READY, INVUNERABLE, DEAD }
 var State = States.READY
 
 signal creep_spawned(creep, location)
 signal wave_started(location)
-
+signal died(location)
+signal damaged(location)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +29,8 @@ func _ready():
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
 	var _err = connect("wave_started", Global.player.hud, "_on_creep_wave_started")
+	_err = connect("died", Global.pickable_object_spawner, "_on_spawner_died")
+	_err = connect("damaged", Global.pickable_object_spawner, "_on_spawner_hit")
 
 func init(location):
 	set_global_position(location)
@@ -72,6 +77,7 @@ func begin_dying():
 	$HealthBar.hide()
 	$DeathTimer.start()
 	$CollisionShape2D.set_deferred("disabled", true)
+	emit_signal("died", self, dropped_pickable, global_position)
 	
 
 func _on_WaveTimer_timeout():
@@ -100,17 +106,22 @@ func show_damage():
 	#var newFrame = int(1.0-(min(health/max_health,1.0)) * 3.0) # should be 0 to 3 with 0 being max health
 	var newFrame = min(3, 4 - (health/max_health * 4.0))
 	$Sprite.set_frame(newFrame)
-	if health < 50:
-		print(newFrame)
-	if health < 20:
-		pass# breakpoint
+
 
 func _on_hit(damage, _impactVector, _damageAttributes):
-	health -= damage
-	$ImpactParticles.emitting = true
-	show_damage()
-	if health <= 0:
-		begin_dying()
+	if State == States.READY:
+		health -= damage
+		$ImpactParticles.emitting = true
+		show_damage()
+		
+		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
+			emit_signal("damaged", self, dropped_pickable, position)
+		if health <= 0:
+			begin_dying()
+		else:
+			State = States.INVUNERABLE
+			$InvulnTimer.start()
+	
 	
 
 
@@ -120,3 +131,7 @@ func _on_DeathTimer_timeout():
 	$Sprite.hide()
 	
 	
+
+
+func _on_InvulnTimer_timeout():
+	State = States.READY

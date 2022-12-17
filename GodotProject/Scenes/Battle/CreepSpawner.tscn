@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Battle/CreepSpawner.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Enemies/spawner_rift_transparent.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://_common/GUI/HealthBarOver.png" type="Texture" id=4]
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.834928 )
@@ -17,6 +18,7 @@ z_index = -1
 collision_layer = 2
 collision_mask = 25
 script = ExtResource( 1 )
+dropped_pickable = ExtResource( 7 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -73,7 +75,7 @@ position = Vector2( 1, 4 )
 scale = Vector2( 1.8059, 1.8059 )
 texture = ExtResource( 6 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( 13.7, 20.7, 0.6, 14.8, -19.1, -5.6, -15.9, -23.2, -4.2, -20.4, 21.8, 4.9, 20.7, 13.9 )
 
 [node name="ImpactParticles" type="CPUParticles2D" parent="."]
@@ -92,6 +94,11 @@ scale_amount = 8.0
 color = Color( 0.286275, 0.00784314, 0.447059, 1 )
 color_ramp = SubResource( 1 )
 
+[node name="InvulnTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
