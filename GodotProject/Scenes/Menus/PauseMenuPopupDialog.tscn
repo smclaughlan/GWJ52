@@ -85,7 +85,7 @@ align = 1
 [node name="SecretDebugOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 236.0
 margin_right = 380.0
-margin_bottom = 332.0
+margin_bottom = 302.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -137,29 +137,32 @@ text = "Keyboard shortcuts: 9 & 0 to change  the camera zoom"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 336.0
+margin_top = 306.0
 margin_right = 380.0
-margin_bottom = 356.0
-
-[node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 62.0
-margin_right = 126.0
-margin_bottom = 20.0
-size_flags_horizontal = 6
-text = "Resume"
+margin_bottom = 326.0
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 245.0
-margin_right = 327.0
+margin_left = 53.0
+margin_right = 135.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Quit Game"
 
+[node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 254.0
+margin_right = 318.0
+margin_bottom = 20.0
+size_flags_horizontal = 6
+text = "Resume"
+
 [node name="CheatLabel" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_top = 360.0
-margin_right = 380.0
+margin_left = 150.0
+margin_top = 330.0
+margin_right = 230.0
 margin_bottom = 380.0
-text = "[ ctrl-c to cheat ] Cheaters never win!"
+rect_min_size = Vector2( 75, 50 )
+size_flags_horizontal = 6
+text = "Easy Mode"
 
 [node name="WhistleNoise" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
@@ -171,6 +174,6 @@ stream = ExtResource( 2 )
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2/DieNowButton" to="." method="_on_DieNowButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2/SpawnCreepsButton" to="." method="_on_SpawnCreepsButton_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_QuitButton_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CheatLabel" to="." method="_on_CheatLabel_pressed"]
