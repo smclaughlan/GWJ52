@@ -5,7 +5,8 @@ var myCreep
 enum States { INITIALIZING, READY, ATTACKING, COCKING, RELOADING, DISABLED }
 var State = States.INITIALIZING
 
-export var damage : int = 10
+export var base_damage : int = 10
+var damage: int = base_damage * Global.difficulty_controller.difficulty_multiplier
 var damage_attributes = { } # future potential for poison, flaming, etc.
 var knockback_factor : float = 1.0
 
