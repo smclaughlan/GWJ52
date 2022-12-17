@@ -41,6 +41,9 @@ func spawn_creep():
 		return
 	
 	#print("spawning creep")
+	if get_tree().get_nodes_in_group("enemies").size() > Global.max_enemies:
+		return
+	
 	var newCreep = creep.instance()
 	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
