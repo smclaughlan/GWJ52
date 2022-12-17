@@ -88,9 +88,9 @@ text = "Start Next Wave!"
 
 [node name="InstructionText" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_left = 62.0
-margin_top = 166.0
+margin_top = 116.0
 margin_right = 336.0
-margin_bottom = 282.0
+margin_bottom = 232.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Use WASD and mouse to move, 
@@ -103,28 +103,27 @@ Upgrade nearby towers with the F key.
 align = 1
 
 [node name="SecretDebugOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-visible = false
-margin_top = 282.0
-margin_right = 380.0
-margin_bottom = 326.0
+margin_top = 236.0
+margin_right = 399.0
+margin_bottom = 332.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
-margin_right = 380.0
+margin_right = 399.0
 margin_bottom = 20.0
 
 [node name="FreeMoneyButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer"]
-margin_right = 188.0
+margin_right = 197.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Free Money!"
 
 [node name="BonusHealthButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer"]
-margin_left = 192.0
-margin_right = 380.0
+margin_left = 201.0
+margin_right = 399.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -132,23 +131,30 @@ text = "1000 health!"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
 margin_top = 24.0
-margin_right = 380.0
+margin_right = 399.0
 margin_bottom = 44.0
 
 [node name="DieNowButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2"]
-margin_right = 188.0
+margin_right = 197.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Die Instantly"
 
 [node name="SpawnCreepsButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2"]
-margin_left = 192.0
-margin_right = 380.0
+margin_left = 201.0
+margin_right = 399.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Spawn Creeps Nearby"
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
+margin_top = 48.0
+margin_right = 399.0
+margin_bottom = 62.0
+text = "Keyboard shortcuts: 9 & 0 to change  the camera zoom"
+align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 336.0
