@@ -119,6 +119,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 texture = SubResource( 4 )
 expand = true
-stretch_mode = 6
+stretch_mode = 7
 
 [node name="Tween" type="Tween" parent="."]

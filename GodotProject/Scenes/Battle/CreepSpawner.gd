@@ -1,21 +1,24 @@
 extends StaticBody2D
 
 export var num_creeps_per_wave : int = 5
-export var creep : PackedScene
+var creep = load("res://Scenes/Enemies/Creep.tscn")
 var creeps_spawned_this_wave : int = 0
-var current_wave_wayfinder
+#var current_wave_wayfinder
 var time_between_creeps = 1.2 # rand jitter will be applied later.
 var time_between_waves = 20.0 # rand jitter will be applied later.
 
 export var max_health : float = 200.0
 var health : float = max_health
 
-enum States { INITIALIZING, READY, DEAD }
+export (PackedScene) var dropped_pickable
+
+enum States { INITIALIZING, READY, INVUNERABLE, DEAD }
 var State = States.READY
 
 signal creep_spawned(creep, location)
 signal wave_started(location)
-
+signal died(location)
+signal damaged(location)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,6 +29,8 @@ func _ready():
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
 	var _err = connect("wave_started", Global.player.hud, "_on_creep_wave_started")
+	_err = connect("died", Global.pickable_object_spawner, "_on_spawner_died")
+	_err = connect("damaged", Global.pickable_object_spawner, "_on_spawner_hit")
 
 func init(location):
 	set_global_position(location)
@@ -34,10 +39,6 @@ func init(location):
 func spawn_creep():
 	#print("spawning creep")
 	var newCreep = creep.instance()
-	newCreep.init(global_position, current_wave_wayfinder)
-	
-	if current_wave_wayfinder != null and is_instance_valid(current_wave_wayfinder):
-		current_wave_wayfinder.add_creep(newCreep)
 	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
 
@@ -48,6 +49,7 @@ func spawn_creep():
 		emit_signal("creep_spawned", newCreep)
 	else: # dumb map: just add the creep yourself.
 		Global.current_map.add_child(newCreep)
+		newCreep.init(global_position)
 
 	
 	if creeps_spawned_this_wave >= num_creeps_per_wave:
@@ -60,14 +62,14 @@ func spawn_creep():
 
 
 
-func spawn_creep_wayfinder():
-	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
-	var navTarget = navTargetScene.instance()
-	
-	navTarget.init(Global.village_location)
-	Global.current_map.add_child(navTarget)
-	navTarget.set_global_position(self.global_position)
-	current_wave_wayfinder = navTarget
+#func spawn_creep_wayfinder():
+#	var navTargetScene = preload("res://Scenes/Enemies/CreepWayfinder.tscn")
+#	var navTarget = navTargetScene.instance()
+#
+#	navTarget.init(Global.village_location)
+#	Global.current_map.add_child(navTarget)
+#	navTarget.set_global_position(self.global_position)
+#	current_wave_wayfinder = navTarget
 
 
 func begin_dying():
@@ -75,11 +77,12 @@ func begin_dying():
 	$HealthBar.hide()
 	$DeathTimer.start()
 	$CollisionShape2D.set_deferred("disabled", true)
+	emit_signal("died", self, dropped_pickable, global_position)
 	
 
 func _on_WaveTimer_timeout():
 	if State == States.READY:
-		spawn_creep_wayfinder()
+#		spawn_creep_wayfinder()
 
 		# modify this later to accommodate game progression
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
@@ -98,13 +101,28 @@ func _on_SpawnTimer_timeout():
 	if State == States.READY:
 		spawn_creep() # timer gets restarted inside spawn_creep() method
 
+func show_damage():
+	$HealthBar.value = health/max_health
+	#var newFrame = int(1.0-(min(health/max_health,1.0)) * 3.0) # should be 0 to 3 with 0 being max health
+	var newFrame = min(3, 4 - (health/max_health * 4.0))
+	$Sprite.set_frame(newFrame)
 
 
 func _on_hit(damage, _impactVector, _damageAttributes):
-	health -= damage
-	$HealthBar.value = health/max_health
-	if health <= 0:
-		begin_dying()
+	if State == States.READY:
+		health -= damage
+		$ImpactParticles.emitting = true
+		show_damage()
+		
+		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
+			emit_signal("damaged", self, dropped_pickable, position)
+		if health <= 0:
+			begin_dying()
+		else:
+			State = States.INVUNERABLE
+			$InvulnTimer.start()
+	
+	
 
 
 
@@ -113,3 +131,7 @@ func _on_DeathTimer_timeout():
 	$Sprite.hide()
 	
 	
+
+
+func _on_InvulnTimer_timeout():
+	State = States.READY

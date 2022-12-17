@@ -93,8 +93,6 @@ hue_variation_random = 0.1
 
 [node name="Bullet" parent="Ammo" instance=ExtResource( 3 )]
 visible = false
-bullet_speed = 1800.0
-bullet_damage = 40.0
 
 [node name="Flame" parent="Ammo" instance=ExtResource( 2 )]
 visible = false

@@ -1,7 +1,6 @@
 extends StaticBody2D
 
 var tower_turret_scene # set during init
-onready var collision_polygon_2d = $CollisionPolygon2D
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
@@ -21,8 +20,7 @@ export var cost: int = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	#cut_from_nav()
+	Global.pathfinding_manager.rebuild_collisions()
 
 
 func init(turret_type):
@@ -30,7 +28,6 @@ func init(turret_type):
 
 
 func spawn_turret(turret_type):
-
 	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
@@ -54,17 +51,12 @@ func destroy():
 	queue_free()
 
 
-func cut_from_nav():
-	Global.nav_manager.cut_from_nav(collision_polygon_2d)
-
-
 func _on_RemoveMarkDeconTimer_timeout():
 	modulate = Color(1, 1, 1, 1)
 	turret.modulate = Color(1, 1, 1, 1)
 
 
 func _on_demolition_requested(): # from InteractArea probably
-
 	destroy()
 
 func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
@@ -75,5 +67,3 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 	if health <= 0:
 		# might want better animations
 		destroy()
-		
-	

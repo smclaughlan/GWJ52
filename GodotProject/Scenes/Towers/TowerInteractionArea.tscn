@@ -21,6 +21,7 @@ margin_top = 67.0
 margin_right = 17.0
 margin_bottom = 102.0
 rect_scale = Vector2( 1.78282, 1.78282 )
+mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="InteractLabel"]
@@ -32,9 +33,9 @@ custom_fonts/font = ExtResource( 4 )
 text = "[F to upgrade]"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="TowerUpgradePopupDialog" parent="CanvasLayer" instance=ExtResource( 2 )]
-visible = true
 custom_styles/panel = ExtResource( 3 )
 
 [connection signal="body_entered" from="." to="." method="_on_InteractArea_body_entered"]

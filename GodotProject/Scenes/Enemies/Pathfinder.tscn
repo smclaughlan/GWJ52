@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Enemies/Pathfinder.gd" type="Script" id=1]
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 1.0625, 1.0625 )
+
+[node name="Pathfinder" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PathArea" type="Area2D" parent="."]
+collision_layer = 3221225472
+collision_mask = 3221225472
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathArea"]
+shape = SubResource( 8 )
+
+[node name="FindTargetTimer" type="Timer" parent="."]
+
+[node name="RestartTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="CheckTargetDeadTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FindTargetTimer" to="." method="_on_FindTargetTimer_timeout"]
+[connection signal="timeout" from="RestartTimer" to="." method="_restart_pathfinding"]
+[connection signal="timeout" from="CheckTargetDeadTimer" to="." method="_on_CheckTargetDeadTimer_timeout"]

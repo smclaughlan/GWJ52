@@ -111,8 +111,8 @@ margin_bottom = 69.0
 text = "0"
 
 [node name="GridContainer" type="GridContainer" parent="Footer/HBoxContainer"]
-margin_left = 399.0
-margin_right = 685.0
+margin_left = 436.0
+margin_right = 648.0
 margin_bottom = 82.0
 size_flags_horizontal = 6
 size_flags_vertical = 0
@@ -199,6 +199,7 @@ expand = true
 stretch_mode = 6
 
 [node name="Flashlight" type="VBoxContainer" parent="Footer/HBoxContainer/GridContainer"]
+visible = false
 margin_left = 222.0
 margin_right = 286.0
 margin_bottom = 82.0

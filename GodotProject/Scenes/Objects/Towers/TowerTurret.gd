@@ -9,7 +9,7 @@ export var bullet_scene_2 : PackedScene
 
 var current_bullet_scene = bullet_scene_1
 
-var tower_base : StaticBody2D
+var tower_base : Node2D
 
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
@@ -163,7 +163,7 @@ func shine_crystal():
 			shine.play("shine")
 			shine_playing = true
 
-func init(towerType : int, towerBase : StaticBody2D):
+func init(towerType : int, towerBase : Node2D):
 	tower_type = towerType
 	update_turret_range(turret_range)
 	tower_base = towerBase

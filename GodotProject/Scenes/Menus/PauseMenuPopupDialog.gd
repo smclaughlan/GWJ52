@@ -8,6 +8,8 @@ onready var _bus := AudioServer.get_bus_index(audio_bus_name)
 func _ready():
 	find_node("VolumeSlider").value = db2linear(AudioServer.get_bus_volume_db(_bus))
 	$MarginContainer/VBoxContainer/SecretDebugOptions.hide()
+	find_node("FullscreenButton").pressed = OS.window_fullscreen
+
 
 func _on_VolumeSlider_value_changed(value):
 	AudioServer.set_bus_volume_db(_bus, linear2db(value))
@@ -112,3 +114,7 @@ func _on_CheatLabel_pressed():
 
 func _on_PauseMenuPopupDialog_popup_hide():
 	Global.resume()
+
+
+func _on_FullscreenButton_toggled(button_pressed):
+	OS.window_fullscreen = button_pressed

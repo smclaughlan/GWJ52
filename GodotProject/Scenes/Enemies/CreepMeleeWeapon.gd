@@ -59,7 +59,6 @@ func disable():
 	
 
 func _on_CreepMeleeWeapon_body_entered(body):
-
 	if body == current_target and State == States.READY:
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")

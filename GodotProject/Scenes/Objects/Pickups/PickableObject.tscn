@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Objects/Pickups/PickableObject.gd" type="Script" id=2]
+[ext_resource path="res://_common/sfx/Currency Pick Up.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 32.0
@@ -70,4 +71,10 @@ anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/pickup = SubResource( 3 )
 
+[node name="linger_for_audio_timer" type="Timer" parent="."]
+
+[node name="PickedNoise" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+
 [connection signal="body_entered" from="." to="." method="_on_PickableObject_body_entered"]
+[connection signal="timeout" from="linger_for_audio_timer" to="." method="_on_linger_for_audio_timer_timeout"]
