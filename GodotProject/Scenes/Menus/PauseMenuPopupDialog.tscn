@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Menus/PauseMenuPopupDialog.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Weapons/lasernoise.wav" type="AudioStream" id=2]
+[ext_resource path="res://_common/GUI/AudioLevels.tscn" type="PackedScene" id=3]
 
 [node name="PauseMenuPopupDialog" type="PopupDialog"]
 pause_mode = 2
@@ -28,18 +29,18 @@ custom_constants/margin_bottom = 10
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 409.0
+margin_right = 390.0
 margin_bottom = 390.0
 
 [node name="PausedTitle" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 14.0
 text = "Game Paused"
 align = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 18.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 68.0
 size_flags_horizontal = 3
 custom_constants/margin_right = 10
@@ -47,49 +48,28 @@ custom_constants/margin_top = 10
 custom_constants/margin_left = 10
 custom_constants/margin_bottom = 0
 
-[node name="Audio" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+[node name="Audio" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource( 3 )]
+margin_right = 370.0
+
+[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 389.0
+margin_right = 370.0
 margin_bottom = 50.0
-size_flags_horizontal = 3
-alignment = 1
-
-[node name="VolumeLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
-margin_top = 13.0
-margin_right = 75.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 75, 0 )
-text = "Volume"
-
-[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
-margin_left = 79.0
-margin_right = 229.0
-margin_bottom = 25.0
-rect_min_size = Vector2( 150, 25 )
-max_value = 1.0
-step = 0.1
-value = 0.5
-
-[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/MarginContainer/Audio"]
-margin_left = 233.0
-margin_right = 379.0
-margin_bottom = 40.0
-text = "Fullscreen"
 
 [node name="StartWaveButton" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 129.0
+margin_left = 120.0
 margin_top = 72.0
-margin_right = 269.0
+margin_right = 260.0
 margin_bottom = 112.0
 rect_min_size = Vector2( 140, 40 )
 size_flags_horizontal = 6
 text = "Start Next Wave!"
 
 [node name="InstructionText" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_left = 62.0
+margin_left = 53.0
 margin_top = 116.0
-margin_right = 336.0
+margin_right = 327.0
 margin_bottom = 232.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -104,26 +84,26 @@ align = 1
 
 [node name="SecretDebugOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 236.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 332.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 20.0
 
 [node name="FreeMoneyButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer"]
-margin_right = 197.0
+margin_right = 188.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Free Money!"
 
 [node name="BonusHealthButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer"]
-margin_left = 201.0
-margin_right = 399.0
+margin_left = 192.0
+margin_right = 380.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -131,19 +111,19 @@ text = "1000 health!"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
 margin_top = 24.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 44.0
 
 [node name="DieNowButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2"]
-margin_right = 197.0
+margin_right = 188.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Die Instantly"
 
 [node name="SpawnCreepsButton" type="Button" parent="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer2"]
-margin_left = 201.0
-margin_right = 399.0
+margin_left = 192.0
+margin_right = 380.0
 margin_bottom = 20.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -151,33 +131,33 @@ text = "Spawn Creeps Nearby"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SecretDebugOptions"]
 margin_top = 48.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 62.0
 text = "Keyboard shortcuts: 9 & 0 to change  the camera zoom"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 336.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 356.0
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 66.0
-margin_right = 130.0
+margin_left = 62.0
+margin_right = 126.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Resume"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 259.0
-margin_right = 341.0
+margin_left = 245.0
+margin_right = 327.0
 margin_bottom = 20.0
 size_flags_horizontal = 6
 text = "Quit Game"
 
 [node name="CheatLabel" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 360.0
-margin_right = 399.0
+margin_right = 380.0
 margin_bottom = 380.0
 text = "[ ctrl-c to cheat ] Cheaters never win!"
 
@@ -185,8 +165,7 @@ text = "[ ctrl-c to cheat ] Cheaters never win!"
 stream = ExtResource( 2 )
 
 [connection signal="popup_hide" from="." to="." method="_on_PauseMenuPopupDialog_popup_hide"]
-[connection signal="value_changed" from="MarginContainer/VBoxContainer/MarginContainer/Audio/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer/Audio/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
