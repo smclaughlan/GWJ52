@@ -2,7 +2,8 @@ extends Node
 
 signal difficulty_changed
 
-# The current multiplier that affects the creep's stats
+# The current multiplier that affects the creep's stats. When the wave starts, it
+# starts to increment the value by 0.15 in that case, the first wave multiplier is 1.0
 export var difficulty_multiplier:float = 0.85
 
 func _ready() -> void:
