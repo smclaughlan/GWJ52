@@ -40,6 +40,8 @@ func move_blueprint_to_mouse_position_on_grid():
 func safe_placement_location():
 	var safe_placement_location = true
 
+	if insufficient_funds():
+		safe_placement_location = false
 	if on_another_tower():
 		safe_placement_location = false
 	if on_player():
@@ -53,6 +55,16 @@ func safe_placement_location():
 
 	return safe_placement_location
 
+func insufficient_funds():
+	if Global.currency_tracker.sun >= Global.tower_cost:
+		return false
+	else:
+		return true
+		
+	
+	
+	
+	
 func on_player():
 	var body_collisions = build_area.get_overlapping_bodies()
 	if body_collisions.has(Global.player):

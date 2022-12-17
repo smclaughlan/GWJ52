@@ -72,7 +72,7 @@ func _on_SpawnCreepsButton_pressed():
 
 		Global.current_map.add_child(creep)
 		var randLocation = (Vector2.ONE*rand_range(150, 500)).rotated(rand_range(-PI,PI))
-		creep.init(Global.player.global_position + randLocation, null)
+		creep.init(Global.player.global_position + randLocation)
 		Global.resume()
 		hide()
 		

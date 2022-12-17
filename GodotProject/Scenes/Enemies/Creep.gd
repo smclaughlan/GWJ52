@@ -76,7 +76,7 @@ func select_animation(anim_name):
 
 
 func move(delta):
-	if tween.is_active():
+	if tween != null and tween.is_active():
 		return
 
 	# Tween from point to point in pathfinder.path
@@ -130,6 +130,9 @@ func _on_ObstacleDetectionZone_area_entered(area):
 		# turn left until there's no more obstacles
 
 func knockback(impactVector):
+	if tween == null or tween_knockback == null:
+		return
+		
 	#var _collision = move_and_collide(impactVector)
 	#var _resultVel = move_and_slide(impactVector)
 #	tween.interpolate_property(self, "position", position+impactVector, 0.1)
