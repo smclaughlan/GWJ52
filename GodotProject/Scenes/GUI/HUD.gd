@@ -46,7 +46,11 @@ func update_sun(sun: int) -> void:
 	if sun < 10:
 		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
 		find_node("ExtraInstructions").text = instructionText
-	
+
+	# player builds and upgrades initial towers
+	if sun <= 10 and Global.current_map.tutorial_ended == false:
+		Global.current_map._on_tutorial_ended()
+		
 	# if mana hits 500, should win automatically
 	if sun >= Global.sun_required_to_win:
 		Global.stage_manager.win()
