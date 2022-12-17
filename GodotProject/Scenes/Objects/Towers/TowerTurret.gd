@@ -212,7 +212,8 @@ func _on_base_destroyed():
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.05))
+	pass
+	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.01))
 	
 
 
