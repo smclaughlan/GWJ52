@@ -56,7 +56,7 @@ func spawn_spawner():
 			var _err = connect("spawner_spawned", Global.current_map, "_on_spawner_spawn_requested")
 		emit_signal("spawner_spawned", newSpawner)
 	else: # dumb map: just add the spawner yourself.
-		Global.current_map.add_child(newSpawner)
+		Global.current_map.find_node("YSort").add_child(newSpawner)
 
 	# If spawners in the wave are less than spawners per wave
 	if spawners_spawned_this_wave >= num_spawners_per_wave:

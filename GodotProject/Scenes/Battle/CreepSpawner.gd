@@ -48,7 +48,7 @@ func spawn_creep():
 			var _err = connect("creep_spawned", Global.current_map, "_on_creep_spawn_requested")
 		emit_signal("creep_spawned", newCreep)
 	else: # dumb map: just add the creep yourself.
-		Global.current_map.add_child(newCreep)
+		Global.current_map.find_node("YSort").add_child(newCreep)
 		newCreep.init(global_position)
 
 	
