@@ -270,9 +270,28 @@ offset = Vector2( 102.667, 0.4 )
 energy = 0.66
 script = ExtResource( 18 )
 
+[node name="InvulnerableTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="HurtParticles" type="CPUParticles2D" parent="."]
+emitting = false
+one_shot = true
+explosiveness = 0.66
+randomness = 0.7
+emission_shape = 2
+emission_rect_extents = Vector2( 30, 30 )
+direction = Vector2( 1, -1 )
+initial_velocity = 100.0
+scale_amount = 6.0
+color = Color( 0.223529, 0.752941, 0.905882, 1 )
+hue_variation = 0.9
+hue_variation_random = 0.1
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
 [connection signal="area_exited" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_exited"]
 [connection signal="timeout" from="DeathNotice/NotificationTimer" to="." method="_on_NotificationTimer_timeout"]
 [connection signal="timeout" from="DelayInitTimer" to="." method="_on_DelayInitTimer_timeout"]
 [connection signal="timeout" from="ThreatIndicator/ThreatIndicatorTimer" to="." method="_on_ThreatIndicatorTimer_timeout"]
+[connection signal="timeout" from="InvulnerableTimer" to="." method="_on_InvulnerableTimer_timeout"]

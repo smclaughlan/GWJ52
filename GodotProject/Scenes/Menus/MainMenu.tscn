@@ -31,7 +31,7 @@ mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_right = 1024.0
-margin_bottom = 574.0
+margin_bottom = 576.0
 mouse_filter = 2
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -53,13 +53,13 @@ alignment = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 29.0
 margin_right = 1024.0
-margin_bottom = 570.0
+margin_bottom = 572.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Body" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_right = 510.0
-margin_bottom = 541.0
+margin_bottom = 543.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -67,8 +67,8 @@ custom_constants/separation = 25
 alignment = 1
 
 [node name="QuitButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 5 )]
-margin_top = 240.0
-margin_bottom = 300.0
+margin_top = 241.0
+margin_bottom = 301.0
 
 [node name="GWJLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 visible = false
@@ -83,9 +83,9 @@ flip_h = true
 
 [node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
 margin_left = 694.0
-margin_top = 240.0
+margin_top = 241.0
 margin_right = 844.0
-margin_bottom = 300.0
+margin_bottom = 301.0
 size_flags_horizontal = 6
 size_flags_vertical = 4
 text = "Play"
@@ -93,9 +93,9 @@ icon_align = 1
 target_scene = ExtResource( 2 )
 
 [node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 574.0
+margin_top = 576.0
 margin_right = 1024.0
-margin_bottom = 574.0
+margin_bottom = 576.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
