@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Battle/CreepSpawner.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Enemies/spawner_rift_transparent.png" type="Texture" id=2]
@@ -8,14 +8,10 @@
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.834928 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1 )
-
 [node name="CreepSpawner" type="StaticBody2D" groups=["EnemySpawners"]]
 scale = Vector2( 5, 5 )
 z_index = -1
-collision_layer = 2
+collision_layer = 512
 collision_mask = 25
 script = ExtResource( 1 )
 dropped_pickable = ExtResource( 7 )
@@ -92,7 +88,6 @@ angle = 423.9
 angle_random = 1.0
 scale_amount = 8.0
 color = Color( 0.286275, 0.00784314, 0.447059, 1 )
-color_ramp = SubResource( 1 )
 
 [node name="InvulnTimer" type="Timer" parent="."]
 wait_time = 0.2
