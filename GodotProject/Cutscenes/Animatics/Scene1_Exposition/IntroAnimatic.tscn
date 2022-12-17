@@ -69,22 +69,22 @@ autowrap = true
 [node name="Darkness" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 12 )
-text_to_reveal = " Darkness. It wasn’t always this way."
+text_to_reveal = " Darkness. It wasn't always this way."
 
-[node name="Ghost" parent="Control/TabContainer" instance=ExtResource( 2 )]
+[node name="Empire" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 7 )
 text_to_reveal = "I was once the queen of Torchstone, the luminous dwarven kingdom of the deep."
 
-[node name="Queen" parent="Control/TabContainer" instance=ExtResource( 2 )]
+[node name="Mines" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 9 )
 text_to_reveal = "We sculpted our kingdom with a wondrous elixir that we stumbled upon while digging for crystals. We soon discovered that it could power our machines and automatons like no other fuel. So divine were its properties that we called it “ichor”, blood of the gods."
 
-[node name="Empire" parent="Control/TabContainer" instance=ExtResource( 2 )]
+[node name="Culture" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 1 )
-text_to_reveal = "The time afforded to us through automation allowed our people to pursue new ventures in philosophy, poetry, and the arts – it was a rich culture inconceivable by our forebears. The more ichor, the greater our lives would become, so we dug deeper."
+text_to_reveal = "The time afforded to us through automation allowed our people to pursue new ventures in philosophy, poetry, and the arts - it was a rich culture inconceivable by our forebears. The more ichor, the greater our lives would become, so we dug deeper."
 
 [node name="Strife" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
@@ -99,12 +99,12 @@ text_to_reveal = "Whether they came to exact revenge for our use of it, or if th
 [node name="GreatWar" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 6 )
-text_to_reveal = "In a last-ditch effort to protect The Chandelier, the crystal mausoleum that serves as the final resting place for all dwarven spirits, my husband, King Cloudstone IV, drove them back, and sacrificed himself to reseal the entrance with a magic spell that drained nearly all remaining energy from our kingdom."
+text_to_reveal = "We made a last-ditch effort to protect The Chandelier, our crystal mausoleum. It serves as the final resting place for all dwarven spirits, including my husband, King Cloudstone IV. He drove them back and sacrificed himself to reseal the entrance with a magic spell. But it drained nearly all of the remaining energy from our kingdom."
 
 [node name="Towers" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 10 )
-text_to_reveal = "The ultimate price paid for what us remaining dwarves knew to be a temporary solution. The Strife would return – the intensity of their hunger promised as much.
+text_to_reveal = "The ultimate price paid for what us remaining dwarves knew to be a temporary solution. The Strife would return - the intensity of their hunger promised as much.
 "
 
 [node name="Towers2" parent="Control/TabContainer" instance=ExtResource( 2 )]
