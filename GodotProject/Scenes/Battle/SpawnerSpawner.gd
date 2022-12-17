@@ -92,7 +92,7 @@ func _on_WaveTimer_timeout():
 			
 		# Increase the difficulty
 		if Global.difficulty_controller != null:
-			Global.difficulty_controller.increase_difficulty()
+			Global.difficulty_controller.increase_difficulty(0.35)
 		$SpawnTimer.start()
 
 
