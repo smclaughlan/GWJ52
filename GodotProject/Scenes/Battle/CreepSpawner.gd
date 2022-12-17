@@ -37,6 +37,9 @@ func init(location):
 
 
 func spawn_creep():
+	if Global.current_map == null or is_instance_valid(Global.current_map) == false:
+		return
+	
 	#print("spawning creep")
 	var newCreep = creep.instance()
 	creeps_spawned_this_wave += 1
