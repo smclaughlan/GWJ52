@@ -253,7 +253,7 @@ func _on_golem_entered():
 func _on_DelayInitTimer_timeout():
 	set_tool("build", "left")
 
-func _on_creep_wave_started(location):
+func _on_creep_wave_started(_location):
 	pass
 #	$ThreatIndicator.show()
 #	$ThreatIndicator.look_at(location)

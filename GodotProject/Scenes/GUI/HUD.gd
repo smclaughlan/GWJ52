@@ -77,7 +77,7 @@ func _on_UpdateTimer_timeout():
 func _on_tower_type_blueprint_changed(currentTowerType):
 	change_tower_instructions(currentTowerType)
 
-func _on_creep_wave_started(location):
+func _on_creep_wave_started(_location):
 	$ThreatInfoContainer.alert()
 	
 func _on_tutorial_ended():
