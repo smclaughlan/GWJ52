@@ -10,7 +10,7 @@ extends KinematicBody2D
 
 
 export var health = 20.0
-export var speed = 2.0
+export var speed = 0.2
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 #onready var nav_agent = $NavigationAgent2D
@@ -83,13 +83,13 @@ func move(delta):
 	var next_pos = pathfinder.path.pop_front()
 	if next_pos == null:
 		return
-	tween.interpolate_property(self, "global_position", global_position, next_pos, 0.2)
+	tween.interpolate_property(self, "global_position", global_position, next_pos, speed)
 	tween.start()
 
 	var direction = Vector2.ZERO
 	if target != null and is_instance_valid(target):
 		direction = global_position.direction_to(target.global_position)
-	var desired_velocity = direction * speed
+	var desired_velocity = direction * 2.0
 	var steering = (desired_velocity - velocity) * delta * 4.0
 	velocity += steering
 	var new_angle = velocity.angle()

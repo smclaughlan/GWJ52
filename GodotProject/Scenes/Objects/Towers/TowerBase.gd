@@ -4,7 +4,7 @@ var tower_turret_scene # set during init
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
-var max_health = 500
+export var max_health = 500
 var health = max_health 
 
 var TowerTypes = Global.TowerTypes
