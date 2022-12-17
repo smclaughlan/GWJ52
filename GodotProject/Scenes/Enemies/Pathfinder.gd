@@ -164,7 +164,7 @@ func update_player_pathfinding(_player_colliding_nodes):
 func debug_path_viz(position : Vector2):
 	var new_viz = debug_viz.instance()
 	new_viz.global_position = position
-	Global.current_map.add_child(new_viz)
+	Global.current_map.find_node("YSort").add_child(new_viz)
 
 
 func _on_FindTargetTimer_timeout():

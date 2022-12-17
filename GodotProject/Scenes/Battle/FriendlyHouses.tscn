@@ -121,7 +121,11 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PathfindingObstacle"]
 polygon = PoolVector2Array( 48, -48, -48, -48, -48, 32, 48, 32 )
 
+[node name="InvulnTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="possessed_by_player" from="." to="." method="_on_SpareGolem_possessed_by_player"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="DecayTimer" to="." method="_on_DecayTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
