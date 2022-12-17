@@ -17,7 +17,8 @@ var current_wave_number : int = 0
  
 signal spawner_spawned(spawner, location)
 
-
+onready var wave_timer = $WaveTimer
+onready var spawn_timer = $SpawnTimer
 
 func _ready():
 	#$WaveTimer.set_wait_time(time_between_spawner_waves * rand_range(0.8, 1.2))
@@ -27,7 +28,7 @@ func _ready():
 
 func enable():
 	visible = true
-	$WaveTimer.set_wait_time(time_between_spawner_waves * rand_range(0.8, 1.2))
+	wave_timer.wait_time = time_between_spawner_waves * rand_range(0.8, 1.2)
 	#$WaveTimer.start()
 	start_wave_now()
 
@@ -57,13 +58,13 @@ func spawn_spawner():
 	else: # dumb map: just add the spawner yourself.
 		Global.current_map.find_node("YSort").add_child(newSpawner)
 
-	
+	# If spawners in the wave are less than spawners per wave
 	if spawners_spawned_this_wave >= num_spawners_per_wave:
-		$WaveTimer.set_wait_time(rand_range(time_between_spawner_waves* 0.75, time_between_spawner_waves* 1.25))
-		$WaveTimer.start() # wait a bit before the next set of creeps
+		wave_timer.wait_time = rand_range(time_between_spawner_waves* 0.75, time_between_spawner_waves* 1.25)
+		wave_timer.start() # wait a bit before the next set of creeps
 	else:
-		$SpawnTimer.set_wait_time(rand_range(time_between_spawners*0.75, time_between_spawners*1.25))
-		$SpawnTimer.start() # short delay before launching another crepep
+		spawn_timer.wait_time = rand_range(time_between_spawners*0.75, time_between_spawners*1.25)
+		spawn_timer.start() # short delay before launching another crepep
 
 
 
