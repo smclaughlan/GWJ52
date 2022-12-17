@@ -32,7 +32,7 @@ func _unhandled_input(event):
 			swing()
 
 func _process(_delta):
-	if equipped and State == States.READY:
+	if equipped and State in [States.READY, States.SWINGING]:
 		look_at(get_global_mouse_position())
 
 func swing():
