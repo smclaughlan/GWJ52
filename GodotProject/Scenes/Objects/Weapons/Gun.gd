@@ -21,6 +21,7 @@ func _ready():
 	if current_ammo == null:
 		current_ammo = $Ammo/Bullet
 
+	$Sprite/MuzzleFlash.hide()
 	State = States.READY
 
 func init(myShooter): # aka human player
@@ -47,7 +48,7 @@ func shoot(ammo):
 		var new_projectile = ammo.duplicate()
 
 		# a signal to the map would be nicer, but this works for now
-		Global.stage_manager.current_map.add_child(new_projectile)
+		Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
 		var rand_offset = Vector2.ZERO
 		rand_offset.x = rand_range(-5.0, 5.0)
 		rand_offset.y = rand_range(-5.0, 5.0)

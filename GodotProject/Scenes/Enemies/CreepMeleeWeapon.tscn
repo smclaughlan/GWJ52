@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scenes/Enemies/CreepMeleeWeapon.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Enemies/nomnom.wav" type="AudioStream" id=2]
+[ext_resource path="res://_common/sfx/Creep Attacking Buildings.wav" type="AudioStream" id=2]
 [ext_resource path="res://_common/Materials/LightOnlyMaterial.tres" type="Material" id=3]
 
 [sub_resource type="RectangleShape2D" id=3]

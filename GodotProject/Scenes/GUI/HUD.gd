@@ -18,7 +18,7 @@ func _on_ActionButton_pressed(action : String):
 	if action in [ "melee", "range", "build", "flashlight" ] and player != null and is_instance_valid(player):
 		player.set_tool(action)
 	if action == "build":
-		$ExtraInstructionsPanel/VBoxContainer/ExtraInstructions.text = "Press < , > to change tower type."
+		$ExtraInstructionsPanel/VBoxContainer/ExtraInstructions.text = "Press Q , E to change tower type."
 		$ExtraInstructionsPanel.show()
 	else:
 		$ExtraInstructionsPanel.hide()
@@ -46,8 +46,15 @@ func update_sun(sun: int) -> void:
 	if sun < 10:
 		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
 		find_node("ExtraInstructions").text = instructionText
-	
-	# if mana hits 100, should win automatically
+
+	# player builds and upgrades initial towers
+	if sun <= 10 and Global.current_map.tutorial_ended == false:
+		Global.current_map._on_tutorial_ended()
+		
+	# if mana hits 500, should win automatically
+	if sun >= Global.sun_required_to_win:
+		Global.stage_manager.win()
+
 
 func update_health() -> void:
 	$Footer/HBoxContainer/Health.value = float(Global.player.health) / float(Global.player.max_health)
@@ -74,7 +81,7 @@ func _on_UpdateTimer_timeout():
 func _on_tower_type_blueprint_changed(currentTowerType):
 	change_tower_instructions(currentTowerType)
 
-func _on_creep_wave_started(location):
+func _on_creep_wave_started(_location):
 	$ThreatInfoContainer.alert()
 	
 func _on_tutorial_ended():

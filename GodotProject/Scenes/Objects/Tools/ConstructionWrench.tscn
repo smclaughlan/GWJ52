@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Objects/Tools/ConstructionWrench.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Tools/NotThereNoise.wav" type="AudioStream" id=2]
-[ext_resource path="res://Scenes/Objects/Tools/BuildNoise.wav" type="AudioStream" id=3]
+[ext_resource path="res://_common/sfx/Tower_Built.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Shop/InsufficientFunds.wav" type="AudioStream" id=4]
 [ext_resource path="res://Scenes/Objects/Tools/hammer.png" type="Texture" id=5]
 

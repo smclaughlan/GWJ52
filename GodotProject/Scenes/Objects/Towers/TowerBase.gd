@@ -4,7 +4,7 @@ var tower_turret_scene # set during init
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
-var max_health = 200
+export var max_health = 500
 var health = max_health 
 
 var TowerTypes = Global.TowerTypes
@@ -18,10 +18,13 @@ var turret_scenes = [
 
 export var cost: int = 10
 
+enum States { INITIALIZING, READY, INVULNERABLE, DEAD }
+var State = States.INITIALIZING
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.pathfinding_manager.rebuild_collisions()
-
+	State = States.READY
 
 func init(turret_type):
 	spawn_turret(turret_type)
@@ -31,11 +34,11 @@ func spawn_turret(turret_type):
 	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
-	if Global.current_map.has_node("Towers"):
-		Global.current_map.get_node("Towers").add_child(new_turret)
+	if Global.current_map.has_node("YSort"):
+		Global.current_map.get_node("YSort").add_child(new_turret)
 		new_turret.global_position = global_position
 	else:
-		Global.current_map.add_child(new_turret)
+		Global.current_map.find_node("YSort").add_child(new_turret)
 	new_turret.init(turret_type, self)
 	turret = new_turret
 
@@ -63,7 +66,17 @@ func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
 	turret.upgrade(upgrade_type)
 
 func _on_hit(damage, _impactVector, _damageAttributes):
-	health -= damage
-	if health <= 0:
-		# might want better animations
-		destroy()
+	if State == States.READY:
+		health -= damage
+		if health <= 0:
+			# might want better animations
+			destroy()
+		else:
+			State = States.INVULNERABLE
+			$InvulnTimer.start()
+
+
+
+func _on_InvulnTimer_timeout():
+	if State != States.DEAD:
+		State = States.READY

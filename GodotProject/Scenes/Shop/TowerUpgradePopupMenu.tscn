@@ -15,7 +15,6 @@
 
 [node name="TowerUpgradePopupDialog" type="PopupPanel"]
 pause_mode = 2
-visible = true
 margin_left = 36.0
 margin_top = 111.0
 margin_right = 486.0

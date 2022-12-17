@@ -9,8 +9,10 @@
 extends KinematicBody2D
 
 
-export var health = 20.0
-export var speed = 2.0
+export var base_health = 20.0
+export var base_speed = 0.2
+var health = base_health * Global.difficulty_controller.difficulty_multiplier
+var speed = base_speed * Global.difficulty_controller.difficulty_multiplier
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 #onready var nav_agent = $NavigationAgent2D
@@ -58,10 +60,10 @@ func _process(delta):
 
 
 
-func set_attack_target(target):
+func set_attack_target(myTarget):
 	for weapon in $Weapons.get_children():
 		if weapon.has_method("set_target"):
-			weapon.set_target(target)
+			weapon.set_target(myTarget)
 
 
 func select_animation(anim_name):
@@ -76,20 +78,20 @@ func select_animation(anim_name):
 
 
 func move(delta):
-	if tween.is_active():
+	if tween != null and tween.is_active():
 		return
 
 	# Tween from point to point in pathfinder.path
 	var next_pos = pathfinder.path.pop_front()
 	if next_pos == null:
 		return
-	tween.interpolate_property(self, "global_position", global_position, next_pos, 0.2)
+	tween.interpolate_property(self, "global_position", global_position, next_pos, speed)
 	tween.start()
 
 	var direction = Vector2.ZERO
 	if target != null and is_instance_valid(target):
 		direction = global_position.direction_to(target.global_position)
-	var desired_velocity = direction * speed
+	var desired_velocity = direction * 2.0
 	var steering = (desired_velocity - velocity) * delta * 4.0
 	velocity += steering
 	var new_angle = velocity.angle()
@@ -130,6 +132,9 @@ func _on_ObstacleDetectionZone_area_entered(area):
 		# turn left until there's no more obstacles
 
 func knockback(impactVector):
+	if tween == null or tween_knockback == null:
+		return
+		
 	#var _collision = move_and_collide(impactVector)
 	#var _resultVel = move_and_slide(impactVector)
 #	tween.interpolate_property(self, "position", position+impactVector, 0.1)
@@ -142,14 +147,18 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
+	
 	# don't keep taking damage when you're dying or dead.
 	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
 		return
+	if not is_instance_valid(Global.current_map):
+		return # game won or lost already
 
 
 	# worry about damage attributes later
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
+	
 	Global.current_map.add_child(new_floating_text)
 	new_floating_text.set_text(damage)
 	$OwNoise.play()

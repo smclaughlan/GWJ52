@@ -3,7 +3,7 @@
 # complete with NPCs and shops and stuff.
 
 
-extends Node2D
+extends YSort
 
 
 # Declare member variables here. Examples:
@@ -21,3 +21,19 @@ func get_random_golem(): # creeps need to know who to attack.
 	var golems = $Golemms.get_children()
 	var randGolem = golems[randi()%golems.get_child_count()]
 	return randGolem
+
+func get_spare_golem_count():
+	var possibleGolemsRemaining = $Golems.get_children()
+	var actualGolemsRemaining = 0
+	for golem in possibleGolemsRemaining:
+		if not golem.is_dead():
+			actualGolemsRemaining += 1
+	return actualGolemsRemaining
+
+func _on_golem_died():
+	if get_spare_golem_count() == 0:
+		# possible lose condition.
+		if Global.player.State == Global.player.States.GHOST:
+			# trigger lose condition
+			Global.stage_manager.lose()
+		
