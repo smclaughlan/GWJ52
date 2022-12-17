@@ -267,7 +267,7 @@ position = Vector2( 3, -2.38419e-07 )
 scale = Vector2( 4, 8 )
 texture = ExtResource( 19 )
 offset = Vector2( 102.667, 0.4 )
-energy = 0.45
+energy = 0.66
 script = ExtResource( 18 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
