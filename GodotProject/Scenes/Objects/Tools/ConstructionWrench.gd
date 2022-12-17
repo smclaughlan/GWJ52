@@ -95,10 +95,11 @@ func spawn_tower(towerType):
 		#Removed because of slowdowns
 		#Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
 		
-		num_towers_placed += 1
-		
-		if num_towers_placed == 3:
-			emit_signal("tutorial_ended")
+		# moved tutorial end signal to HUD
+#		num_towers_placed += 1
+#
+#		if num_towers_placed == 3 and Global.current_map.tutorial_ended == false:
+#			emit_signal("tutorial_ended")
 
 		#build_tilemap_walls_under_tower(new_tower)
 		#causes too much slowdown
