@@ -25,6 +25,7 @@ func init(myTowerBase, myDialogBox):
 
 
 func _on_UpgradeButton_pressed():
+	$ClickNoise.play()
 	# send a signal to the tower base
 	$UpgradeButton.set_disabled(true)
 	emit_signal("upgrade", upgrade_type)
@@ -34,3 +35,7 @@ func disable_upgrade_button():
 	self.hide()
 
 
+
+
+func _on_UpgradeButton_mouse_entered():
+	$HoverNoise.play()
