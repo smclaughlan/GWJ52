@@ -4,8 +4,8 @@ export var num_creeps_per_wave : int = 5
 var creep = load("res://Scenes/Enemies/Creep.tscn")
 var creeps_spawned_this_wave : int = 0
 #var current_wave_wayfinder
-var time_between_creeps = 1.2 # rand jitter will be applied later.
-var time_between_waves = 20.0 # rand jitter will be applied later.
+export var time_between_creeps = 1.2 # rand jitter will be applied later.
+export var time_between_waves = 20.0 # rand jitter will be applied later.
 
 export var max_health : float = 200.0
 var health : float = max_health

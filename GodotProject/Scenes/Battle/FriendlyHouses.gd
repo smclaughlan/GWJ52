@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var max_health : float = 100.0
+export var max_health : float = 100.0
 var health : float = max_health
 
 enum States { INITIALIZING, READY, INVULNERABLE, DEAD }
