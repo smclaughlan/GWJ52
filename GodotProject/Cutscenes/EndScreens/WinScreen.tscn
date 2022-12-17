@@ -4,7 +4,7 @@
 [ext_resource path="res://_common/Themes/MainMenuFont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Cutscenes/EndScreens/Memento.png" type="Texture" id=3]
 [ext_resource path="res://_common/GUI/SceneChangeButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Menus/QuitButton.gd" type="Script" id=5]
+[ext_resource path="res://_common/GUI/QuitButton.tscn" type="PackedScene" id=6]
 
 [node name="WinScreen" type="Control"]
 anchor_right = 1.0
@@ -62,15 +62,7 @@ text = "You Win"
 align = 1
 valign = 1
 
-[node name="QuitButton2" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="QuitButton" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 655.0
 margin_right = 805.0
 margin_bottom = 75.0
-rect_min_size = Vector2( 150, 60 )
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 2 )
-text = "Quit"
-icon_align = 1
-script = ExtResource( 5 )
-
-[connection signal="pressed" from="TextureRect/MarginContainer/VBoxContainer/HBoxContainer/QuitButton2" to="TextureRect/MarginContainer/VBoxContainer/HBoxContainer/QuitButton2" method="_on_QuitButton_pressed"]

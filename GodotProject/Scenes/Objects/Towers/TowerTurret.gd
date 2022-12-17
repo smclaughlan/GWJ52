@@ -13,7 +13,8 @@ var tower_base : Node2D
 
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
-export var turret_reload_delay = 0.75
+#export var turret_reload_delay = 0.75
+export var turret_reload_delay = 0.3
 var projectile_speed : float # declared in bullet scene
 var target = null
 

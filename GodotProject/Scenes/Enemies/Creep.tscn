@@ -262,6 +262,7 @@ collision_layer = 2
 collision_mask = 13
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
+base_speed = 0.05
 float_text = ExtResource( 1 )
 dropped_pickable = ExtResource( 5 )
 
@@ -273,14 +274,12 @@ position = Vector2( 40, -5 )
 scale = Vector2( 4.85374, 4.85374 )
 frames = SubResource( 34 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="eyes" type="AnimatedSprite" parent="Sprite/AnimatedSprite"]
 material = SubResource( 35 )
 frames = SubResource( 40 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -67,7 +67,7 @@ func _on_DecayTimer_timeout():
 
 
 func _on_Area2D_body_entered(body):
-	if body == Global.player and body.State == body.States.GHOST:
+	if health >= 0 and body == Global.player and body.State == body.States.GHOST:
 		var _err = connect("possessed_by_player", body, "_on_golem_entered")
 		
 		emit_signal("possessed_by_player")
