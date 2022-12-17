@@ -277,21 +277,21 @@ custom_styles/panel = ExtResource( 19 )
 [node name="VBoxContainer" type="VBoxContainer" parent="ExtraInstructionsPanel"]
 margin_left = 16.0
 margin_top = 8.0
-margin_right = 355.0
+margin_right = 564.0
 margin_bottom = 40.0
 grow_horizontal = 2
 
 [node name="ExtraInstructions" type="Label" parent="ExtraInstructionsPanel/VBoxContainer"]
-margin_right = 339.0
+margin_right = 548.0
 margin_bottom = 14.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 169, 8 )
-text = "Press < , > or use mousewheel to change Tower Type"
+text = "Move with WASD and mouse. Press [Q] , [E] to change Tower Type. [esc] for more info."
 align = 1
 
 [node name="Tutorial" type="Label" parent="ExtraInstructionsPanel/VBoxContainer"]
 margin_top = 18.0
-margin_right = 339.0
+margin_right = 548.0
 margin_bottom = 32.0
 grow_horizontal = 2
 rect_pivot_offset = Vector2( 171, 8 )
