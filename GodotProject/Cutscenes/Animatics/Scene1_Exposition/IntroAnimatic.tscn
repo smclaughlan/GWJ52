@@ -84,7 +84,7 @@ text_to_reveal = "We sculpted our kingdom with a wondrous elixir that we stumble
 [node name="Culture" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 1 )
-text_to_reveal = "The time afforded to us through automation allowed our people to pursue new ventures in philosophy, poetry, and the arts - it was a rich culture inconceivable by our forebears. The more ichor, the greater our lives would become, so we dug deeper."
+text_to_reveal = "The wonders of automation afforded our people unprecedented time to pursue new ventures in philosophy, poetry, and the arts. We developed a rich culture once thought inconceivable by our forebearers. The more ichor we extracted, the greater our lives would become. So we dug deeper."
 
 [node name="Strife" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
@@ -94,7 +94,7 @@ text_to_reveal = "On the precipice of unearthing an ichor reserve unlike anythin
 [node name="Strife2" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 4 )
-text_to_reveal = "Whether they came to exact revenge for our use of it, or if the reserves we had discovered were bait laid for a trap, we never knew. What was clear: they were unrelenting, unyielding, and we were wholly unprepared to face them."
+text_to_reveal = "Whether they came to exact revenge against us for exploiting their ichor, or if the reserves we had discovered were mere bait, we never knew. What was clear: they were unrelenting, unyielding, and we were wholly unprepared to face them."
 
 [node name="GreatWar" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
@@ -110,7 +110,7 @@ text_to_reveal = "The ultimate price paid for what us remaining dwarves knew to 
 [node name="Towers2" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 10 )
-text_to_reveal = "And so, myself and the last remaining dwarves devised a plan of defense: to build towers that could illuminate and dispatch The Strife, and once their blood had been shed, to gather it and utilize it to strengthen and improve our towers. We would use their power against themselves.
+text_to_reveal = "And so, I, along with the last remaining dwarves, devised a plan of defense: to build towers that would illuminate and dispatch The Strife. Once their blood had been shed, we could gather it and utilize it to strengthen and improve our towers. We would use their power against them.
 "
 
 [node name="Throne" parent="Control/TabContainer" instance=ExtResource( 2 )]
