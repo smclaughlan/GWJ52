@@ -18,6 +18,7 @@ enum TowerTypes { BEAM, AOE, SHARDS }
 enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 
 var tower_cost : int = 10
+var sun_required_to_win: int = 500
 
 var enable_fps_counter: bool # Shows an fps counter
 var previous_window_index = 1

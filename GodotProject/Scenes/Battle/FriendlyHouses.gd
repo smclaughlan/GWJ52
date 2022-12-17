@@ -7,6 +7,7 @@ enum States { INITIALIZING, READY, INVULNERABLE, DEAD }
 var State = States.INITIALIZING
 
 signal possessed_by_player()
+signal died()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,13 +15,20 @@ func _ready():
 	$HealthBar.hide()
 	$Corpse.hide()
 	
+	
 
 
 func begin_dying():
 	$AnimationPlayer.play("die")
 	$DeathTimer.start()
+	var err = connect("died", Global.village, "_on_golem_died")
+	if err != OK:
+		printerr("Problem in spare golems.")
+	emit_signal("died") # trigger for game lose state just in case the player is already a ghost, and the last mech just died.
+
 	
 func die_for_real_this_time():
+	
 	$Sprite.hide()
 	$Corpse.show()
 	$DecayTimer.start()
@@ -32,11 +40,17 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 		health -= damage
 		$HealthBar.value = health / max_health
 		if health <= 0:
+			State = States.DEAD
 			begin_dying()
 		else:
 			State = States.INVULNERABLE
 			$InvulnTimer.start()
 
+func is_dead():
+	if State == States.DEAD:
+		return true
+	else:
+		return false
 
 func get_health():
 	return health
@@ -62,8 +76,7 @@ func _on_Area2D_body_entered(body):
 
 
 func _on_SpareGolem_possessed_by_player():
-	pass # Replace with function body.
-
+	pass
 
 
 
