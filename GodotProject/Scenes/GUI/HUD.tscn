@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scenes/GUI/buttons/build_Default.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GUI/HUD.gd" type="Script" id=2]
@@ -22,6 +22,23 @@
 [ext_resource path="res://Scenes/GUI/ThreatInfoContainer.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/GUI/Pools_Base.png" type="Texture" id=21]
 [ext_resource path="res://Scenes/GUI/Pool_Lid-L.png" type="Texture" id=22]
+[ext_resource path="res://_common/Themes/blue_styleboxflat.tres" type="StyleBox" id=23]
+[ext_resource path="res://_common/Fonts/Antonfont.tres" type="DynamicFont" id=24]
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.694118, 0.988235, 0.988235, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.984314, 1, 1, 1 )
+border_blend = true
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+shadow_color = Color( 0, 0.384314, 0.556863, 1 )
+shadow_size = 1
 
 [sub_resource type="InputEventKey" id=9]
 scancode = 16777217
@@ -59,17 +76,21 @@ script = ExtResource( 2 )
 
 [node name="header" type="HBoxContainer" parent="."]
 anchor_right = 1.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 30.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="PauseButton" type="Button" parent="header"]
 pause_mode = 2
-margin_left = 466.0
-margin_right = 558.0
-margin_bottom = 50.0
+margin_left = 467.0
+margin_right = 557.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = ExtResource( 23 )
+custom_styles/normal = ExtResource( 23 )
 shortcut = SubResource( 10 )
 text = "Pause [ esc ]"
 align = 0
@@ -258,6 +279,7 @@ window_title = "Awwww"
 dialog_text = "You are dead."
 
 [node name="PauseMenuPopupDialog" parent="." instance=ExtResource( 4 )]
+visible = false
 margin_top = -261.0
 margin_right = 250.0
 margin_bottom = 139.0
@@ -306,6 +328,9 @@ text = "Build three towers, one of each type."
 align = 1
 
 [node name="ThreatInfoContainer" parent="." instance=ExtResource( 20 )]
+margin_top = 21.0
+margin_right = 110.5
+margin_bottom = 51.0
 
 [connection signal="pressed" from="header/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Footer/HBoxContainer/GridContainer/Melee/ActionButton" to="." method="_on_ActionButton_pressed" binds= [ "melee" ]]

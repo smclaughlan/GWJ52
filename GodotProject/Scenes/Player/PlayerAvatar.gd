@@ -23,7 +23,7 @@ var action_states = {
 	"attacking":false,
 	"dashing":false,
 	"building":true,
-	
+	"invulnerable":false,
 }
 
 
@@ -213,9 +213,10 @@ func _on_knockback(impulseVector):
 	
 	
 func _on_hit(damage, impulseVector, _damageAttributes):
-	if State != States.DEAD:
+	if State != States.DEAD and action_states["invulnerable"] == false:
 		_on_knockback(impulseVector)
 		health -= damage
+		$HurtParticles.emitting = true
 		$StatusBars/TextureProgress.value = health
 		if health <= 0:
 			begin_dying()
@@ -262,3 +263,9 @@ func _on_creep_wave_started(_location):
 
 func _on_ThreatIndicatorTimer_timeout():
 	$ThreatIndicator.hide()
+
+
+func _on_InvulnerableTimer_timeout():
+	if action_states["invulnerable"] == true:
+		action_states["invulnerable"] = false
+		

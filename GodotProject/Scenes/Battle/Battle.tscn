@@ -47,9 +47,6 @@ navpoly = SubResource( 4 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="NavigationPolygonInstance"]
 
-[node name="Village" parent="." instance=ExtResource( 4 )]
-position = Vector2( -80, 293 )
-
 [node name="InvisibleWalls" type="Node2D" parent="."]
 position = Vector2( -738, -363 )
 
@@ -122,6 +119,9 @@ position = Vector2( -738, -363 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 229, 284 )
+
+[node name="Village" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( -80, 293 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 7 )

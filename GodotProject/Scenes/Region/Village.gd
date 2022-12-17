@@ -3,7 +3,7 @@
 # complete with NPCs and shops and stuff.
 
 
-extends Node2D
+extends YSort
 
 
 # Declare member variables here. Examples:
