@@ -58,10 +58,10 @@ func _process(delta):
 
 
 
-func set_attack_target(target):
+func set_attack_target(myTarget):
 	for weapon in $Weapons.get_children():
 		if weapon.has_method("set_target"):
-			weapon.set_target(target)
+			weapon.set_target(myTarget)
 
 
 func select_animation(anim_name):

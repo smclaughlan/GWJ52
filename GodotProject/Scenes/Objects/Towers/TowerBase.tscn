@@ -33,4 +33,9 @@ input_pickable = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PathfindingObstacle"]
 polygon = PoolVector2Array( 48, -32, -48, -32, -48, 32, 48, 32 )
 
+[node name="InvulnTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="timeout" from="RemoveMarkDeconTimer" to="." method="_on_RemoveMarkDeconTimer_timeout"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]

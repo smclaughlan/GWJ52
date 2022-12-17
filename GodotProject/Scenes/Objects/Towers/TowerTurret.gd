@@ -142,7 +142,7 @@ func shoot():
 	if current_bullet_scene == null:
 		current_bullet_scene = bullet_scene_1
 	var new_projectile = current_bullet_scene.instance()
-	Global.stage_manager.current_map.add_child(new_projectile)
+	Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
 	var muzzle_location = $InvisibleTurret/MuzzleLocation
 
 	# short on time, hard coding if statements based on parameters available for a custom projectile.
@@ -212,7 +212,8 @@ func _on_base_destroyed():
 
 
 func _draw():
-	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.05))
+	pass
+	draw_circle(Vector2.ZERO, 10.0 * turret_range, Color(0.9, 0.9, 0.2, 0.01))
 	
 
 

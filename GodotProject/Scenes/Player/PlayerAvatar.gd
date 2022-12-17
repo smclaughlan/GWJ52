@@ -155,7 +155,7 @@ func begin_dying():
 
 func drop_a_broken_golem():
 	var newCorpse = $GolemCorpse.duplicate()
-	Global.current_map.add_child(newCorpse)
+	Global.current_map.find_node("YSort").add_child(newCorpse)
 	newCorpse.set_global_position(global_position)
 	newCorpse.show()
 

@@ -89,7 +89,7 @@ func spawn_tower(towerType):
 	
 	if Global.current_map != null and is_instance_valid(Global.current_map):
 		$BuildNoise.play()
-		Global.current_map.add_child(new_tower)
+		Global.current_map.find_node("YSort").add_child(new_tower)
 		new_tower.init(towerType)
 		
 		#Removed because of slowdowns
@@ -128,7 +128,7 @@ func set_towerbuildmode(enabled:bool):
 		tower_buildmode_visual.store_player(player)
 
 		if Global.current_map != null and is_instance_valid(Global.current_map):
-			Global.current_map.add_child(tower_buildmode_visual)
+			Global.current_map.find_node("YSort").add_child(tower_buildmode_visual)
 		else:
 			printerr("config error in ConstructionWrench.gd. unknown Global.map")
 	else: # disabled

@@ -3,7 +3,7 @@ extends StaticBody2D
 var max_health : float = 100.0
 var health : float = max_health
 
-enum States { INITIALIZING, READY, DEAD }
+enum States { INITIALIZING, READY, INVULNERABLE, DEAD }
 var State = States.INITIALIZING
 
 signal possessed_by_player()
@@ -28,11 +28,14 @@ func die_for_real_this_time():
 
 func _on_hit(damage, _impactVector, _damageAttributes):
 	$HealthBar.show()
-	if not State in [ States.INITIALIZING, States.DEAD ]: 
+	if State in [ States.READY]:
 		health -= damage
 		$HealthBar.value = health / max_health
 		if health <= 0:
 			begin_dying()
+		else:
+			State = States.INVULNERABLE
+			$InvulnTimer.start()
 
 
 func get_health():
@@ -66,3 +69,8 @@ func _on_SpareGolem_possessed_by_player():
 
 func _on_DeathTimer_timeout():
 	die_for_real_this_time()
+
+
+func _on_InvulnTimer_timeout():
+	if State != States.DEAD: 
+		State = States.READY
