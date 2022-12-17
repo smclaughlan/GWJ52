@@ -3,7 +3,7 @@ extends Node
 signal difficulty_changed
 
 # The current multiplier that affects the creep's stats
-var difficulty_multiplier:float = 1.0
+export var difficulty_multiplier:float = 0.85
 
 func _ready() -> void:
 	# Set the global node
