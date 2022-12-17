@@ -21,10 +21,9 @@ func delayed_ready():
 
 
 func _on_SceneChangeButton_pressed():
-	if not return_to_main:
-		emit_signal("new_scene_requested", target_scene)
-	else:
-		Global.stage_manager.return_to_main()
+	$ClickNoise.play()
+	
+
 
 		
 
@@ -41,3 +40,14 @@ func _on_OptionButton_pressed():
 func _on_CheckButton_pressed():
 	OS.vsync_enabled = !OS.vsync_enabled
 	print(OS.vsync_enabled)
+
+
+func _on_SceneChangeButton_mouse_entered():
+	$HoverNoise.play()
+
+
+func _on_ClickNoise_finished():
+	if not return_to_main:
+		emit_signal("new_scene_requested", target_scene)
+	else:
+		Global.stage_manager.return_to_main()
