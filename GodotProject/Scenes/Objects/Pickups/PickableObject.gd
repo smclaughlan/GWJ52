@@ -17,7 +17,10 @@ signal picked
 
 func _on_PickableObject_body_entered(body: Node) -> void:
 	if body.collision_layer == 1:
-		queue_free()
+		$Sprite.visible = false
+		$CollisionShape2D.set_deferred("disabled", true)
+		$PickedNoise.play()
+		$linger_for_audio_timer.start()
 		emit_signal("picked")
 
 
@@ -30,3 +33,7 @@ func _physics_process(delta: float) -> void:
 
 func set_on_pickup(value: bool) -> void:
 	on_pickup_radius = value
+
+
+func _on_linger_for_audio_timer_timeout():
+	queue_free()
