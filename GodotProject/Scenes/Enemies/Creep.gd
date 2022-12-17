@@ -12,7 +12,8 @@ extends KinematicBody2D
 export var base_health = 20.0
 export var base_speed = 0.2
 var health = base_health * Global.difficulty_controller.difficulty_multiplier
-var speed = base_speed * Global.difficulty_controller.difficulty_multiplier
+#var speed = base_speed * Global.difficulty_controller.difficulty_multiplier
+var speed = base_speed
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 #onready var nav_agent = $NavigationAgent2D
