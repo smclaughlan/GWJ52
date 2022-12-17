@@ -1,23 +1,27 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://_common/GUI/SceneChangeButton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/IntroAnimatic.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Cutscenes/EndScreens/Credits.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Menus/DebugMenu.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Menus/SettingsMenu.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Cutscenes/EndScreens/Memento.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Menus/QuitButton.gd" type="Script" id=6]
 [ext_resource path="res://_common/GUI/Button_Icon01.png" type="Texture" id=7]
 [ext_resource path="res://_common/Themes/MainMenuFont.tres" type="DynamicFont" id=8]
 [ext_resource path="res://_common/Music/GODOT_TD-THEME_V2-WIP.wav" type="AudioStream" id=9]
 [ext_resource path="res://Scenes/Menus/MainMenu.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Menus/Wildling-favicon.png" type="Texture" id=11]
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/queen_bust.png" type="Texture" id=12]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 10 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 7
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -31,102 +35,30 @@ mouse_filter = 2
 
 [node name="Header" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 1024.0
-margin_bottom = 83.0
+margin_bottom = 250.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 87.0
+margin_top = 254.0
 margin_right = 1024.0
-margin_bottom = 487.0
-
-[node name="QueenLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 300.0
-margin_bottom = 400.0
-rect_min_size = Vector2( 300, 400 )
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 7
+margin_bottom = 320.0
 
 [node name="Body" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 304.0
-margin_right = 720.0
-margin_bottom = 400.0
+margin_right = 510.0
+margin_bottom = 66.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 25
 alignment = 1
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
-margin_top = 26.0
-margin_right = 416.0
-margin_bottom = 45.0
-custom_fonts/font = ExtResource( 8 )
-text = "The Glass Queen"
-align = 1
-
-[node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
-margin_left = 127.0
-margin_top = 70.0
-margin_right = 289.0
-margin_bottom = 136.0
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 8 )
-text = "Play"
-icon = ExtResource( 7 )
-flat = true
-icon_align = 1
-target_scene = ExtResource( 2 )
-
-[node name="CreditsButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
-margin_left = 127.0
-margin_top = 161.0
-margin_right = 289.0
-margin_bottom = 227.0
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 8 )
-text = "Credits"
-icon = ExtResource( 7 )
-flat = true
-icon_align = 1
-target_scene = ExtResource( 3 )
-
-[node name="SettingsButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
-visible = false
-margin_left = 431.0
-margin_top = 182.0
-margin_right = 593.0
-margin_bottom = 248.0
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 8 )
-text = "Settings"
-icon = ExtResource( 7 )
-flat = true
-icon_align = 1
-target_scene = ExtResource( 5 )
-
-[node name="DebugButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 1 )]
-visible = false
-margin_left = 431.0
-margin_top = 210.0
-margin_right = 593.0
-margin_bottom = 276.0
-size_flags_horizontal = 6
-custom_fonts/font = ExtResource( 8 )
-text = "Debug / Test"
-icon = ExtResource( 7 )
-flat = true
-icon_align = 1
-target_scene = ExtResource( 4 )
-
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
-margin_left = 127.0
-margin_top = 252.0
-margin_right = 289.0
-margin_bottom = 318.0
+margin_left = 174.0
+margin_right = 336.0
+margin_bottom = 66.0
 rect_min_size = Vector2( 150, 60 )
 size_flags_horizontal = 6
 custom_fonts/font = ExtResource( 8 )
@@ -136,16 +68,8 @@ flat = true
 icon_align = 1
 script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Body"]
-margin_top = 343.0
-margin_right = 416.0
-margin_bottom = 374.0
-text = "Siege style tower defense ARPG.
-Made in 9 days for Godot Wild Jam 52."
-align = 1
-autowrap = true
-
 [node name="GWJLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 margin_left = 724.0
 margin_right = 1024.0
 margin_bottom = 400.0
@@ -155,8 +79,20 @@ expand = true
 stretch_mode = 5
 flip_h = true
 
+[node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 688.0
+margin_right = 850.0
+margin_bottom = 66.0
+size_flags_horizontal = 6
+custom_fonts/font = ExtResource( 8 )
+text = "Play"
+icon = ExtResource( 7 )
+flat = true
+icon_align = 1
+target_scene = ExtResource( 2 )
+
 [node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 491.0
+margin_top = 324.0
 margin_right = 1024.0
 margin_bottom = 574.0
 mouse_filter = 2
