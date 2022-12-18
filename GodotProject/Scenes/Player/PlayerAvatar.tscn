@@ -178,7 +178,7 @@ visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 2.2, 2.2 )
+zoom = Vector2( 1.6, 1.6 )
 script = ExtResource( 14 )
 
 [node name="DeathTimer" type="Timer" parent="."]
@@ -213,7 +213,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="RestTimer" type="Timer" parent="DashTimer"]
-wait_time = 1.5
+wait_time = 3.0
 one_shot = true
 
 [node name="DashParticles" type="CPUParticles2D" parent="."]
