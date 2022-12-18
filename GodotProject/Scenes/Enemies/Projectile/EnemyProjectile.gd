@@ -4,7 +4,7 @@ extends Area2D
 export var bullet_speed = 400.0
 export var bullet_damage = 20.0
 export var bullet_range = 300.0
-
+export var knockback_effect = 0.25
 
 export var damage_attributes = {
 	"bleed":false,
@@ -44,6 +44,6 @@ func _on_Bullet_body_entered(body):
 		if not is_connected("hit", body, "_on_hit"):
 			var _err = connect("hit", body, "_on_hit")
 		var fwdVector = (Vector2.RIGHT * bullet_speed/3.0).rotated(rotation)
-		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
+		emit_signal("hit", bullet_damage, fwdVector * knockback_effect, damage_attributes)
 		die()
 		

@@ -36,4 +36,3 @@ func _on_golem_died():
 		if Global.player.State == Global.player.States.GHOST:
 			# trigger lose condition
 			Global.stage_manager.lose()
-		

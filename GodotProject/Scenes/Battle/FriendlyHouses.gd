@@ -8,6 +8,7 @@ var State = States.INITIALIZING
 
 signal possessed_by_player()
 signal died()
+signal golem_attacked()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -35,6 +36,10 @@ func die_for_real_this_time():
 
 
 func _on_hit(damage, _impactVector, _damageAttributes):
+	if health == max_health:
+		var _err = connect("golem_attacked", Global.hud, "_on_golem_attacked")
+		emit_signal("golem_attacked")
+		
 	$HealthBar.show()
 	if State in [ States.READY]:
 		health -= damage
