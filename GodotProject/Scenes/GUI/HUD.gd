@@ -49,7 +49,7 @@ func update_sun(sun: int) -> void:
 		find_node("ExtraInstructions").text = instructionText
 
 	# player builds and upgrades initial towers
-	if sun <= 10 and Global.current_map.tutorial_ended == false:
+	if sun <= 80 and Global.current_map.tutorial_ended == false:
 		Global.current_map._on_tutorial_ended()
 		
 	# if mana hits 500, should win automatically

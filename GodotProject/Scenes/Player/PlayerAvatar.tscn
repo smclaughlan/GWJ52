@@ -1,7 +1,7 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/Player/PlayerSpiritMoteSpriteSheet.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Player/ghost_queen.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.gd" type="Script" id=3]
 [ext_resource path="res://_common/GUI/HealthBarUnder.png" type="Texture" id=4]
 [ext_resource path="res://_common/GUI/HealthBarOver.png" type="Texture" id=5]
@@ -64,25 +64,21 @@ region = Rect2( 124, 0, 31, 31 )
 atlas = ExtResource( 12 )
 region = Rect2( 155, 0, 31, 31 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 0, 0, 15, 21 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 15, 0, 15, 21 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 30, 0, 15, 21 )
 
-[sub_resource type="AtlasTexture" id=12]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 16, 16 )
+region = Rect2( 45, 0, 15, 21 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -96,10 +92,10 @@ animations = [ {
 "name": "GolemWalk",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
 "loop": true,
 "name": "ghost",
-"speed": 5.0
+"speed": 10.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]

@@ -20,6 +20,7 @@ z_index = -5
 [node name="ShadowPoly" type="Polygon2D" parent="Sprite"]
 position = Vector2( -2, -47 )
 scale = Vector2( 0.620002, 0.919384 )
+color = Color( 0, 0, 0, 0.113725 )
 texture_offset = Vector2( 32, -15 )
 polygon = PoolVector2Array( -67, 45, -44, 28, -12, 24, 21, 26, 45, 31, 66, 38, 70, 47, 71, 59, 64, 68, 36, 76, 12, 76, -14, 75, -37, 76, -62, 72, -70, 56, -68, 47 )
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scenes/Objects/Projectiles/GLUEProjectile1.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scenes/Objects/Towers/crystal_glue.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Objects/Towers/crystal_glue_shine.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Objects/Towers/towershoot.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scenes/Objects/Projectiles/GLUEProjectile2.tscn" type="PackedScene" id=9]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -58,7 +59,7 @@ animations = [ {
 [node name="GLUETurret" type="Node2D"]
 script = ExtResource( 2 )
 bullet_scene_1 = ExtResource( 1 )
-bullet_scene_2 = ExtResource( 1 )
+bullet_scene_2 = ExtResource( 9 )
 
 [node name="EnemyDetectionArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -77,7 +78,7 @@ texture = ExtResource( 3 )
 offset = Vector2( 142.085, 22.1163 )
 
 [node name="MuzzleLocation" type="Position2D" parent="InvisibleTurret"]
-position = Vector2( 37.3105, 8.77062 )
+position = Vector2( 14.2899, 0.893332 )
 
 [node name="Line2D" type="Line2D" parent="InvisibleTurret"]
 visible = false
@@ -95,9 +96,10 @@ text = "targetPos = "
 position = Vector2( 1, 0 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -100 )
-scale = Vector2( 6, 6 )
+position = Vector2( -1, -105 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 5 )
+offset = Vector2( 0.333333, 13.6667 )
 hframes = 3
 
 [node name="Crystal" type="Sprite" parent="Sprite"]
@@ -113,6 +115,7 @@ animation = "shine"
 offset = Vector2( 0, -11.1667 )
 
 [node name="Upgrades" type="Node2D" parent="."]
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Gem0" type="Sprite" parent="Upgrades"]
 visible = false

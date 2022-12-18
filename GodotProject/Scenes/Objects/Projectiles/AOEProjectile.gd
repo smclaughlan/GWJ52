@@ -57,6 +57,7 @@ func explode():
 	$CollisionShape2D.set_deferred("disabled", false)
 	$explosion.visible = true
 	$explosion.play("explode")
+	$BoomNoise.set_pitch_scale(rand_range(0.9, 1.1))
 	$BoomNoise.play()
 	var incinerate_timer = get_tree().create_timer(0.05)
 	yield(incinerate_timer, "timeout") # give the collision shape a chance to appear
