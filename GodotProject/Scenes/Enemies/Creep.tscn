@@ -300,14 +300,12 @@ position = Vector2( 40, -5 )
 scale = Vector2( 4.85374, 4.85374 )
 frames = SubResource( 34 )
 animation = "walk"
-frame = 2
 playing = true
 
 [node name="eyes" type="AnimatedSprite" parent="Sprite/AnimatedSprite"]
 material = SubResource( 35 )
 frames = SubResource( 40 )
 animation = "walk"
-frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -379,7 +377,6 @@ tween = NodePath("../Tween")
 
 [node name="ProjectileManager" type="Node2D" parent="."]
 script = ExtResource( 13 )
-range_to_attack_player = 1200
 min_attack_time = 4
 
 [node name="ProjectileSpawnTimer" type="Timer" parent="ProjectileManager"]
