@@ -147,11 +147,11 @@ mouse_filter = 2
 
 [node name="SpawnerSpawner" parent="." instance=ExtResource( 3 )]
 visible = false
-position = Vector2( -4048, -2325 )
+position = Vector2( -3061, -1536 )
 
 [node name="SpawnerSpawner2" parent="." instance=ExtResource( 3 )]
 visible = false
-position = Vector2( 3319, 2569 )
+position = Vector2( 3101, 1684 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
