@@ -135,6 +135,14 @@ margin_right = 69.0
 margin_bottom = 69.0
 text = "0"
 
+[node name="WinInstructionLabel" type="Label" parent="Footer/HBoxContainer/Mana"]
+margin_left = -28.0
+margin_top = -23.0
+margin_right = 171.0
+margin_bottom = 8.0
+text = "Win instructions"
+align = 1
+
 [node name="GridContainer" type="GridContainer" parent="Footer/HBoxContainer"]
 margin_left = 406.0
 margin_top = 46.0
@@ -330,9 +338,10 @@ text = "Build three towers, one of each type."
 align = 1
 
 [node name="ThreatInfoContainer" parent="." instance=ExtResource( 20 )]
-margin_top = 21.0
-margin_right = 110.5
-margin_bottom = 51.0
+margin_left = -141.0
+margin_top = 43.0
+margin_right = 122.0
+margin_bottom = 73.0
 
 [connection signal="pressed" from="header/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Footer/HBoxContainer/GridContainer/Melee/ActionButton" to="." method="_on_ActionButton_pressed" binds= [ "melee" ]]
