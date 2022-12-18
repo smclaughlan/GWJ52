@@ -30,7 +30,7 @@ custom_constants/margin_bottom = 10
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 390.0
-margin_bottom = 390.0
+margin_bottom = 405.0
 
 [node name="PausedTitle" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_right = 380.0
@@ -38,43 +38,42 @@ margin_bottom = 14.0
 text = "Game Paused"
 align = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Audio" parent="MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+margin_left = 0.0
 margin_top = 18.0
 margin_right = 380.0
-margin_bottom = 68.0
-size_flags_horizontal = 3
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 0
+margin_bottom = 43.0
 
-[node name="Audio" parent="MarginContainer/VBoxContainer/MarginContainer" instance=ExtResource( 3 )]
-margin_right = 370.0
+[node name="HBoxContainerFullscreen" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_left = 121.0
+margin_top = 47.0
+margin_right = 250.0
+margin_bottom = 87.0
+alignment = 1
 
-[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/MarginContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 370.0
-margin_bottom = 50.0
+[node name="FullscreenButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainerFullscreen"]
+margin_right = 146.0
+margin_bottom = 40.0
+text = "Fullscreen"
 
 [node name="StartWaveButton" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_left = 120.0
-margin_top = 72.0
+margin_top = 91.0
 margin_right = 260.0
-margin_bottom = 112.0
+margin_bottom = 131.0
 rect_min_size = Vector2( 140, 40 )
 size_flags_horizontal = 6
 text = "Start Next Wave!"
 
 [node name="InstructionText" type="Label" parent="MarginContainer/VBoxContainer"]
 margin_left = 53.0
-margin_top = 116.0
+margin_top = 135.0
 margin_right = 327.0
-margin_bottom = 232.0
+margin_bottom = 251.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Use WASD and mouse to move, 
-Sprint to dash.
+Shift to dash.
 1,2,3 to select a tool or weapon.
 Protect your spare shells at your base.
 Build towers with the construction wrench.
@@ -83,9 +82,9 @@ Upgrade nearby towers with the F key.
 align = 1
 
 [node name="SecretDebugOptions" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 236.0
+margin_top = 255.0
 margin_right = 380.0
-margin_bottom = 302.0
+margin_bottom = 317.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -137,9 +136,9 @@ text = "Keyboard shortcuts: 9 & 0 to change  the camera zoom"
 align = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 306.0
+margin_top = 321.0
 margin_right = 380.0
-margin_bottom = 326.0
+margin_bottom = 341.0
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 margin_left = 53.0
@@ -157,9 +156,9 @@ text = "Resume"
 
 [node name="CheatLabel" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_left = 150.0
-margin_top = 330.0
+margin_top = 345.0
 margin_right = 230.0
-margin_bottom = 380.0
+margin_bottom = 395.0
 rect_min_size = Vector2( 75, 50 )
 size_flags_horizontal = 6
 text = "Easy Mode"
@@ -168,7 +167,7 @@ text = "Easy Mode"
 stream = ExtResource( 2 )
 
 [connection signal="popup_hide" from="." to="." method="_on_PauseMenuPopupDialog_popup_hide"]
-[connection signal="toggled" from="MarginContainer/VBoxContainer/MarginContainer/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainerFullscreen/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartWaveButton" to="." method="_on_StartWaveButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/FreeMoneyButton" to="." method="_on_FreeMoneyButton_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SecretDebugOptions/HBoxContainer/BonusHealthButton" to="." method="_on_BonusHealthButton_pressed"]
