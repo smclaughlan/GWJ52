@@ -42,8 +42,8 @@ func find_target():
 	var potential_targets = []
 	var towers = get_tree().get_nodes_in_group("towers")
 	var village_stuff = get_tree().get_nodes_in_group("village")
-	var target_golems_only = randi() % 2 # if 0, target golems
-	if towers != null and target_golems_only == 1:
+	var target_golems_only = randi() % 5 # if 0, target golems
+	if towers != null and target_golems_only != 0:
 		potential_targets.append_array(towers)
 	if village_stuff != null:
 		potential_targets.append_array(village_stuff)

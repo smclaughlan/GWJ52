@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/Region/Automaton_inactive.png" type="Texture" id=1]
 [ext_resource path="res://_common/GUI/HealthBarUnder.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=4]
 [ext_resource path="res://Scenes/Battle/FriendlyHouses.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Region/Automaton_destroyed.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/Battle/IntroHint.gd" type="Script" id=7]
 
 [sub_resource type="CanvasItemMaterial" id=13]
 light_mode = 1
@@ -167,8 +168,32 @@ polygon = PoolVector2Array( 48, -48, -48, -48, -48, 32, 48, 32 )
 [node name="InvulnTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="IntroHint" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="BlinkTimer" type="Timer" parent="IntroHint"]
+wait_time = 0.5
+autostart = true
+
+[node name="TurnOffTimer" type="Timer" parent="IntroHint"]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="IntroHint"]
+margin_left = -96.0
+margin_top = -104.0
+margin_right = 8.0
+margin_bottom = -82.0
+rect_scale = Vector2( 2, 2 )
+text = "DEFEND!"
+align = 1
+valign = 1
+
 [connection signal="possessed_by_player" from="." to="." method="_on_SpareGolem_possessed_by_player"]
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="timeout" from="DecayTimer" to="." method="_on_DecayTimer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]
+[connection signal="timeout" from="IntroHint/BlinkTimer" to="IntroHint" method="_on_BlinkTimer_timeout"]
+[connection signal="timeout" from="IntroHint/TurnOffTimer" to="IntroHint" method="_on_TurnOffTimer_timeout"]
