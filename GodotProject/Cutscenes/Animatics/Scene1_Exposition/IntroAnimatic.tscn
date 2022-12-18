@@ -89,7 +89,7 @@ text_to_reveal = "The wonders of automation afforded our people unprecedented ti
 [node name="Strife" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 4 )
-text_to_reveal = "On the precipice of unearthing an ichor reserve unlike anything we could’ve ever hoped for, we came to discover the terrible origin of the godly ichor: its source was the body of an all-consuming force of living, oily shadows that we came to know as “The Strife.”"
+text_to_reveal = "On the precipice of unearthing an ichor reserve unlike anything we could've ever hoped for. We came to discover the terrible origin of the godly ichor: it was the body of an all-consuming force of living, oily shadows that we came to know as “The Strife.”"
 
 [node name="Strife2" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
