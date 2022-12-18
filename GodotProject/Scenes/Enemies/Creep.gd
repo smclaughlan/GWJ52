@@ -148,7 +148,7 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
-	
+	$OwNoise.pitch_scale = rand_range(0.8, 1.2)
 	# don't keep taking damage when you're dying or dead.
 	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
 		return
