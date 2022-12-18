@@ -6,7 +6,7 @@
 [node name="MeleeHitAudio" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="CrunchNoise" type="AudioStreamPlayer2D" parent="."]
+[node name="Sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 1 )
 volume_db = 5.0
 
