@@ -73,6 +73,6 @@ func _on_TowerUpgradePopupDialog_about_to_show():
 			$MarginContainer/VBoxContainer/TowerUpgrades.hide()
 		else:
 			$MarginContainer/VBoxContainer/TowerUpdatesLabel.text = "I love this tower. Let's upgrade for " + str(price) + " ichor."
-
-		
+			if not $MarginContainer/VBoxContainer/TowerUpgrades.is_visible_in_tree():
+				$MarginContainer/VBoxContainer/TowerUpgrades.show()
 	
