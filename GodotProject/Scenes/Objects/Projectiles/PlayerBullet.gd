@@ -3,7 +3,7 @@ extends Area2D
 
 export var bullet_speed = 400.0
 export var bullet_damage = 20.0
-
+var crystal_hit_sound_scene = preload("res://Scenes/Objects/Projectiles/CrystalHitSound.tscn")
 
 var damage_attributes = {
 	"bleed":false,
@@ -47,6 +47,9 @@ func _on_Bullet_body_entered(body):
 			var _err = connect("hit", body, "_on_hit")
 		var fwdVector = (Vector2.RIGHT * 50.0).rotated(rotation)
 		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
+		var new_sound = crystal_hit_sound_scene.instance()
+		new_sound.global_position = global_position
+		Global.stage_manager.current_map.add_child(new_sound)
 		die()
 		
 

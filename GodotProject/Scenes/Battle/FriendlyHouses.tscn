@@ -108,6 +108,7 @@ margin_left = -52.0
 margin_top = -65.0
 margin_right = 61.0
 margin_bottom = -25.0
+mouse_filter = 2
 max_value = 1.0
 step = 0.05
 value = 1.0
@@ -147,7 +148,7 @@ material = SubResource( 14 )
 position = Vector2( 0, -1 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 12 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]

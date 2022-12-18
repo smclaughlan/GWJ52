@@ -152,6 +152,7 @@ func shoot():
 			new_projectile.set_target(target)
 		new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
 		shine_crystal()
+		$ShootSound.play()
 
 	
 func shine_crystal():

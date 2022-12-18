@@ -27,7 +27,7 @@ func set_text(_text):
 	if typeof(_text) == TYPE_INT or typeof(_text) == TYPE_REAL:
 		label_text.text = "-" + String(_text)
 		var new_global_scale = get_global_scale()
-		new_global_scale = Vector2(new_global_scale.x * _text * 0.1, new_global_scale.y * _text * 0.1)
+		new_global_scale = Vector2(max(new_global_scale.x * _text * 0.1, 1), max(new_global_scale.y * _text * 0.1, 1))
 		set_global_scale(new_global_scale)
 	else:
 		label_text.text = _text

@@ -7,7 +7,7 @@ var turret
 export var max_health = 1000
 var health = max_health 
 onready var healthbar = $Healthbar
-
+var tower_destroyed_audio_scene = preload("res://Scenes/Objects/Towers/TowerDestroyedAudio.tscn")
 var TowerTypes = Global.TowerTypes
 var tower_type : int
 
@@ -51,6 +51,9 @@ func mark_for_deconstruction():
 	remove_mark_decon_timer.start()
 
 func destroy():
+	var new_sound = tower_destroyed_audio_scene.instance()
+	new_sound.global_position = global_position
+	Global.stage_manager.current_map.add_child(new_sound)
 	# Later add the animation, etc.
 	turret._on_base_destroyed() # should propagate to the WireSockets as well.
 	#turret.queue_free()
