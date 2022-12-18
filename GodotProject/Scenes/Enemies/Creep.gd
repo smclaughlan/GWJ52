@@ -148,6 +148,7 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
+	$AnimationPlayer.play("hit")
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
 	if Global.stage_manager.current_map != null:
