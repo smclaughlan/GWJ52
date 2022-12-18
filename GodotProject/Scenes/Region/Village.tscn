@@ -4,13 +4,13 @@
 [ext_resource path="res://Scenes/Region/Village.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Battle/FriendlyHouses.tscn" type="PackedScene" id=4]
 
-[node name="Village" type="Node2D"]
+[node name="Village" type="YSort"]
 position = Vector2( 2, 1 )
 script = ExtResource( 2 )
 
 [node name="Base" parent="." instance=ExtResource( 1 )]
 
-[node name="Golems" type="Node2D" parent="."]
+[node name="Golems" type="YSort" parent="."]
 
 [node name="SpareGolem1" parent="Golems" instance=ExtResource( 4 )]
 position = Vector2( -180, -50 )
@@ -26,6 +26,3 @@ position = Vector2( 180, 41 )
 
 [node name="SpareGolem5" parent="Golems" instance=ExtResource( 4 )]
 position = Vector2( 155, -131 )
-
-[node name="SpareGolem6" parent="Golems" instance=ExtResource( 4 )]
-position = Vector2( -55, -167 )

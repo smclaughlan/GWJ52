@@ -150,6 +150,7 @@ anims/RESET = SubResource( 4 )
 anims/bite = SubResource( 5 )
 
 [node name="DebugInfo" type="Node2D" parent="."]
+visible = false
 
 [node name="StateLabel" type="Label" parent="DebugInfo"]
 margin_left = -18.0

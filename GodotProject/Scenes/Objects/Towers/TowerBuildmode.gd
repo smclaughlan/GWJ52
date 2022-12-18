@@ -84,6 +84,8 @@ func on_another_tower():
 	return location_already_occupied
 
 func on_tilemap_wall():
+	if Global.current_map == null:
+		return
 	var tilemap = Global.current_map.get_node("tilemap")
 	var local_position = tilemap.to_local(global_position)
 	var map_position = tilemap.world_to_map(local_position)
@@ -104,6 +106,8 @@ func exceeds_maximum_distance():
 		return false
 
 func outside_map_extents():
+	if Global.stage_manager.current_map == null or Global.current_map == null:
+		return
 	if Global.current_map.extents.has_point(global_position):
 		return false
 	else:

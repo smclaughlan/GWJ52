@@ -90,7 +90,7 @@ tracks/1/keys = {
 
 [node name="PickAxe" type="Node2D"]
 script = ExtResource( 1 )
-damage = 5.0
+damage = 10.0
 
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 16
@@ -128,6 +128,12 @@ volume_db = 0.7
 
 [node name="CrunchNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = 5.0
+
+[node name="HitCooldownTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="HitCooldownTimer" to="." method="_on_HitCooldownTimer_timeout"]

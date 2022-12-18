@@ -4,8 +4,8 @@ export var num_creeps_per_wave : int = 5
 var creep = load("res://Scenes/Enemies/Creep.tscn")
 var creeps_spawned_this_wave : int = 0
 #var current_wave_wayfinder
-var time_between_creeps = 1.2 # rand jitter will be applied later.
-var time_between_waves = 20.0 # rand jitter will be applied later.
+export var time_between_creeps = 1.2 # rand jitter will be applied later.
+export var time_between_waves = 20.0 # rand jitter will be applied later.
 
 export var max_health : float = 200.0
 var health : float = max_health
@@ -28,8 +28,8 @@ func _ready():
 	if creep == null:
 		creep = load("res://Scenes/Enemies/Creep.tscn")
 
-	var _err = connect("wave_started", Global.player.hud, "_on_creep_wave_started")
-	_err = connect("died", Global.pickable_object_spawner, "_on_spawner_died")
+	#var _err = connect("wave_started", Global.player.hud, "_on_creep_wave_started")
+	var _err = connect("died", Global.pickable_object_spawner, "_on_spawner_died")
 	_err = connect("damaged", Global.pickable_object_spawner, "_on_spawner_hit")
 
 func init(location):
@@ -37,7 +37,13 @@ func init(location):
 
 
 func spawn_creep():
+	if Global.current_map == null or is_instance_valid(Global.current_map) == false:
+		return
+	
 	#print("spawning creep")
+	if get_tree().get_nodes_in_group("enemies").size() > Global.max_enemies:
+		return
+	
 	var newCreep = creep.instance()
 	creeps_spawned_this_wave += 1
 	$NewCreepNoise.play()
@@ -48,7 +54,7 @@ func spawn_creep():
 			var _err = connect("creep_spawned", Global.current_map, "_on_creep_spawn_requested")
 		emit_signal("creep_spawned", newCreep)
 	else: # dumb map: just add the creep yourself.
-		Global.current_map.add_child(newCreep)
+		Global.current_map.find_node("YSort").add_child(newCreep)
 		newCreep.init(global_position)
 
 	
@@ -77,7 +83,7 @@ func begin_dying():
 	$HealthBar.hide()
 	$DeathTimer.start()
 	$CollisionShape2D.set_deferred("disabled", true)
-	emit_signal("died", self, dropped_pickable, global_position)
+#	emit_signal("died", self, dropped_pickable, global_position)
 	
 
 func _on_WaveTimer_timeout():
@@ -88,7 +94,7 @@ func _on_WaveTimer_timeout():
 		num_creeps_per_wave = randi()%3 + 5 # 3 to 8 creeps per wave
 		spawn_creep()
 		$SpawnTimer.start()
-		emit_signal("wave_started", global_position)
+		#emit_signal("wave_started", global_position)
 
 
 func start_wave_now(): # accelerated start
@@ -114,7 +120,7 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 		$ImpactParticles.emitting = true
 		show_damage()
 		
-		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
+		if randf()<0.1: # was getting too much loot out of a rift, so reduced the likelihood.
 			emit_signal("damaged", self, dropped_pickable, position)
 		if health <= 0:
 			begin_dying()

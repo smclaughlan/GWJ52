@@ -5,7 +5,8 @@ var myCreep
 enum States { INITIALIZING, READY, ATTACKING, COCKING, RELOADING, DISABLED }
 var State = States.INITIALIZING
 
-export var damage : int = 10
+export var base_damage : int = 10
+var damage: int = base_damage * Global.difficulty_controller.difficulty_multiplier
 var damage_attributes = { } # future potential for poison, flaming, etc.
 var knockback_factor : float = 1.0
 
@@ -36,7 +37,7 @@ func _process(_delta):
 func bite(targetObj):
 	if State == States.ATTACKING:
 		if get_overlapping_bodies().has(targetObj):
-			
+			$NomNomNoise.pitch_scale = rand_range(0.8,1.2)
 			#$AnimationPlayer.play("bite") # use signal to myCreep instead.
 			$NomNomNoise.play()
 			var impactVector = targetObj.global_position - global_position * knockback_factor

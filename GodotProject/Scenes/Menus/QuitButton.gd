@@ -9,4 +9,14 @@ func _ready():
 
 
 func _on_QuitButton_pressed():
+	$ClickNoise.play()
+	
+	
+
+
+func _on_QuitButton_mouse_entered():
+	$HoverNoise.play()
+
+
+func _on_ClickNoise_finished():
 	get_tree().quit()

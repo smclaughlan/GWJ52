@@ -1,12 +1,17 @@
 extends Node2D
 
 
-export var starting_currency = 30
+export var starting_currency = 100
 
 onready var extents = $Extents.get_rect()
 
+var tutorial_ended : bool = false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Change the seed
+	randomize()
 	if starting_currency > $Currency.sun:
 		$Currency.update_amount( starting_currency )
 			
@@ -27,8 +32,11 @@ func audio_fade_in():
 #func _process(delta):
 #	pass
 func _on_tutorial_ended():
-	# spawn two spawner spawners and start the 1st wave.
-	$SpawnerSpawner.enable()
-	$SpawnerSpawner2.enable()
-	
+	if not tutorial_ended:
+		# spawn two spawner spawners and start the 1st wave.
+		$SpawnerSpawner.enable()
+		$SpawnerSpawner2.enable()
+		tutorial_ended = true
+	else:
+		printerr("Why are you still getting tutorial ending signals in Battle.gd?")
 	

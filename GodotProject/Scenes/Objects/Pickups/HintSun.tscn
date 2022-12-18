@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/Objects/Pickups/PickableObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Objects/Pickups/strife_blood.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/Objects/Pickups/Sun.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Battle/IntroHint.gd" type="Script" id=4]
+
+[node name="Sun" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+
+[node name="IntroHint" type="Node2D" parent="." index="5"]
+script = ExtResource( 4 )
+
+[node name="BlinkTimer" type="Timer" parent="IntroHint" index="0"]
+wait_time = 0.2
+autostart = true
+
+[node name="TurnOffTimer" type="Timer" parent="IntroHint" index="1"]
+wait_time = 20.0
+one_shot = true
+autostart = true
+
+[node name="Label" type="Label" parent="IntroHint" index="2"]
+margin_left = -96.0
+margin_top = -80.0
+margin_right = 8.0
+margin_bottom = -58.0
+rect_scale = Vector2( 2, 2 )
+text = "Collect 500!"
+align = 1
+valign = 1
+
+[connection signal="timeout" from="IntroHint/BlinkTimer" to="IntroHint" method="_on_BlinkTimer_timeout"]
+[connection signal="timeout" from="IntroHint/TurnOffTimer" to="IntroHint" method="_on_TurnOffTimer_timeout"]

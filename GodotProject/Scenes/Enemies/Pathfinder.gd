@@ -42,7 +42,8 @@ func find_target():
 	var potential_targets = []
 	var towers = get_tree().get_nodes_in_group("towers")
 	var village_stuff = get_tree().get_nodes_in_group("village")
-	if towers != null:
+	var target_golems_only = randi() % 5 # if 0, target golems
+	if towers != null and target_golems_only != 0:
 		potential_targets.append_array(towers)
 	if village_stuff != null:
 		potential_targets.append_array(village_stuff)
@@ -64,13 +65,13 @@ func find_path():
 	queue = []
 	seen = {}
 	# Find path by:
-	# * Put the start position at the nearest node on the navmesh. 
+	# * Put the start position at the nearest node on the navmesh.
 	#		The first position in the path will always be there.
 	# Need to find the closest node but without iterating.
 	# Stepify the global_position instead.
 	var stepify_offset = Global.pathfinding_manager.offset
 	var global_stepified = Vector2(stepify(global_position.x, stepify_offset), stepify(global_position.y, stepify_offset))
-	
+
 	queue = [
 			[global_stepified], # [[path_array], [path_array]]
 		]
@@ -108,7 +109,7 @@ func next_step():
 		if all_colliders.has(target):
 			path = curr_path_arr
 			State = States.DONE
-		
+
 		if all_colliders.size() == 0:
 			add_to_queue(curr_path_arr, neighbor)
 
@@ -164,7 +165,7 @@ func update_player_pathfinding(_player_colliding_nodes):
 func debug_path_viz(position : Vector2):
 	var new_viz = debug_viz.instance()
 	new_viz.global_position = position
-	Global.current_map.add_child(new_viz)
+	Global.current_map.find_node("YSort").add_child(new_viz)
 
 
 func _on_FindTargetTimer_timeout():

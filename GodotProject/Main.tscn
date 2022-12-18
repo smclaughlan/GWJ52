@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://DesignNotes.gd" type="Script" id=2]
+[ext_resource path="res://Cutscenes/EndScreens/WinScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Cutscenes/EndScreens/LoseScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://_common/Themes/MainTheme.tres" type="Theme" id=5]
 
 [sub_resource type="OpenSimplexNoise" id=1]
 period = 128.0
@@ -16,7 +19,10 @@ noise = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 5 )
 script = ExtResource( 1 )
+win_screen = ExtResource( 3 )
+lose_screen = ExtResource( 4 )
 
 [node name="DesignNotes" type="Node" parent="."]
 script = ExtResource( 2 )

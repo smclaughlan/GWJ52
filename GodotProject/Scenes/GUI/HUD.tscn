@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Scenes/GUI/buttons/build_Default.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/GUI/HUD.gd" type="Script" id=2]
@@ -22,6 +22,23 @@
 [ext_resource path="res://Scenes/GUI/ThreatInfoContainer.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Scenes/GUI/Pools_Base.png" type="Texture" id=21]
 [ext_resource path="res://Scenes/GUI/Pool_Lid-L.png" type="Texture" id=22]
+[ext_resource path="res://_common/Themes/blue_styleboxflat.tres" type="StyleBox" id=23]
+[ext_resource path="res://_common/Fonts/Antonfont.tres" type="DynamicFont" id=24]
+
+[sub_resource type="StyleBoxFlat" id=11]
+bg_color = Color( 0.694118, 0.988235, 0.988235, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.984314, 1, 1, 1 )
+border_blend = true
+expand_margin_left = 4.0
+expand_margin_right = 4.0
+expand_margin_top = 4.0
+expand_margin_bottom = 4.0
+shadow_color = Color( 0, 0.384314, 0.556863, 1 )
+shadow_size = 1
 
 [sub_resource type="InputEventKey" id=9]
 scancode = 16777217
@@ -59,17 +76,21 @@ script = ExtResource( 2 )
 
 [node name="header" type="HBoxContainer" parent="."]
 anchor_right = 1.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 30.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="PauseButton" type="Button" parent="header"]
 pause_mode = 2
-margin_left = 466.0
-margin_right = 558.0
-margin_bottom = 50.0
+margin_left = 467.0
+margin_right = 557.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 24 )
+custom_styles/hover = SubResource( 11 )
+custom_styles/pressed = ExtResource( 23 )
+custom_styles/normal = ExtResource( 23 )
 shortcut = SubResource( 10 )
 text = "Pause [ esc ]"
 align = 0
@@ -90,6 +111,7 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="Footer"]
 margin_right = 1024.0
 margin_bottom = 128.0
+mouse_filter = 2
 size_flags_horizontal = 3
 alignment = 2
 
@@ -97,10 +119,10 @@ alignment = 2
 margin_right = 128.0
 margin_bottom = 128.0
 rect_pivot_offset = Vector2( 64.5772, -0.00939941 )
+mouse_filter = 2
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
-value = 0.5
 texture_under = ExtResource( 7 )
 texture_over = ExtResource( 22 )
 texture_progress = ExtResource( 6 )
@@ -112,6 +134,14 @@ margin_top = 50.0
 margin_right = 69.0
 margin_bottom = 69.0
 text = "0"
+
+[node name="WinInstructionLabel" type="Label" parent="Footer/HBoxContainer/Mana"]
+margin_left = -28.0
+margin_top = -23.0
+margin_right = 171.0
+margin_bottom = 8.0
+text = "Win instructions"
+align = 1
 
 [node name="GridContainer" type="GridContainer" parent="Footer/HBoxContainer"]
 margin_left = 406.0
@@ -233,6 +263,7 @@ stretch_mode = 6
 margin_left = 896.0
 margin_right = 1024.0
 margin_bottom = 128.0
+mouse_filter = 2
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
@@ -307,6 +338,10 @@ text = "Build three towers, one of each type."
 align = 1
 
 [node name="ThreatInfoContainer" parent="." instance=ExtResource( 20 )]
+margin_left = -141.0
+margin_top = 43.0
+margin_right = 122.0
+margin_bottom = 73.0
 
 [connection signal="pressed" from="header/PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="Footer/HBoxContainer/GridContainer/Melee/ActionButton" to="." method="_on_ActionButton_pressed" binds= [ "melee" ]]

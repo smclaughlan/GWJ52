@@ -1,6 +1,10 @@
 extends Control
 
 export var first_scene = preload("res://Scenes/Menus/MainMenu.tscn")
+export var win_screen : PackedScene
+export var lose_screen : PackedScene
+
+
 var fade_node : TextureRect
 var fade_duration = 0.5
 
@@ -16,7 +20,11 @@ func _ready():
 	change_scene(first_scene)
 	
 	
-
+func win():
+	change_scene(win_screen)
+	
+func lose():
+	change_scene(lose_screen)
 
 
 func change_scene(newScene : PackedScene):

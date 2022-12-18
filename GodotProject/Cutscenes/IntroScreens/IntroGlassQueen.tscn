@@ -52,18 +52,18 @@ custom_constants/margin_bottom = 50
 margin_left = 50.0
 margin_top = 50.0
 margin_right = 974.0
-margin_bottom = 550.0
+margin_bottom = 526.0
 custom_constants/separation = 20
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 924.0
-margin_bottom = 420.0
+margin_bottom = 396.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
 margin_right = 924.0
-margin_bottom = 420.0
+margin_bottom = 396.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "The Glass Queen
@@ -96,9 +96,9 @@ return_to_main = true
 
 [node name="StartGameButton" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
 margin_left = 361.0
-margin_top = 440.0
+margin_top = 416.0
 margin_right = 562.0
-margin_bottom = 500.0
+margin_bottom = 476.0
 size_flags_horizontal = 6
 text = "Begin: Protect The Chandelier"
 target_scene = ExtResource( 3 )

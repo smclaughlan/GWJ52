@@ -12,12 +12,15 @@ var pickable_object_spawner: Node2D # Spawner node that handles spawning of pick
 var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
 var grid_dist_px = 50
+var max_enemies = 25
 var pathfinding_manager : Node2D # builds and rebuilds navmesh
 var power_source : Node2D # the first TowerWireSocket, at the home base
+var difficulty_controller: Node
 enum TowerTypes { BEAM, AOE, SHARDS }
 enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 
 var tower_cost : int = 10
+var sun_required_to_win: int = 1000
 
 var enable_fps_counter: bool # Shows an fps counter
 var previous_window_index = 1
@@ -72,5 +75,6 @@ func show_fps_counter():
 		fps_counter_holder.queue_free()
 
 func _process(_delta):
-	if enable_fps_counter:
-		show_fps_counter()
+	pass
+#	if enable_fps_counter:
+#		show_fps_counter()

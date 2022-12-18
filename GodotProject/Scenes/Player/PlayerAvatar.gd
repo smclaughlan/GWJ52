@@ -23,7 +23,7 @@ var action_states = {
 	"attacking":false,
 	"dashing":false,
 	"building":true,
-	
+	"invulnerable":false,
 }
 
 
@@ -155,11 +155,13 @@ func begin_dying():
 
 func drop_a_broken_golem():
 	var newCorpse = $GolemCorpse.duplicate()
-	Global.current_map.add_child(newCorpse)
+	Global.current_map.find_node("YSort").add_child(newCorpse)
 	newCorpse.set_global_position(global_position)
 	newCorpse.show()
 
 func turn_into_a_ghost():
+	check_losing_conditions()
+	
 	$Sprite/AnimatedSprite.animation = "ghost"
 	$Sprite/AnimatedSprite.play()
 
@@ -173,6 +175,14 @@ func turn_into_a_ghost():
 	disable_tools("left")
 	disable_tools("right")
 	State = States.GHOST
+	
+	
+	
+func check_losing_conditions():
+	var golemsRemaining = Global.village.get_spare_golem_count()
+	if golemsRemaining == 0:
+		Global.stage_manager.lose()
+	
 	
 func resurrect():
 	# turn back into a golem
@@ -194,6 +204,8 @@ func die_for_real_this_time():
 
 func _on_knockback(impulseVector):
 	#var _remainingVel = move_and_slide(impulseVector)
+	if health <= 0:
+		return
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "position", position+impulseVector, 0.1)
@@ -201,9 +213,11 @@ func _on_knockback(impulseVector):
 	
 	
 func _on_hit(damage, impulseVector, _damageAttributes):
-	if State != States.DEAD:
+	$AnimationPlayer.play("hit")
+	if State != States.DEAD and action_states["invulnerable"] == false:
 		_on_knockback(impulseVector)
 		health -= damage
+		$HurtParticles.emitting = true
 		$StatusBars/TextureProgress.value = health
 		if health <= 0:
 			begin_dying()
@@ -241,7 +255,7 @@ func _on_golem_entered():
 func _on_DelayInitTimer_timeout():
 	set_tool("build", "left")
 
-func _on_creep_wave_started(location):
+func _on_creep_wave_started(_location):
 	pass
 #	$ThreatIndicator.show()
 #	$ThreatIndicator.look_at(location)
@@ -250,3 +264,9 @@ func _on_creep_wave_started(location):
 
 func _on_ThreatIndicatorTimer_timeout():
 	$ThreatIndicator.hide()
+
+
+func _on_InvulnerableTimer_timeout():
+	if action_states["invulnerable"] == true:
+		action_states["invulnerable"] = false
+		

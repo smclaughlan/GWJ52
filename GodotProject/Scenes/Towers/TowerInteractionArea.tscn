@@ -16,11 +16,11 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="InteractLabel" type="PanelContainer" parent="."]
-margin_left = -157.0
-margin_top = 67.0
-margin_right = 17.0
-margin_bottom = 102.0
-rect_scale = Vector2( 1.78282, 1.78282 )
+margin_left = -91.0
+margin_top = 73.0
+margin_right = 83.0
+margin_bottom = 108.0
+rect_scale = Vector2( 1.02364, 1.02364 )
 mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
 
