@@ -37,7 +37,7 @@ func _process(_delta):
 func bite(targetObj):
 	if State == States.ATTACKING:
 		if get_overlapping_bodies().has(targetObj):
-			
+			$NomNomNoise.pitch_scale = rand_range(0.8,1.2)
 			#$AnimationPlayer.play("bite") # use signal to myCreep instead.
 			$NomNomNoise.play()
 			var impactVector = targetObj.global_position - global_position * knockback_factor
