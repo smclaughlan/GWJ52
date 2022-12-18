@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Menus/QuitButton.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Objects/Weapons/Crystal_Shoot.wav" type="AudioStream" id=2]
+[ext_resource path="res://Scenes/Menus/Click.wav" type="AudioStream" id=2]
 [ext_resource path="res://_common/sfx/Currency Pick Up.wav" type="AudioStream" id=3]
 
 [node name="QuitButton" type="Button"]
