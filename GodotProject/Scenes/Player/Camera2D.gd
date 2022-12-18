@@ -10,9 +10,9 @@ func _unhandled_input(_event):
 	if Input.is_action_just_pressed("zoom_toggle"):
 		zoomed_in = !zoomed_in
 		if zoomed_in:
-			set_zoom(Vector2.ONE*2.2)
+			set_zoom(Vector2.ONE*1.6)
 		else:
-			set_zoom(Vector2.ONE*2.6)
+			set_zoom(Vector2.ONE*2.2)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
