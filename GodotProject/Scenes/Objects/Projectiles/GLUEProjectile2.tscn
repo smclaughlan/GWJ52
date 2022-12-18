@@ -9,7 +9,7 @@ extents = Vector2( 18, 10 )
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
-bullet_damage = 1.0
+bullet_damage = 2.0
 damage_attributes = {
 "glue": true
 }
