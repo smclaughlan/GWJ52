@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scenes/Objects/Towers/crystal_aoe.png" type="Texture" id=1]
-[ext_resource path="res://Scenes/Objects/Towers/TowerTurret.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Objects/Towers/TowerTurretCustomAOE.gd" type="Script" id=2]
 [ext_resource path="res://_common/Materials/32pxTransparent.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Objects/Towers/TowerWireSockets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Objects/Towers/tower_aoe.png" type="Texture" id=5]
@@ -75,6 +75,7 @@ shape = SubResource( 1 )
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 2.0
+one_shot = true
 
 [node name="InvisibleTurret" type="Sprite" parent="."]
 position = Vector2( -2, -140 )

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Objects/Projectiles/AOEProjectile.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Projectiles/explosion_pixelated.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Objects/Projectiles/boom-voice.wav" type="AudioStream" id=3]
+[ext_resource path="res://_common/sfx/Weapon Switch.wav" type="AudioStream" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=11]
 light_mode = 1
@@ -54,6 +54,7 @@ animations = [ {
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 1 )
+knockback_factor = 0.3
 
 [node name="BulletSprite" type="Sprite" parent="."]
 material = SubResource( 11 )
@@ -74,6 +75,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="TravelTimer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="explosion" type="AnimatedSprite" parent="."]
