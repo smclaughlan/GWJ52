@@ -167,6 +167,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 	knockback(impactVector)
 
 	health -= damage
+	$AnimationPlayer.play("hit")
 	if health <= 0 and State != States.DEAD:
 		begin_dying()
 	else:
