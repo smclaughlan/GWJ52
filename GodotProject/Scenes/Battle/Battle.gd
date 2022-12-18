@@ -1,7 +1,7 @@
 extends Node2D
 
 
-export var starting_currency = 30
+export var starting_currency = 100
 
 onready var extents = $Extents.get_rect()
 

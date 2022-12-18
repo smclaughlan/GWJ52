@@ -10,7 +10,7 @@ extends Area2D
 export var bullet_speed = 400.0
 export var bullet_damage = 10.0
 export var bullet_range = 300.0
-
+export var knockback_factor = 0.2
 
 export var damage_attributes = {
 	"bleed":false,
@@ -57,6 +57,7 @@ func explode():
 	$CollisionShape2D.set_deferred("disabled", false)
 	$explosion.visible = true
 	$explosion.play("explode")
+	$BoomNoise.set_pitch_scale(rand_range(0.9, 1.1))
 	$BoomNoise.play()
 	var incinerate_timer = get_tree().create_timer(0.05)
 	yield(incinerate_timer, "timeout") # give the collision shape a chance to appear
@@ -65,7 +66,7 @@ func explode():
 		if body.has_method("_on_hit") and body != Global.player:
 			if not is_connected("hit", body, "_on_hit"):
 				var _err = connect("hit", body, "_on_hit")
-			var impactVector = (body.global_position - global_position)*(bullet_damage/5.0)
+			var impactVector = (body.global_position - global_position)*(bullet_damage * knockback_factor)
 			emit_signal("hit", bullet_damage, impactVector, damage_attributes)
 	bullet_speed = 0.0
 	

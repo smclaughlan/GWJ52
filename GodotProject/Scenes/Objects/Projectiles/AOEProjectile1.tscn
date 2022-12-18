@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Objects/Projectiles/AOEProjectile.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Objects/Projectiles/explosion_pixelated.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Objects/Projectiles/boom-voice.wav" type="AudioStream" id=3]
+[ext_resource path="res://_common/sfx/Weapon Switch.wav" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 164.757
@@ -70,6 +70,7 @@ wait_time = 2.0
 
 [node name="TravelTimer" type="Timer" parent="."]
 wait_time = 0.5
+one_shot = true
 
 [node name="explosion" type="AnimatedSprite" parent="."]
 scale = Vector2( 8, 8 )
