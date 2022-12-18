@@ -87,7 +87,7 @@ func flash_muzzle():
 	$Sprite/MuzzleFlash/FlashTimer.start()
 
 func knockback_shooter():
-	var knockbackPower = 3.0
+	var knockbackPower = 1.0
 	var impulseVector = (Vector2.RIGHT * knockbackPower).rotated(get_global_rotation() - PI)
 	if shooter != null:
 		emit_signal("shot", impulseVector)

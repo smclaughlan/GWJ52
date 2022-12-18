@@ -92,7 +92,7 @@ func _on_DurationTimer_timeout():
 
 
 func _on_TravelTimer_timeout():
-	if is_instance_valid(self): # prevent errors if player loses and scene switches
+	if is_instance_valid(self) and self.is_visible_in_tree(): # prevent errors if player loses and scene switches
 		explode()
 
 
