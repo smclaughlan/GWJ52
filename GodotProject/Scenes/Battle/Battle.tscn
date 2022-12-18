@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Battle/NavManager.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Player/PlayerAvatar.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scenes/Battle/Tileset.tscn" type="PackedScene" id=8]
 [ext_resource path="res://_common/Music/GODOT_TD_V2_Loop_.ogg" type="AudioStream" id=9]
 [ext_resource path="res://Scenes/Enemies/PathfindingManager.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Battle/Difficulty.tscn" type="PackedScene" id=11]
 
 [sub_resource type="NavigationPolygon" id=4]
 vertices = PoolVector2Array( -4175, -2467, 4313, -2472, 4315, 2664, -4175, 2661 )
@@ -35,6 +36,8 @@ glow_enabled = true
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 7 )
+
+[node name="Difficulty" parent="." instance=ExtResource( 11 )]
 
 [node name="tilemap" parent="." instance=ExtResource( 8 )]
 z_index = -1000

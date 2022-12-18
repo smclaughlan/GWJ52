@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://Scenes/GUI/FloatText.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Enemies/Creep.gd" type="Script" id=2]
@@ -13,9 +13,7 @@
 [ext_resource path="res://Scenes/Enemies/strife_walk.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/Enemies/Pathfinder.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Enemies/ProjectileManager.gd" type="Script" id=13]
-
-[sub_resource type="CanvasItemMaterial" id=41]
-light_mode = 2
+[ext_resource path="res://Shaders/FlashHit.tres" type="Material" id=15]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 10 )
@@ -240,6 +238,18 @@ tracks/0/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite/AnimatedSprite:material:shader_param/modifier")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
 
 [sub_resource type="Animation" id=6]
 resource_name = "die"
@@ -257,30 +267,47 @@ tracks/0/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="Animation" id=59]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/AnimatedSprite:material:shader_param/modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
 [node name="Creep" type="KinematicBody2D" groups=["creeps", "enemies"]]
 collision_layer = 2
 collision_mask = 13
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
+base_speed = 0.05
 float_text = ExtResource( 1 )
 dropped_pickable = ExtResource( 5 )
 
 [node name="Sprite" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
-material = SubResource( 41 )
+material = ExtResource( 15 )
 position = Vector2( 40, -5 )
 scale = Vector2( 4.85374, 4.85374 )
 frames = SubResource( 34 )
 animation = "walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="eyes" type="AnimatedSprite" parent="Sprite/AnimatedSprite"]
 material = SubResource( 35 )
 frames = SubResource( 40 )
 animation = "walk"
-frame = 3
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -332,6 +359,7 @@ color = Color( 0.717647, 0.0823529, 0.0823529, 1 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 5 )
 anims/die = SubResource( 6 )
+anims/hit = SubResource( 59 )
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true

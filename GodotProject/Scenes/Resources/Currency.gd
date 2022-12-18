@@ -14,7 +14,7 @@ func _ready() -> void:
 		var _err = connect("resource_changed", Global.hud, "update_sun")
 
 
-func update_amount(new_amount: int = 1) -> void:
+func update_amount(new_amount: int = 8) -> void:
 	if not is_connected("resource_changed", Global.hud, "update_sun"):
 		var _err = connect("resource_changed", Global.hud, "update_sun")
 	sun += new_amount

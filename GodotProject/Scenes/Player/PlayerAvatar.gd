@@ -213,6 +213,7 @@ func _on_knockback(impulseVector):
 	
 	
 func _on_hit(damage, impulseVector, _damageAttributes):
+	$AnimationPlayer.play("hit")
 	if State != States.DEAD and action_states["invulnerable"] == false:
 		_on_knockback(impulseVector)
 		health -= damage

@@ -10,6 +10,8 @@ var tutorial_ended : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Change the seed
+	randomize()
 	if starting_currency > $Currency.sun:
 		$Currency.update_amount( starting_currency )
 			

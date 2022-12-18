@@ -13,7 +13,8 @@ var tower_base : Node2D
 
 var tower_type : int # from Global.Tower_Types enum
 var turret_range = 30
-export var turret_reload_delay = 0.75
+#export var turret_reload_delay = 0.75
+export var turret_reload_delay = 0.3
 var projectile_speed : float # declared in bullet scene
 var target = null
 
@@ -120,16 +121,17 @@ func deprecated_rotate_8_way_spritesheet():
 func upgrade(upgradeType): # [bigger, faster, stronger]
 	
 	if upgradeType == Global.UpgradeTypes.BIGGER:
-		print("Bigger")
 		tower_base.max_health = 3 * tower_base.max_health
 		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
 		$Upgrades/Gem0.show()
-	elif upgradeType == Global.UpgradeTypes.FASTER:
+		tower_base.healthbar.set_range(tower_base.max_health)
+		tower_base.healthbar.set_value(tower_base.health)
+	if upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
 		$ShootTimer.set_wait_time( turret_reload_delay )
 		$Upgrades/Gem1.show()
-	elif upgradeType == Global.UpgradeTypes.STRONGER:
+	if upgradeType == Global.UpgradeTypes.STRONGER:
 		current_bullet_scene = bullet_scene_2
 		$Upgrades/Gem2.show()
 	upgrades[upgradeType] = true
@@ -142,16 +144,15 @@ func shoot():
 	if current_bullet_scene == null:
 		current_bullet_scene = bullet_scene_1
 	var new_projectile = current_bullet_scene.instance()
-	Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
-	var muzzle_location = $InvisibleTurret/MuzzleLocation
-
-	# short on time, hard coding if statements based on parameters available for a custom projectile.
-	if new_projectile.has_method("set_target"):
-		new_projectile.set_target(target)
-	new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
-
-	
-	shine_crystal()
+	if Global.stage_manager.current_map != null and Global.stage_manager.current_map.find_node("YSort") != null:
+		Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
+		var muzzle_location = $InvisibleTurret/MuzzleLocation
+		# short on time, hard coding if statements based on parameters available for a custom projectile.
+		if new_projectile.has_method("set_target"):
+			new_projectile.set_target(target)
+		new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
+		shine_crystal()
+		$ShootSound.play()
 
 	
 func shine_crystal():

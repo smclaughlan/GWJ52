@@ -9,8 +9,11 @@
 extends KinematicBody2D
 
 
-export var health = 20.0
-export var speed = 0.2
+export var base_health = 20.0
+export var base_speed = 0.2
+var health = base_health * Global.difficulty_controller.difficulty_multiplier
+#var speed = base_speed * Global.difficulty_controller.difficulty_multiplier
+var speed = base_speed
 var velocity : Vector2 = Vector2.ZERO
 var prev_position : Vector2 = Vector2.ZERO
 #onready var nav_agent = $NavigationAgent2D
@@ -145,7 +148,12 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
-	
+	var new_floating_text = float_text.instance()
+	new_floating_text.global_position = global_position
+	if Global.stage_manager.current_map != null:
+		Global.stage_manager.current_map.add_child(new_floating_text)
+		new_floating_text.set_text(damage)
+	$OwNoise.pitch_scale = rand_range(0.8, 1.2)
 	# don't keep taking damage when you're dying or dead.
 	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
 		return
@@ -154,15 +162,12 @@ func _on_hit(damage, impactVector, _damageAttributes):
 
 
 	# worry about damage attributes later
-	var new_floating_text = float_text.instance()
-	new_floating_text.global_position = global_position
-	
-	Global.current_map.add_child(new_floating_text)
-	new_floating_text.set_text(damage)
+
 	$OwNoise.play()
 	knockback(impactVector)
 
 	health -= damage
+	$AnimationPlayer.play("hit")
 	if health <= 0 and State != States.DEAD:
 		begin_dying()
 	else:

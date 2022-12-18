@@ -4,9 +4,10 @@ var tower_turret_scene # set during init
 onready var remove_mark_decon_timer = $RemoveMarkDeconTimer
 var turret
 
-export var max_health = 500
+export var max_health = 1000
 var health = max_health 
-
+onready var healthbar = $Healthbar
+var tower_destroyed_audio_scene = preload("res://Scenes/Objects/Towers/TowerDestroyedAudio.tscn")
 var TowerTypes = Global.TowerTypes
 var tower_type : int
 
@@ -25,6 +26,8 @@ var State = States.INITIALIZING
 func _ready():
 	Global.pathfinding_manager.rebuild_collisions()
 	State = States.READY
+	healthbar.set_range(max_health)
+	healthbar.set_value(health)
 
 func init(turret_type):
 	spawn_turret(turret_type)
@@ -48,6 +51,9 @@ func mark_for_deconstruction():
 	remove_mark_decon_timer.start()
 
 func destroy():
+	var new_sound = tower_destroyed_audio_scene.instance()
+	new_sound.global_position = global_position
+	Global.stage_manager.current_map.add_child(new_sound)
 	# Later add the animation, etc.
 	turret._on_base_destroyed() # should propagate to the WireSockets as well.
 	#turret.queue_free()
@@ -68,6 +74,7 @@ func _on_upgrade_requested(upgrade_type): # [bigger, stronger, faster]
 func _on_hit(damage, _impactVector, _damageAttributes):
 	if State == States.READY:
 		health -= damage
+		healthbar.set_value(health)
 		if health <= 0:
 			# might want better animations
 			destroy()

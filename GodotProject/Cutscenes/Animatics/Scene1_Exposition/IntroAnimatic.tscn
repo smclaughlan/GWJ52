@@ -1,14 +1,17 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_2_of_story.png" type="Texture" id=1]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_3.png" type="Texture" id=1]
 [ext_resource path="res://Cutscenes/Animatics/AnimaticSlide.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/IntroAnimatic.gd" type="Script" id=3]
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Empire_concept_copy.jpg" type="Texture" id=4]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_4.png" type="Texture" id=4]
 [ext_resource path="res://_common/Music/GODOT_TD_V2_Loop_.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_5.png" type="Texture" id=6]
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/strife creep.png" type="Texture" id=7]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_1.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Battle/Battle.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/towers placeholder.png" type="Texture" id=9]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_2.png" type="Texture" id=9]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_6.png" type="Texture" id=10]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_7.png" type="Texture" id=11]
+[ext_resource path="res://Cutscenes/Animatics/Scene1_Exposition/Frame_0.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "intro_exposition"
@@ -63,43 +66,62 @@ text = "Press the space bar or click the mouse button to Muse aloud, in an expos
 align = 1
 autowrap = true
 
-[node name="Ghost" parent="Control/TabContainer" instance=ExtResource( 2 )]
+[node name="Darkness" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
-
-[node name="Queen" parent="Control/TabContainer" instance=ExtResource( 2 )]
-visible = false
-texture = ExtResource( 1 )
-text_to_reveal = "... an empire of automation. Crystal mines churning around the clock. The automatons freed up our people to pursue Philosophy, Poetry, the Arts. It was a rich culture."
+texture = ExtResource( 12 )
+text_to_reveal = " Darkness. It wasn't always this way."
 
 [node name="Empire" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
-texture = ExtResource( 4 )
-text_to_reveal = "7 long eons ago, we uncovered a well of shadow. Shadow creatures, made of darkness and ichor surged forth. We call them, the Strife."
+texture = ExtResource( 7 )
+text_to_reveal = "I was once the queen of Torchstone, the luminous dwarven kingdom of the deep."
+
+[node name="Mines" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 9 )
+text_to_reveal = "We sculpted our kingdom with a wondrous elixir that we stumbled upon while digging for crystals. We soon discovered that it could power our machines and automatons like no other fuel. So divine were its properties that we called it “ichor”, blood of the gods."
+
+[node name="Culture" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 1 )
+text_to_reveal = "The wonders of automation afforded our people unprecedented time to pursue new ventures in philosophy, poetry, and the arts. We developed a rich culture once thought inconceivable by our forebearers. The more ichor we extracted, the greater our lives would become. So we dug deeper."
 
 [node name="Strife" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
-texture = ExtResource( 7 )
-text_to_reveal = "Their blood is powerful fuel. We used it to power our machines. 
+texture = ExtResource( 4 )
+text_to_reveal = "On the precipice of unearthing an ichor reserve unlike anything we could've ever hoped for. We came to discover the terrible origin of the godly ichor: it was the body of an all-consuming force of living, oily shadows that we came to know as “The Strife.”"
 
-But the tide was unyielding.
-
-They consume light. They would consume everything!"
+[node name="Strife2" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 4 )
+text_to_reveal = "Whether they came to exact revenge against us for exploiting their ichor, or if the reserves we had discovered were mere bait, we never knew. What was clear: they were unrelenting, unyielding, and we were wholly unprepared to face them."
 
 [node name="GreatWar" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
 texture = ExtResource( 6 )
-text_to_reveal = "My husband sacrificed everything to defeat them. We fought to the very last dwarf. Now, I have nothing. No one.
-
-After 7 long, sleepless eons, shadows bite at the edge of my awareness. They would extinguish my light."
+text_to_reveal = "We made a last-ditch effort to protect The Chandelier, our crystal mausoleum. It serves as the final resting place for all dwarven spirits, including my husband, King Cloudstone IV. He drove them back and sacrificed himself to reseal the entrance with a magic spell. But it drained nearly all of the remaining energy from our kingdom."
 
 [node name="Towers" parent="Control/TabContainer" instance=ExtResource( 2 )]
 visible = false
-texture = ExtResource( 9 )
-text_to_reveal = "I must build towers to fight back the darkness. 
-
-Powered by the very creatures who would seek to destroy me.
-
+texture = ExtResource( 10 )
+text_to_reveal = "The ultimate price paid for what us remaining dwarves knew to be a temporary solution. The Strife would return - the intensity of their hunger promised as much.
 "
+
+[node name="Towers2" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 10 )
+text_to_reveal = "And so, I, along with the last remaining dwarves, devised a plan of defense: to build towers that would illuminate and dispatch The Strife. Once their blood had been shed, we could gather it and utilize it to strengthen and improve our towers. We would use their power against them.
+"
+
+[node name="Throne" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 11 )
+text_to_reveal = "My spirit resides in a glass statue at the base of The Chandelier. Here I will stand guard for an eternity if I have to, and distribute my energy to our warrior automatons. Whatever it takes to honor my husband and to protect the spirit of our people."
+
+[node name="Darkness2" parent="Control/TabContainer" instance=ExtResource( 2 )]
+visible = false
+texture = ExtResource( 12 )
+text_to_reveal = " I can feel scratching at the cavern walls. Their return is imminent"
 
 [node name="escToSkipLabel" type="Label" parent="Control"]
 margin_left = 926.0
