@@ -127,11 +127,11 @@ func upgrade(upgradeType): # [bigger, faster, stronger]
 		$Upgrades/Gem0.show()
 		tower_base.healthbar.set_range(tower_base.max_health)
 		tower_base.healthbar.set_value(tower_base.health)
-	elif upgradeType == Global.UpgradeTypes.FASTER:
+	if upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
 		$ShootTimer.set_wait_time( turret_reload_delay )
 		$Upgrades/Gem1.show()
-	elif upgradeType == Global.UpgradeTypes.STRONGER:
+	if upgradeType == Global.UpgradeTypes.STRONGER:
 		current_bullet_scene = bullet_scene_2
 		$Upgrades/Gem2.show()
 	upgrades[upgradeType] = true
