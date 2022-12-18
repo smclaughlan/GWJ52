@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://Scenes/Objects/Weapons/Gun.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Player/PlayerSpiritMoteSpriteSheet.png" type="Texture" id=2]
@@ -19,12 +19,10 @@
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/Player/AutoFlashlight2D.gd" type="Script" id=18]
 [ext_resource path="res://Scenes/Objects/Tools/flashlight-wide.png" type="Texture" id=19]
+[ext_resource path="res://Shaders/FlashHit.tres" type="Material" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 31, 31.5 )
-
-[sub_resource type="CanvasItemMaterial" id=25]
-light_mode = 1
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 16 )
@@ -115,6 +113,37 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/AnimatedSprite:material:shader_param/modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite/AnimatedSprite:material:shader_param/modifier")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
 [node name="Player" type="KinematicBody2D" groups=["obstacles", "player"]]
 collision_mask = 261
 script = ExtResource( 3 )
@@ -126,7 +155,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Node2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Sprite"]
-material = SubResource( 25 )
+material = ExtResource( 20 )
 position = Vector2( 0, 2 )
 scale = Vector2( 3, 3 )
 frames = SubResource( 8 )
@@ -287,6 +316,10 @@ scale_amount = 6.0
 color = Color( 0.223529, 0.752941, 0.905882, 1 )
 hue_variation = 0.9
 hue_variation_random = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 25 )
+anims/hit = SubResource( 26 )
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
 [connection signal="area_entered" from="PickupRadius" to="PickupRadius" method="_on_PickupRadius_area_entered"]
