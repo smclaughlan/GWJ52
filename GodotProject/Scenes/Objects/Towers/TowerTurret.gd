@@ -121,11 +121,12 @@ func deprecated_rotate_8_way_spritesheet():
 func upgrade(upgradeType): # [bigger, faster, stronger]
 	
 	if upgradeType == Global.UpgradeTypes.BIGGER:
-		print("Bigger")
 		tower_base.max_health = 3 * tower_base.max_health
 		tower_base.health = tower_base.max_health
 		update_turret_range(1.5 * turret_range)
 		$Upgrades/Gem0.show()
+		tower_base.healthbar.set_range(tower_base.max_health)
+		tower_base.healthbar.set_value(tower_base.health)
 	elif upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
 		$ShootTimer.set_wait_time( turret_reload_delay )
@@ -143,16 +144,14 @@ func shoot():
 	if current_bullet_scene == null:
 		current_bullet_scene = bullet_scene_1
 	var new_projectile = current_bullet_scene.instance()
-	Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
-	var muzzle_location = $InvisibleTurret/MuzzleLocation
-
-	# short on time, hard coding if statements based on parameters available for a custom projectile.
-	if new_projectile.has_method("set_target"):
-		new_projectile.set_target(target)
-	new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
-
-	
-	shine_crystal()
+	if Global.stage_manager.current_map != null and Global.stage_manager.current_map.find_node("YSort") != null:
+		Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
+		var muzzle_location = $InvisibleTurret/MuzzleLocation
+		# short on time, hard coding if statements based on parameters available for a custom projectile.
+		if new_projectile.has_method("set_target"):
+			new_projectile.set_target(target)
+		new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
+		shine_crystal()
 
 	
 func shine_crystal():
