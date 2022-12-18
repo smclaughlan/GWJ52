@@ -65,9 +65,9 @@ size_flags_horizontal = 6
 text = "Start Next Wave!"
 
 [node name="InstructionText" type="Label" parent="MarginContainer/VBoxContainer"]
-margin_left = 53.0
+margin_left = 49.0
 margin_top = 135.0
-margin_right = 327.0
+margin_right = 331.0
 margin_bottom = 268.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
@@ -76,7 +76,7 @@ Shift to dash.
 1,2,3 to select a tool or weapon.
 Alt toggles zoom.
 Protect your spare shells at your base.
-Build towers with the construction wrench.
+Build towers with the construction hammer.
 Upgrade nearby towers with the F key.
 "
 align = 1
