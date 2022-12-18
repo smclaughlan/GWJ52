@@ -86,9 +86,9 @@ script = ExtResource( 2 )
 [node name="ThreatLabel" type="Label" parent="."]
 margin_left = 16.0
 margin_top = 8.0
-margin_right = 166.0
+margin_right = 247.0
 margin_bottom = 22.0
-text = "Alert: Incoming Wave!!!"
+text = "Your base is under attack! Defend it!"
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

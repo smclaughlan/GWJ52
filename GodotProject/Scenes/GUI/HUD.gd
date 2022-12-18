@@ -42,7 +42,8 @@ func change_tower_instructions(towerType):
 
 func update_sun(sun: int) -> void:
 	$Footer/HBoxContainer/Mana/IchorAmount.text = str(sun)
-	$Footer/HBoxContainer/Mana.value = float(sun)/100.0
+	$Footer/HBoxContainer/Mana.value = float(sun)/Global.sun_required_to_win
+	$Footer/HBoxContainer/Mana/WinInstructionLabel.text = "To Defeat the Strife\nCollect " + str(Global.sun_required_to_win) + " ichor."
 	if sun < 10:
 		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
 		find_node("ExtraInstructions").text = instructionText
@@ -82,7 +83,14 @@ func _on_tower_type_blueprint_changed(currentTowerType):
 	change_tower_instructions(currentTowerType)
 
 func _on_creep_wave_started(_location):
+	#$ThreatInfoContainer.alert()
+	# moved to when glem is attacked
+	pass
+
+func _on_golem_attacked():
 	$ThreatInfoContainer.alert()
 	
+	
+
 func _on_tutorial_ended():
 	$ExtraInstructionsPanel/VBoxContainer/Tutorial.hide()

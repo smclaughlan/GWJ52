@@ -52,6 +52,7 @@ func die():
 
 
 func explode():
+	
 	State = States.EXPLODING
 	$CollisionShape2D.set_deferred("disabled", false)
 	$explosion.visible = true
@@ -91,7 +92,8 @@ func _on_DurationTimer_timeout():
 
 
 func _on_TravelTimer_timeout():
-	explode()
+	if is_instance_valid(self): # prevent errors if player loses and scene switches
+		explode()
 
 
 func _on_explosion_animation_finished():

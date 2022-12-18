@@ -32,14 +32,14 @@ enum States { INITIALIZING, STORED, ACTIVE, BUILDING, PAUSED }
 var State = States.INITIALIZING
 
 signal tower_built
-signal tutorial_ended
+#signal tutorial_ended
 
 func _ready():
 	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
 	yield(delay_let_ancestors_initialize_first, "timeout")
 	var _err = connect("tower_built", Global.currency_tracker, "update_amount")
-	_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
-	_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
+	#_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
+	#_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
 
 func init(myPlayer):
 	player = myPlayer
