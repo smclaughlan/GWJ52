@@ -120,8 +120,8 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 		$ImpactParticles.emitting = true
 		show_damage()
 		
-#		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
-#			emit_signal("damaged", self, dropped_pickable, position)
+		if randf()<0.1: # was getting too much loot out of a rift, so reduced the likelihood.
+			emit_signal("damaged", self, dropped_pickable, position)
 		if health <= 0:
 			begin_dying()
 		else:

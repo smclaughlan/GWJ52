@@ -67,6 +67,7 @@ one_shot = true
 
 [node name="corpse" type="Sprite" parent="."]
 visible = false
+self_modulate = Color( 1, 1, 1, 0.490196 )
 position = Vector2( 1, 4 )
 scale = Vector2( 1.8059, 1.8059 )
 texture = ExtResource( 6 )
