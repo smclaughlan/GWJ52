@@ -148,7 +148,6 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
-	$AnimationPlayer.play("hit")
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
 	if Global.stage_manager.current_map != null:
@@ -168,6 +167,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 	knockback(impactVector)
 
 	health -= damage
+	$AnimationPlayer.play("hit")
 	if health <= 0 and State != States.DEAD:
 		begin_dying()
 	else:
