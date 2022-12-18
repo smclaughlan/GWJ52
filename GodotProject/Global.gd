@@ -75,5 +75,6 @@ func show_fps_counter():
 		fps_counter_holder.queue_free()
 
 func _process(_delta):
-	if enable_fps_counter:
-		show_fps_counter()
+	pass
+#	if enable_fps_counter:
+#		show_fps_counter()

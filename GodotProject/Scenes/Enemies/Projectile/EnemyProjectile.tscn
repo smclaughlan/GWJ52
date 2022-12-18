@@ -16,6 +16,9 @@ extents = Vector2( 8, 8 )
 [node name="Bullet" type="Area2D"]
 collision_layer = 256
 script = ExtResource( 1 )
+bullet_speed = 800.0
+bullet_damage = 10.0
+bullet_range = 800.0
 
 [node name="Sprite" type="Sprite" parent="."]
 

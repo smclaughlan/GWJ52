@@ -111,6 +111,7 @@ size_flags_horizontal = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="Footer"]
 margin_right = 1024.0
 margin_bottom = 128.0
+mouse_filter = 2
 size_flags_horizontal = 3
 alignment = 2
 
@@ -118,6 +119,7 @@ alignment = 2
 margin_right = 128.0
 margin_bottom = 128.0
 rect_pivot_offset = Vector2( 64.5772, -0.00939941 )
+mouse_filter = 2
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
@@ -253,6 +255,7 @@ stretch_mode = 6
 margin_left = 896.0
 margin_right = 1024.0
 margin_bottom = 128.0
+mouse_filter = 2
 size_flags_horizontal = 8
 max_value = 1.0
 step = 0.1
@@ -279,7 +282,6 @@ window_title = "Awwww"
 dialog_text = "You are dead."
 
 [node name="PauseMenuPopupDialog" parent="." instance=ExtResource( 4 )]
-visible = false
 margin_top = -261.0
 margin_right = 250.0
 margin_bottom = 139.0

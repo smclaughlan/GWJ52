@@ -379,6 +379,8 @@ tween = NodePath("../Tween")
 
 [node name="ProjectileManager" type="Node2D" parent="."]
 script = ExtResource( 13 )
+range_to_attack_player = 1200
+min_attack_time = 1
 
 [node name="ProjectileSpawnTimer" type="Timer" parent="ProjectileManager"]
 one_shot = true

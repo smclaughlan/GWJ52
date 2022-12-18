@@ -83,7 +83,7 @@ func begin_dying():
 	$HealthBar.hide()
 	$DeathTimer.start()
 	$CollisionShape2D.set_deferred("disabled", true)
-	emit_signal("died", self, dropped_pickable, global_position)
+#	emit_signal("died", self, dropped_pickable, global_position)
 	
 
 func _on_WaveTimer_timeout():
@@ -120,8 +120,8 @@ func _on_hit(damage, _impactVector, _damageAttributes):
 		$ImpactParticles.emitting = true
 		show_damage()
 		
-		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
-			emit_signal("damaged", self, dropped_pickable, position)
+#		if randf()<0.33: # was getting too much loot out of a rift, so reduced the likelihood.
+#			emit_signal("damaged", self, dropped_pickable, position)
 		if health <= 0:
 			begin_dying()
 		else:

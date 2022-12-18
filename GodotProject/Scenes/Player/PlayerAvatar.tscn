@@ -178,7 +178,7 @@ visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 1.5, 1.5 )
+zoom = Vector2( 2.2, 2.2 )
 script = ExtResource( 14 )
 
 [node name="DeathTimer" type="Timer" parent="."]
