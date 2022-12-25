@@ -45,8 +45,8 @@ text = "Return to Main"
 return_to_main = true
 
 [node name="Panel" type="Panel" parent="TextureRect/MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 345.0
-margin_right = 575.0
+margin_left = 352.0
+margin_right = 552.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 200, 75 )
 size_flags_horizontal = 4

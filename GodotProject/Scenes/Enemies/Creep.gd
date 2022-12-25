@@ -9,7 +9,7 @@
 extends KinematicBody2D
 
 
-export var base_health = 20.0
+export var base_health = 10.0
 export var base_speed = 0.2
 var health = base_health * Global.difficulty_controller.difficulty_multiplier
 #var speed = base_speed * Global.difficulty_controller.difficulty_multiplier
@@ -148,6 +148,11 @@ func knockback(impactVector):
 
 
 func _on_hit(damage, impactVector, _damageAttributes):
+	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
+		return
+	if not is_instance_valid(Global.current_map):
+		return # game won or lost already
+
 	var new_floating_text = float_text.instance()
 	new_floating_text.global_position = global_position
 	if Global.stage_manager.current_map != null:
@@ -155,10 +160,7 @@ func _on_hit(damage, impactVector, _damageAttributes):
 		new_floating_text.set_text(damage)
 	$OwNoise.pitch_scale = rand_range(0.8, 1.2)
 	# don't keep taking damage when you're dying or dead.
-	if not State in [ States.READY, States.MOVING, States.ATTACKING, States.RELOADING, States.STUNNED ]:
-		return
-	if not is_instance_valid(Global.current_map):
-		return # game won or lost already
+
 
 
 	# worry about damage attributes later

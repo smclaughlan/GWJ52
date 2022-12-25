@@ -12,7 +12,7 @@ var damage_attributes = {
 }
 
 
-export var damage = 25.0
+export var damage = 30.0
 export var knockback_factor : float = 250.0
 var melee_hit_audio_scene = preload("res://Scenes/Objects/Weapons/MeleeHitAudio.tscn")
 onready var hit_cooldown_timer = $HitCooldownTimer

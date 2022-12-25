@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Battle/CreepSpawner.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Enemies/spawner_rift_transparent.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=5]
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Enemies/Creep.tscn" type="PackedScene" id=8]
 
 [node name="CreepSpawner" type="StaticBody2D" groups=["EnemySpawners"]]
 scale = Vector2( 5, 5 )
@@ -93,6 +94,15 @@ color = Color( 0.286275, 0.00784314, 0.447059, 1 )
 [node name="InvulnTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="CreepsAvailable" type="Node" parent="."]
+
+[node name="Tier1CreepsEasy" type="ResourcePreloader" parent="CreepsAvailable"]
+resources = [ PoolStringArray( "Creep" ), [ ExtResource( 8 ) ] ]
+
+[node name="Tier2CreepsMedium" type="ResourcePreloader" parent="CreepsAvailable"]
+
+[node name="Tier3CreepsHard" type="ResourcePreloader" parent="CreepsAvailable"]
 
 [connection signal="timeout" from="WaveTimer" to="." method="_on_WaveTimer_timeout"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

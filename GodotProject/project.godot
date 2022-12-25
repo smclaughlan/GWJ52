@@ -206,6 +206,10 @@ zoom_toggle={
 2d_physics/layer_31="Pathfinding detector"
 2d_physics/layer_32="Pathfinding obstacle/target"
 
+[navigation]
+
+2d/default_edge_connection_margin=8.0
+
 [physics]
 
 common/enable_pause_aware_picking=true

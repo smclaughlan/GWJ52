@@ -172,6 +172,7 @@ visible = false
 
 [node name="Axe" parent="Toolbelt" instance=ExtResource( 9 )]
 visible = false
+damage = 30.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
