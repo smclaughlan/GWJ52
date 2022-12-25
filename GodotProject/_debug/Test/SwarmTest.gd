@@ -38,7 +38,11 @@ func update_nav():
 		return
 	var optimize = true
 	var actor = $Sprite
-	current_path = Navigation2DServer.map_get_path(level_navigation_map, actor.get_global_position(), get_global_mouse_position(), optimize)
+	if Global.player == null:
+		current_path = Navigation2DServer.map_get_path(level_navigation_map, actor.get_global_position(), get_global_mouse_position(), optimize)
+	else:
+		current_path = Navigation2DServer.map_get_path(level_navigation_map, actor.get_global_position(), Global.player.global_position, optimize)
+
 	local_path = translate_points_to_local(current_path)
 	$Sprite/Line2D.points = local_path
 

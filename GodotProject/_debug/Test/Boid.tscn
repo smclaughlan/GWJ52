@@ -36,7 +36,6 @@ width = 2.0
 default_color = Color( 0.623529, 0.254902, 0.709804, 0.529412 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-amount = 2
 lifetime = 0.5
 local_coords = false
 emission_shape = 1

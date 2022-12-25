@@ -32,7 +32,8 @@ func change_tower_instructions(towerType):
 	var currentTower = towerTypes[towerType]
 	var nextTower = towerTypes[(towerType+1) % towerTypes.size()]
 	var instructionText : String
-	if Global.currency_tracker.sun >= 10:
+	
+	if Global.currency_tracker != null and Global.currency_tracker.sun >= 10:
 		instructionText = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
 	else:
 		instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."

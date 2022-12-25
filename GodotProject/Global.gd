@@ -11,7 +11,7 @@ var minimum_separation_between_towers : int = 150 # NavManager and TowerBuilder 
 var pickable_object_spawner: Node2D # Spawner node that handles spawning of pickables
 var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
-var grid_dist_px = 50
+var grid_dist_px = 16
 var max_enemies = 25
 var pathfinding_manager : Node2D # builds and rebuilds navmesh
 var power_source : Node2D # the first TowerWireSocket, at the home base
