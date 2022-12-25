@@ -71,7 +71,9 @@ func get_obstacle_avoidance_vector():
 
 func get_follow_target_vector():
 	if path_follow_target != null:
-		return global_position.direction_to(path_follow_target.global_position)
+		return global_position.direction_to(path_follow_target.global_position) * 2.0
+	else:
+		return Vector2.ZERO
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

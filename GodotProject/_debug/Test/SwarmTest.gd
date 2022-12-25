@@ -6,7 +6,7 @@ var current_path
 var local_path
 var next_point : Vector2
 
-var speed = 10.0
+export var speed = 6.0
 onready var follow_target = $Sprite
 
 
@@ -14,14 +14,14 @@ onready var follow_target = $Sprite
 func _ready():
 	for boid in $Boids.get_children():
 		if boid.has_method("init"):
-			boid.init(self)
+			boid.init($Sprite)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
 	if current_path != null and current_path.size() > 2:
-		next_point = local_path[2]
+		next_point = local_path[2] # look ahead an extra step
 		var velocity = Vector2.ZERO
 		velocity += next_point * speed * delta
 		$Sprite.position += velocity
