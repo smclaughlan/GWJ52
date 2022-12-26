@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scenes/Objects/Weapons/Sword.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Weapons/PickAxe.gd" type="Script" id=1]
 [ext_resource path="res://_common/sfx/Sword_Swing.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Objects/Weapons/pickaxe.png" type="Texture" id=3]
 [ext_resource path="res://_common/sfx/Player_Melee_Hit.wav" type="AudioStream" id=4]

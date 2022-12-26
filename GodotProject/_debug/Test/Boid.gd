@@ -142,8 +142,3 @@ func _on_hit(damage, _impulseVector, _damageAttributes):
 		die()
 	
 
-
-
-func _on_GrowthTimer_timeout():
-	pass
-	
