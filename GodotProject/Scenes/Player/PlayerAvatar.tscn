@@ -291,12 +291,17 @@ position = Vector2( 3, -2.38419e-07 )
 texture = ExtResource( 11 )
 
 [node name="Flashlight" type="Light2D" parent="."]
-position = Vector2( 3, -2.38419e-07 )
-scale = Vector2( 19.4492, 28.9386 )
+position = Vector2( -235, -27 )
+scale = Vector2( 14.508, 21.5865 )
 texture = ExtResource( 19 )
 offset = Vector2( 102.667, 0.4 )
-energy = 0.66
 script = ExtResource( 18 )
+
+[node name="Sprite" type="Sprite" parent="Flashlight"]
+visible = false
+position = Vector2( -2.13676, -1.34343 )
+texture = ExtResource( 19 )
+offset = Vector2( 106.493, -5.55903 )
 
 [node name="InvulnerableTimer" type="Timer" parent="."]
 wait_time = 0.3

@@ -9,7 +9,7 @@ func _ready():
 	global_position = Vector2(global_position.x, global_position.y - 100)
 	var go_left = (randi() % 2) == 0
 	var randomX = randi() % 150
-	var randomY = randi() % 150
+	var _randomY = randi() % 150
 	var new_position = Vector2.ZERO
 	if go_left:
 		new_position = Vector2(global_position.x - randomX, global_position.y - 50)

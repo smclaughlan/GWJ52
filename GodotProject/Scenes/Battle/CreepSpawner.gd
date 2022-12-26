@@ -16,7 +16,9 @@ enum States { INITIALIZING, READY, INVUNERABLE, DEAD }
 var State = States.READY
 
 signal creep_spawned(creep, location)
+#warning-ignore:UNUSED_SIGNAL
 signal wave_started(location)
+#warning-ignore:UNUSED_SIGNAL
 signal died(location)
 signal damaged(location)
 

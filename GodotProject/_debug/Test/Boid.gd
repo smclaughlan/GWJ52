@@ -127,12 +127,12 @@ func move(delta):
 	velocity = newVelocity.normalized() * speed
 	global_rotation = Vector2.RIGHT.angle_to(velocity)
 
-	move_and_slide( velocity  )
+	var _result_vect = move_and_slide( velocity  )
 
 func die():
 	queue_free()
 
-func _on_hit(damage, impulseVector, damageAttributes):
+func _on_hit(damage, _impulseVector, _damageAttributes):
 	if health > damage:
 		health -= damage
 	else:

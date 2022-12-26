@@ -6,9 +6,9 @@
 [ext_resource path="res://_common/Themes/MainTheme.tres" type="Theme" id=4]
 [ext_resource path="res://_common/GUI/QuitButton.tscn" type="PackedScene" id=5]
 [ext_resource path="res://_common/GUI/AudioLevels.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scenes/Menus/DebugMenu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://_common/Music/GODOT_TD-THEME_V2-WIP.wav" type="AudioStream" id=9]
 [ext_resource path="res://Scenes/Menus/MainMenu.gd" type="Script" id=10]
-[ext_resource path="res://Scenes/Menus/Wildling-favicon.png" type="Texture" id=11]
 
 [node name="MainMenu" type="Control"]
 anchor_right = 1.0
@@ -53,49 +53,44 @@ alignment = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 29.0
 margin_right = 1024.0
-margin_bottom = 572.0
+margin_bottom = 422.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Body" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_right = 510.0
-margin_bottom = 543.0
-mouse_filter = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/separation = 25
-alignment = 1
+[node name="QuitButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 5 )]
+margin_left = 94.0
+margin_top = 333.0
+margin_right = 244.0
+margin_bottom = 393.0
+size_flags_vertical = 8
 
-[node name="QuitButton" parent="MarginContainer/VBoxContainer/HBoxContainer/Body" instance=ExtResource( 5 )]
-margin_top = 241.0
-margin_bottom = 301.0
-
-[node name="GWJLogo" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-visible = false
-margin_left = 724.0
-margin_right = 1024.0
-margin_bottom = 400.0
-rect_min_size = Vector2( 300, 400 )
-texture = ExtResource( 11 )
-expand = true
-stretch_mode = 5
-flip_h = true
-
-[node name="PlayButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
-margin_left = 694.0
-margin_top = 241.0
-margin_right = 844.0
-margin_bottom = 301.0
+[node name="DebugButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 436.0
+margin_top = 333.0
+margin_right = 586.0
+margin_bottom = 393.0
 size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_vertical = 8
+text = "Debug"
+icon_align = 1
+target_scene = ExtResource( 7 )
+
+[node name="PlayButton2" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 779.0
+margin_top = 333.0
+margin_right = 929.0
+margin_bottom = 393.0
+size_flags_horizontal = 6
+size_flags_vertical = 8
 text = "Play"
 icon_align = 1
 target_scene = ExtResource( 2 )
 
 [node name="Footer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 576.0
+margin_top = 426.0
 margin_right = 1024.0
 margin_bottom = 576.0
+rect_min_size = Vector2( 0, 150 )
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8

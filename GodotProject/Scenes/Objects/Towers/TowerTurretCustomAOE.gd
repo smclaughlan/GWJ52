@@ -216,7 +216,7 @@ func _on_ShootTimer_timeout():
 		shoot()
 
 func find_a_new_target():
-	var newTarget
+	
 	var creepsInRange = $EnemyDetectionArea.get_overlapping_bodies()
 	var numCreeps = creepsInRange.size()
 	if numCreeps > 0:
