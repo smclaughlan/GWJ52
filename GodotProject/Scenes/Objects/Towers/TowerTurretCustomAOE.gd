@@ -63,7 +63,7 @@ func lookup_bullet_speed_for_slow_projectiles():
 
 func _process(delta):
 	update() # invokes the draw function to draw a circle
-	if target == null or is_instance_valid(target) == null:
+	if target == null or is_instance_valid(target) == false:
 		return
 		
 	if target.get("State") and target.State != target.States.DEAD:

@@ -38,13 +38,15 @@ func spawn_turret(turret_type):
 	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
-	if Global.current_map != null and Global.current_map.has_node("YSort"):
-		Global.current_map.get_node("YSort").add_child(new_turret)
-		new_turret.global_position = global_position
-	else:
-		add_child(new_turret)
-		new_turret.global_position = global_position
+#	if Global.current_map != null and Global.current_map.has_node("YSort"):
+#		Global.current_map.get_node("YSort").add_child(new_turret)
+#	else:
+#		get_parent().add_child(new_turret)
+	add_child(new_turret)
 	new_turret.init(turret_type, self)
+	#new_turret.global_scale = global_scale
+	new_turret.global_position = global_position
+	
 	turret = new_turret
 
 func mark_for_deconstruction():

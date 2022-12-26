@@ -47,7 +47,9 @@ func set_target(target):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	# track the target
-	var enemyHealth = target_enemy.get("health")
+	var enemyHealth
+	if is_instance_valid(target_enemy):
+		enemyHealth = target_enemy.get("health")
 	if State == States.FIRING and is_instance_valid(target_enemy) and enemyHealth != null and enemyHealth > 0:
 		$Sprite/Line2D.visible = true
 		$Sprite/Line2D.points = [ Vector2.ZERO, target_enemy.global_position - self.global_position]

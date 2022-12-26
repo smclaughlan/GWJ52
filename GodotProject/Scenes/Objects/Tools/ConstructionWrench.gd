@@ -91,12 +91,12 @@ func spawn_tower(towerType):
 	if Global.current_map != null and is_instance_valid(Global.current_map):
 		$BuildNoise.play()
 		Global.current_map.find_node("YSort").add_child(new_tower)
-		new_tower.init(towerType)
 	else:
 		player.get_parent().add_child(new_tower)
-		new_tower.init(towerType)
+	
+	new_tower.init(towerType)
 	new_tower.global_position = tower_buildmode_visual.global_position
-
+	new_tower.global_scale = player.global_scale
 		
 		#Removed because of slowdowns
 		#Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
@@ -139,6 +139,7 @@ func set_towerbuildmode(enabled:bool):
 		else:
 			printerr("config error in ConstructionWrench.gd. unknown Global.map")
 			player.get_parent().add_child(tower_buildmode_visual)
+		tower_buildmode_visual.global_scale = player.global_scale
 	else: # disabled
 		# Stop showing the green tower base visual.
 		tower_buildmode_visual.queue_free()
