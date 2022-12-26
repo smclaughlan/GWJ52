@@ -127,12 +127,13 @@ func upgrade(upgradeType): # [bigger, faster, stronger]
 		$Upgrades/Gem0.show()
 		tower_base.healthbar.set_range(tower_base.max_health)
 		tower_base.healthbar.set_value(tower_base.health)
-	if upgradeType == Global.UpgradeTypes.FASTER:
+	elif upgradeType == Global.UpgradeTypes.FASTER:
 		turret_reload_delay = 0.33 * turret_reload_delay
 		$ShootTimer.set_wait_time( turret_reload_delay )
 		$Upgrades/Gem1.show()
-	if upgradeType == Global.UpgradeTypes.STRONGER:
+	elif upgradeType == Global.UpgradeTypes.STRONGER:
 		current_bullet_scene = bullet_scene_2
+		lookup_bullet_speed_for_slow_projectiles()
 		$Upgrades/Gem2.show()
 	upgrades[upgradeType] = true
 	update_spritesheet_for_upgrades()
@@ -141,18 +142,22 @@ func upgrade(upgradeType): # [bigger, faster, stronger]
 
 
 func shoot():
+	
 	if current_bullet_scene == null:
 		current_bullet_scene = bullet_scene_1
 	var new_projectile = current_bullet_scene.instance()
-	if Global.stage_manager.current_map != null and Global.stage_manager.current_map.find_node("YSort") != null:
+	if Global.stage_manager != null and Global.stage_manager.current_map != null and Global.stage_manager.current_map.find_node("YSort") != null:
 		Global.stage_manager.current_map.find_node("YSort").add_child(new_projectile)
-		var muzzle_location = $InvisibleTurret/MuzzleLocation
-		# short on time, hard coding if statements based on parameters available for a custom projectile.
-		if new_projectile.has_method("set_target"):
-			new_projectile.set_target(target)
-		new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
-		shine_crystal()
-		$ShootSound.play()
+	else: # put it somewhere
+		tower_base.get_parent().add_child(new_projectile)
+
+	var muzzle_location = $InvisibleTurret/MuzzleLocation
+	# short on time, hard coding if statements based on parameters available for a custom projectile.
+	if new_projectile.has_method("set_target"):
+		new_projectile.set_target(target)
+	new_projectile.init(muzzle_location.global_position, $InvisibleTurret.global_rotation)
+	shine_crystal()
+	$ShootSound.play()
 
 	
 func shine_crystal():

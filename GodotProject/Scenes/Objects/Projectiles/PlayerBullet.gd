@@ -47,12 +47,17 @@ func _on_Bullet_body_entered(body):
 			var _err = connect("hit", body, "_on_hit")
 		var fwdVector = (Vector2.RIGHT * 50.0).rotated(rotation)
 		emit_signal("hit", bullet_damage, fwdVector, damage_attributes)
-		var new_sound = crystal_hit_sound_scene.instance()
-		new_sound.global_position = global_position
-		Global.stage_manager.current_map.add_child(new_sound)
+		
+		play_hit_noise()
 		die()
 		
-
+func play_hit_noise():
+		var new_sound = crystal_hit_sound_scene.instance()
+		new_sound.global_position = global_position
+		if Global.stage_manager != null:
+			Global.stage_manager.current_map.add_child(new_sound)
+		else:
+			get_parent().add_child(new_sound)
 
 func _on_Timer_timeout():
 	if is_instance_valid(self):

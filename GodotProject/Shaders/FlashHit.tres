@@ -2,14 +2,18 @@
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
-render_mode blend_disabled,light_only;
+render_mode blend_mix;
 
 uniform vec4 flash_color: hint_color = vec4(1.0);
 uniform float modifier: hint_range(0.0, 1.0);
 
 void fragment(){
 	vec4 color = texture(TEXTURE, UV);
-	color.rgb = mix(color.rgb, flash_color.rgb, modifier);
+	float lightMod = 0.0;
+	if( AT_LIGHT_PASS) {
+		lightMod = 1.0;
+	}
+	color.rgb = mix(color.rgb * lightMod, flash_color.rgb * lightMod, modifier);
 	COLOR = color;
 }"
 

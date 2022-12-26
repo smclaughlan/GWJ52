@@ -17,6 +17,10 @@ var current_blueprint_sprite : Sprite
 
 var tower_type : int
 
+var elapsed_time : float = 0.0
+var time_of_last_check : float = 0.0
+var time_between_checks : float = 0.5
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -33,12 +37,14 @@ func move_blueprint_to_mouse_position_on_grid():
 	var new_position = get_global_mouse_position()
 	if new_position == null:
 		return
-	new_position.x = stepify(new_position.x, Global.grid_dist_px)
-	new_position.y = stepify(new_position.y, Global.grid_dist_px)
+	new_position.x = stepify(new_position.x, Global.grid_dist_px * global_scale.x)
+	new_position.y = stepify(new_position.y, Global.grid_dist_px * global_scale.x)
 	set_global_position(new_position)
 
 func safe_placement_location():
+	
 	var safe_placement_location = true
+
 
 	if insufficient_funds():
 		safe_placement_location = false
@@ -56,7 +62,9 @@ func safe_placement_location():
 	return safe_placement_location
 
 func insufficient_funds():
-	if Global.currency_tracker.sun >= Global.tower_cost:
+	if Global.currency_tracker == null:
+		return false
+	elif Global.currency_tracker.sun >= Global.tower_cost:
 		return false
 	else:
 		return true
@@ -74,24 +82,30 @@ func on_player():
 		
 
 func on_another_tower():
+	var min_dist = MIN_DISTANCE_BETWEEN_TOWERS * global_scale.x
 	var location_already_occupied = false
 	var towers = get_tree().get_nodes_in_group("towers")
 	var closest_tower = Global.get_closest_object(towers, self)
 	if closest_tower != null:
 		var proximity = global_position.distance_squared_to(closest_tower.global_position)
-		if proximity < MIN_DISTANCE_BETWEEN_TOWERS * MIN_DISTANCE_BETWEEN_TOWERS:
+		if proximity < min_dist * min_dist:
 			location_already_occupied = true
 	return location_already_occupied
 
+
 func on_tilemap_wall():
 	if Global.current_map == null:
-		return
-	var tilemap = Global.current_map.get_node("tilemap")
+		return false
+	var tilemap = Global.current_map.find_node("TileMap")
+	if tilemap == null:
+		return false
+		
 	var local_position = tilemap.to_local(global_position)
 	var map_position = tilemap.world_to_map(local_position)
 	var specific_tile = tilemap.get_cell(map_position.x, map_position.y)
 	
 	if specific_tile == 1: # tile index in tilemap. 1 is a gem
+		print("Tower on a tilemap wall.")
 		return true
 	else:
 		return false
@@ -106,22 +120,30 @@ func exceeds_maximum_distance():
 		return false
 
 func outside_map_extents():
-	if Global.stage_manager.current_map == null or Global.current_map == null:
-		return
-	if Global.current_map.extents.has_point(global_position):
+	if Global.stage_manager == null:
 		return false
-	else:
+	elif Global.stage_manager.current_map == null or Global.current_map == null:
+		return false
+	elif Global.current_map.get("extents") == null:
+		return false
+	elif Global.current_map.extents.has_point(global_position):
+		return false
+	else: # map is registered and has a reference rect 2d called extents, but the mouse is outside that.
 		return true
 
-func _physics_process(_delta):
-	if self != null and is_instance_valid(self):
-		move_blueprint_to_mouse_position_on_grid()
-		if safe_placement_location() == true:
-			change_blueprint_color(Color.greenyellow)
-			can_place = true
-		else:
-			can_place = false
-			change_blueprint_color(Color.red)
+func _process(delta):
+	elapsed_time += delta
+	if time_of_last_check + time_between_checks < elapsed_time:
+		time_of_last_check = elapsed_time
+		 
+		if self != null and is_instance_valid(self):
+			move_blueprint_to_mouse_position_on_grid()
+			if safe_placement_location() == true:
+				change_blueprint_color(Color.greenyellow)
+				can_place = true
+			else:
+				can_place = false
+				change_blueprint_color(Color.red)
 		
 
 func change_blueprint_color(newColor):

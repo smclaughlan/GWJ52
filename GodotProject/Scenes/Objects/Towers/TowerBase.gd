@@ -24,7 +24,8 @@ var State = States.INITIALIZING
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Global.pathfinding_manager.rebuild_collisions()
+	if Global.pathfinding_manager != null:
+		Global.pathfinding_manager.rebuild_collisions()
 	State = States.READY
 	healthbar.set_range(max_health)
 	healthbar.set_value(health)
@@ -37,12 +38,15 @@ func spawn_turret(turret_type):
 	tower_turret_scene = load(turret_scenes[turret_type])
 	var new_turret = tower_turret_scene.instance()
 	new_turret.global_position = global_position
-	if Global.current_map.has_node("YSort"):
-		Global.current_map.get_node("YSort").add_child(new_turret)
-		new_turret.global_position = global_position
-	else:
-		Global.current_map.find_node("YSort").add_child(new_turret)
+#	if Global.current_map != null and Global.current_map.has_node("YSort"):
+#		Global.current_map.get_node("YSort").add_child(new_turret)
+#	else:
+#		get_parent().add_child(new_turret)
+	add_child(new_turret)
 	new_turret.init(turret_type, self)
+	#new_turret.global_scale = global_scale
+	new_turret.global_position = global_position
+	
 	turret = new_turret
 
 func mark_for_deconstruction():

@@ -37,7 +37,9 @@ signal tower_built
 func _ready():
 	var delay_let_ancestors_initialize_first = get_tree().create_timer(0.1)
 	yield(delay_let_ancestors_initialize_first, "timeout")
-	var _err = connect("tower_built", Global.currency_tracker, "update_amount")
+	
+	if Global.currency_tracker != null:
+		var _err = connect("tower_built", Global.currency_tracker, "update_amount")
 	#_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
 	#_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
 
@@ -85,12 +87,16 @@ func attempt_to_spawn_tower(towerType):
 
 func spawn_tower(towerType):
 	var new_tower = tower_base_scene.instance() # common base scene for all "tower types", only the turrets change
-	new_tower.global_position = tower_buildmode_visual.global_position
 	
 	if Global.current_map != null and is_instance_valid(Global.current_map):
 		$BuildNoise.play()
 		Global.current_map.find_node("YSort").add_child(new_tower)
-		new_tower.init(towerType)
+	else:
+		player.get_parent().add_child(new_tower)
+	
+	new_tower.init(towerType)
+	new_tower.global_position = tower_buildmode_visual.global_position
+	new_tower.global_scale = player.global_scale
 		
 		#Removed because of slowdowns
 		#Global.current_map.get_node("NavManager").cut_object_from_nav(new_tower)
@@ -132,6 +138,8 @@ func set_towerbuildmode(enabled:bool):
 			Global.current_map.find_node("YSort").add_child(tower_buildmode_visual)
 		else:
 			printerr("config error in ConstructionWrench.gd. unknown Global.map")
+			player.get_parent().add_child(tower_buildmode_visual)
+		tower_buildmode_visual.global_scale = player.global_scale
 	else: # disabled
 		# Stop showing the green tower base visual.
 		tower_buildmode_visual.queue_free()

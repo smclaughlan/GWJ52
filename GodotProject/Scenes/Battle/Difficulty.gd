@@ -1,5 +1,6 @@
 extends Node
 
+#warning-ignore:UNUSED_SIGNAL
 signal difficulty_changed
 
 # The current multiplier that affects the creep's stats. When the wave starts, it

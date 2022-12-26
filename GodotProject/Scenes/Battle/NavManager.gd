@@ -1,10 +1,11 @@
-extends Node
+extends Node2D
 
-export(NodePath) onready var nav_mesh = get_node(nav_mesh)
-
+#export(NodePath) onready var nav_mesh = get_node(nav_mesh)
+var nav_mesh
 
 func _ready():
 	Global.nav_manager = self
+	nav_mesh = get_world_2d().get_navigation_map()
 
 func cut_object_from_nav(object):
 	var dist = int(float(Global.minimum_separation_between_towers) / 2.0) - 1 # NOTE: Distance must be less than 1/2 the minimum separation between towers. Nav Outlines must not overlap, ever.
