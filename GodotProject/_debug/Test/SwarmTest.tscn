@@ -63,4 +63,20 @@ position = Vector2( -47, 16 )
 [node name="Boid5" parent="Boids" instance=ExtResource( 3 )]
 position = Vector2( 4, 9 )
 
+[node name="Boid6" parent="Boids" instance=ExtResource( 3 )]
+position = Vector2( 36, 34 )
+
+[node name="Boid7" parent="Boids" instance=ExtResource( 3 )]
+position = Vector2( 9, -48 )
+
+[node name="Boid8" parent="Boids" instance=ExtResource( 3 )]
+position = Vector2( -71, -16 )
+
+[node name="Offspring" type="ResourcePreloader" parent="."]
+
+[node name="NewBoidTimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
 [connection signal="timeout" from="VectorUpdateTimer" to="." method="_on_VectorUpdateTimer_timeout"]
+[connection signal="timeout" from="NewBoidTimer" to="." method="_on_NewBoidTimer_timeout"]

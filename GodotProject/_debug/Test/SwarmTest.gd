@@ -9,6 +9,8 @@ var next_point : Vector2
 export var speed = 6.0
 onready var follow_target = $Sprite
 
+enum States { INITIALIZING, READY, DEAD }
+var State = States.INITIALIZING
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +18,7 @@ func _ready():
 		if boid.has_method("init"):
 			boid.init($Sprite)
 
+	State = States.READY
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -48,3 +51,11 @@ func update_nav():
 
 func _on_VectorUpdateTimer_timeout():
 	update_nav()
+
+func spawn_boid():
+	var newBoid = $Offspring.get_resource("Boid").instance()
+	$Boids.add_child(newBoid)
+	newBoid.init($Sprite)
+	
+func _on_NewBoidTimer_timeout():
+	pass # Replace with function body.

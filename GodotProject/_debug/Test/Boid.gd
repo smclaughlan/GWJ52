@@ -10,9 +10,9 @@ var vectors = {
 }
 
 var peers = []
-var avoidance_distance = 35.0
+var avoidance_distance = 32.0
 var velocity = Vector2.RIGHT
-export var speed = 250.0
+export var speed = 150.0
 export var max_turning_rate = 30.0 # radians
 
 var path_follow_target
@@ -28,6 +28,7 @@ var health = max_health
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	peers = get_parent().get_children()
+
 	peers.erase(self)
 
 func init(target):
@@ -43,7 +44,7 @@ func get_peer_avoidance_vector():
 		var peerPos = peer.global_position
 		if myPos.distance_squared_to(peerPos) < avoidance_distance * avoidance_distance:
 			peer_avoidance_vector += peerPos.direction_to(myPos)
-	return peer_avoidance_vector.normalized()
+	return peer_avoidance_vector.normalized() * 2.0
 
 func get_cohesion_vector():
 	if peers.size() == 0:
@@ -78,7 +79,7 @@ func get_obstacle_avoidance_vector():
 
 func get_follow_target_vector():
 	if path_follow_target != null:
-		return global_position.direction_to(path_follow_target.global_position) * 2.0
+		return global_position.direction_to(path_follow_target.global_position)
 	else:
 		return Vector2.ZERO
 
@@ -103,8 +104,9 @@ func get_intermediary_velocity(currentVelocity: Vector2, proposedVelocity: Vecto
 func cull_dead_peers():
 	var tempPeers = peers.duplicate()
 	for peer in tempPeers:
-		if is_instance_valid(peer):
+		if not is_instance_valid(peer):
 			peers.erase(peer)
+			
 
 func move(delta):
 	cull_dead_peers()
@@ -138,4 +140,10 @@ func _on_hit(damage, _impulseVector, _damageAttributes):
 	else:
 		health = 0
 		die()
+	
+
+
+
+func _on_GrowthTimer_timeout():
+	pass
 	
