@@ -19,6 +19,12 @@ var path_follow_target
 
 var ticks : int = 0
 
+enum States { INITIALIZING, READY, DEAD }
+var State = States.INITIALIZING
+
+var max_health = 30.0
+var health = max_health
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	peers = get_parent().get_children()
@@ -26,6 +32,7 @@ func _ready():
 
 func init(target):
 	path_follow_target = target
+	State = States.READY
 
 func get_peer_avoidance_vector():
 	if peers.size() == 0:
@@ -93,8 +100,14 @@ func get_intermediary_velocity(currentVelocity: Vector2, proposedVelocity: Vecto
 
 	return intermediaryVelocity
 
+func cull_dead_peers():
+	var tempPeers = peers.duplicate()
+	for peer in tempPeers:
+		if is_instance_valid(peer):
+			peers.erase(peer)
 
 func move(delta):
+	cull_dead_peers()
 	var proposedVelocity = Vector2.ZERO
 	var newVelocity = Vector2.ZERO
 	vectors["alignment"] = get_alignment_vector()
@@ -115,3 +128,14 @@ func move(delta):
 	global_rotation = Vector2.RIGHT.angle_to(velocity)
 
 	move_and_slide( velocity  )
+
+func die():
+	queue_free()
+
+func _on_hit(damage, impulseVector, damageAttributes):
+	if health > damage:
+		health -= damage
+	else:
+		health = 0
+		die()
+	

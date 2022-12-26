@@ -176,13 +176,14 @@ damage = 30.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 1.6, 1.6 )
+zoom = Vector2( 0.667, 0.667 )
 script = ExtResource( 14 )
 
 [node name="DeathTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="HUD" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [node name="StatusBars" type="Node2D" parent="."]
 position = Vector2( -59, -57 )
@@ -291,7 +292,7 @@ texture = ExtResource( 11 )
 
 [node name="Flashlight" type="Light2D" parent="."]
 position = Vector2( 3, -2.38419e-07 )
-scale = Vector2( 4, 8 )
+scale = Vector2( 19.4492, 28.9386 )
 texture = ExtResource( 19 )
 offset = Vector2( 102.667, 0.4 )
 energy = 0.66

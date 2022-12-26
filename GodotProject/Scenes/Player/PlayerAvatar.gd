@@ -74,6 +74,7 @@ func initialize_weapons():
 
 func initialize_hud():
 	$HUD.init(self)
+	$HUD.visible = true
 
 func set_tool(toolString : String = "range", hand : String = "left"):
 	# put a tool in the left or right hand and tell it which action to listen for.

@@ -56,7 +56,9 @@ func safe_placement_location():
 	return safe_placement_location
 
 func insufficient_funds():
-	if Global.currency_tracker.sun >= Global.tower_cost:
+	if Global.currency_tracker == null:
+		return false
+	elif Global.currency_tracker.sun >= Global.tower_cost:
 		return false
 	else:
 		return true
@@ -106,6 +108,8 @@ func exceeds_maximum_distance():
 		return false
 
 func outside_map_extents():
+	if Global.stage_manager == null:
+		return
 	if Global.stage_manager.current_map == null or Global.current_map == null:
 		return
 	if Global.current_map.extents.has_point(global_position):
