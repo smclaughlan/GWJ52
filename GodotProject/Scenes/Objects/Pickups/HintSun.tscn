@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Objects/Pickups/PickableObject.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Objects/Pickups/strife_blood.png" type="Texture" id=2]
-[ext_resource path="res://Scenes/Objects/Pickups/Ichor.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Objects/Pickups/IchorPickup.gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Battle/IntroHint.gd" type="Script" id=4]
 
 [node name="Sun" instance=ExtResource( 1 )]

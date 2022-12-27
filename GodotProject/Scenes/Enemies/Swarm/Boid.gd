@@ -13,7 +13,7 @@ var peers = []
 var avoidance_distance = 32.0
 var velocity = Vector2.RIGHT
 export var speed = 150.0
-export var max_turning_rate = 30.0 # radians
+export var max_turning_rate = 7.5 # radians
 
 var path_follow_target
 

@@ -20,6 +20,8 @@ var is_on_hit_cooldown_sound = false
 enum States {INITIALIZING, READY, SWINGING}
 var State = States.INITIALIZING
 
+signal struck_tilemap_gem(tile_id, damage)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$DamageArea/Sprite/SpeedLines.hide()
@@ -101,13 +103,14 @@ func _on_DamageArea_body_entered(body):
 
 				# Get the tile at those coordinates
 				var tile = tile_map.get_cell(tile_coords.x, tile_coords.y)
-
-				# Get the name of the tile
-				var tile_name = tile_map.get_tileset().tile_get_name(tile)
-				if "gem" in tile_name:
-					print("Collided with tile:", tile_name)
-					
-
+				if tile != tile_map.INVALID_CELL:
+					# Get the name of the tile
+					var tile_name = tile_map.get_tileset().tile_get_name(tile)
+					if "Gem" in tile_name:
+						print("Collided with tile:", tile_name)
+						if not is_connected("struck_tilemap_gem", tile_map, "_on_pickaxe_struck_gem"):
+							connect("struck_tilemap_gem", tile_map, "_on_pickaxe_struck_gem")
+						emit_signal("struck_tilemap_gem", tile, damage)
 
 
 

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Objects/Pickups/PickableObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Objects/Pickups/CrystalPickup.gd" type="Script" id=2]
+[ext_resource path="res://_common/GUI/CrystalCurrency.png" type="Texture" id=3]
+
+[node name="CrystalPickup" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 3 )

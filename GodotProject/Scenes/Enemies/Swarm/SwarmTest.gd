@@ -11,7 +11,7 @@ var next_point : Vector2
 export var speed : float = 6.0
 export var max_boids : int = 12
 export var max_swarms : int = 6
-onready var follow_target = $Mother
+onready var follow_target = $SwarmMother
 
 enum States { INITIALIZING, READY, DEAD }
 var State = States.INITIALIZING
@@ -21,7 +21,7 @@ func _ready():
 	# probably don't need this if we start empty
 	for boid in $Boids.get_children():
 		if boid.has_method("init"):
-			boid.init($Mother)
+			boid.init($SwarmMother)
 
 	State = States.READY
 
@@ -32,12 +32,12 @@ func _process(_delta):
 		next_point = local_path[2] # look ahead an extra step
 		var velocity = Vector2.ZERO
 		velocity += next_point * speed
-		$Mother.move_and_slide( velocity )
+		$SwarmMother.move_and_slide( velocity )
 
 func translate_points_to_local(pointsArr):
 	var newArr = []
 	for point in pointsArr:
-		newArr.push_back(point - $Mother.get_global_position())
+		newArr.push_back(point - $SwarmMother.get_global_position())
 	return newArr
 
 func update_nav():
@@ -45,14 +45,14 @@ func update_nav():
 	if level_navigation_map == null:
 		return
 	var optimize = true
-	var actor = $Mother
+	var actor = $SwarmMother
 	if Global.player == null:
 		current_path = Navigation2DServer.map_get_path(level_navigation_map, actor.get_global_position(), get_global_mouse_position(), optimize)
 	else:
 		current_path = Navigation2DServer.map_get_path(level_navigation_map, actor.get_global_position(), Global.player.global_position, optimize)
 
 	local_path = translate_points_to_local(current_path)
-	$Mother/Sprite/Line2D.points = local_path
+	$SwarmMother/Sprite/Line2D.points = local_path
 
 func _on_VectorUpdateTimer_timeout():
 	update_nav()
@@ -60,7 +60,7 @@ func _on_VectorUpdateTimer_timeout():
 func spawn_boid():
 	var newBoid = $ResourcePreloader.get_resource("Boid").instance()
 	$Boids.add_child(newBoid)
-	newBoid.init($Mother)
+	newBoid.init($SwarmMother)
 
 
 func split_using_binary_fission():
@@ -70,7 +70,7 @@ func split_using_binary_fission():
 		get_parent().add_child(newSwarm)
 		var randOffset = Vector2.ONE.rotated(rand_range(-PI, PI) * rand_range(30,50))
 		newSwarm.set_global_position(global_position)
-		newSwarm.get_node("Mother").global_position = $Mother.global_position + randOffset
+		newSwarm.get_node("SwarmMother").global_position = $SwarmMother.global_position + randOffset
 
 		var boids = $Boids.get_children()
 		for boid in boids:
