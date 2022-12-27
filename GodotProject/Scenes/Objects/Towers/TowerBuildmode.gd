@@ -62,9 +62,9 @@ func safe_placement_location():
 	return safe_placement_location
 
 func insufficient_funds():
-	if Global.currency_tracker == null:
+	if Global.currency_tracker == null or !is_instance_valid(Global.currency_tracker):
 		return false
-	elif Global.currency_tracker.sun >= Global.tower_cost:
+	elif Global.currency_tracker.ichor >= Global.tower_cost:
 		return false
 	else:
 		return true

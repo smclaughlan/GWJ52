@@ -8,7 +8,7 @@
 [ext_resource path="res://_common/GUI/HealthBarFill.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Objects/Tools/ConstructionWrench.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/GUI/HUD.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/Objects/Weapons/Sword.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Objects/Weapons/PickAxe.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Player/PickupRadius.gd" type="Script" id=10]
 [ext_resource path="res://Scenes/Towers/LightAura.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/Player/Automaton_walk.png" type="Texture" id=12]
@@ -19,7 +19,7 @@
 [ext_resource path="res://Scenes/Battle/CreepSpawnerRubble.png" type="Texture" id=17]
 [ext_resource path="res://Scenes/Player/AutoFlashlight2D.gd" type="Script" id=18]
 [ext_resource path="res://Scenes/Objects/Tools/flashlight-wide.png" type="Texture" id=19]
-[ext_resource path="res://Shaders/FlashHit.tres" type="Material" id=20]
+[ext_resource path="res://_common/Materials/UnshadedFlashHitMaterial.tres" type="Material" id=20]
 [ext_resource path="res://Scenes/Player/ArrowToBase.tscn" type="PackedScene" id=21]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -291,14 +291,14 @@ position = Vector2( 3, -2.38419e-07 )
 texture = ExtResource( 11 )
 
 [node name="Flashlight" type="Light2D" parent="."]
-position = Vector2( -235, -27 )
+position = Vector2( 3.00003, -9 )
 scale = Vector2( 14.508, 21.5865 )
 texture = ExtResource( 19 )
-offset = Vector2( 102.667, 0.4 )
+offset = Vector2( 80.0588, 0.677951 )
 script = ExtResource( 18 )
 
 [node name="Sprite" type="Sprite" parent="Flashlight"]
-visible = false
+self_modulate = Color( 1, 0.972549, 0.894118, 0.0196078 )
 position = Vector2( -2.13676, -1.34343 )
 texture = ExtResource( 19 )
 offset = Vector2( 106.493, -5.55903 )

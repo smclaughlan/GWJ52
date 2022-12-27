@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scenes/Objects/Weapons/Sword.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Objects/Weapons/PickAxe.gd" type="Script" id=1]
 [ext_resource path="res://_common/sfx/Sword_Swing.wav" type="AudioStream" id=2]
 [ext_resource path="res://Scenes/Objects/Weapons/pickaxe.png" type="Texture" id=3]
 [ext_resource path="res://_common/sfx/Player_Melee_Hit.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 85.0149, 48.5 )
+extents = Vector2( 39.1867, 40.8335 )
 
 [sub_resource type="Animation" id=4]
 length = 0.001
@@ -94,12 +94,15 @@ damage = 10.0
 
 [node name="DamageArea" type="Area2D" parent="."]
 collision_layer = 16
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
-position = Vector2( 87.4541, 0.500002 )
+position = Vector2( 125, -0.999998 )
 scale = Vector2( 0.765566, 0.78367 )
 shape = SubResource( 3 )
+
+[node name="LeadingEdge" type="Position2D" parent="DamageArea"]
+position = Vector2( 139, -33 )
 
 [node name="Sprite" type="Sprite" parent="DamageArea"]
 

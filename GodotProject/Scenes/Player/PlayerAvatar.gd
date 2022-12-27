@@ -50,7 +50,8 @@ onready var handNodes = {
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Global.player = self
-	
+	player_speed = player_speed * global_scale.x
+
 	initialize_hud()
 	#initialize_weapons() # moved to delayed init timer
 		

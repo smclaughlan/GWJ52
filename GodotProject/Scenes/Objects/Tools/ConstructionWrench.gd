@@ -1,13 +1,15 @@
 # used for placing and repairing towers
+	# instances a blueprint on the ground: towerbuildmode
+	# instances a tower_base and passes along the requested turret type
+		# tower_base will instance the required turret
 
-# maybe later we'll change the wrench to be repair only, and a blueprint can be for placing towers
+# maybe later allow the wrench to repair towers
 
 extends Node2D
 
 var player
 var tower_buildmode = load("res://Scenes/Objects/Towers/TowerBuildmode.tscn")
 var tower_base_scene = load("res://Scenes/Objects/Towers/TowerBase.tscn")
-#onready var deconstruct_area_2d = $DeconstructArea2D
 var is_placing_tower : bool = false
 var tower_buildmode_visual = null
 #var tower_to_deconstruct = null
@@ -39,7 +41,7 @@ func _ready():
 	yield(delay_let_ancestors_initialize_first, "timeout")
 	
 	if Global.currency_tracker != null:
-		var _err = connect("tower_built", Global.currency_tracker, "update_amount")
+		var _err = connect("tower_built", Global.currency_tracker, "_on_tower_built")
 	#_err = connect("tutorial_ended", Global.current_map, "_on_tutorial_ended")
 	#_err = connect("tutorial_ended", Global.player.hud, "_on_tutorial_ended")
 
@@ -80,7 +82,7 @@ func attempt_to_spawn_tower(towerType):
 		$IncorrectPlacementNoise.play()
 	else:
 		spawn_tower(towerType)
-		emit_signal("tower_built", -cost_reference.cost)
+		emit_signal("tower_built", cost_reference.cost)
 	$ReloadTimer.start()
 	
 

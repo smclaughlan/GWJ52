@@ -13,3 +13,6 @@ func _ready():
 	nav_agent = Navigation2DServer.agent_create()
 	Navigation2DServer.agent_set_map(nav_agent, level_navigation_map)	
 	Navigation2DServer.agent_set_radius(nav_agent, 50)
+
+	Global.current_map = self
+	

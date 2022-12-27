@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Enemies/Creep.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Enemies/OwNoise.wav" type="AudioStream" id=3]
 [ext_resource path="res://Scenes/Enemies/CreepMeleeWeapon.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Objects/Pickups/Sun.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Objects/Pickups/IchorPickup.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Enemies/BloodStain.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Enemies/strife_walk_eyes_only.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Enemies/NavVisLine.tscn" type="PackedScene" id=8]
@@ -13,7 +13,7 @@
 [ext_resource path="res://Scenes/Enemies/strife_walk.png" type="Texture" id=11]
 [ext_resource path="res://Scenes/Enemies/Pathfinder.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Enemies/ProjectileManager.gd" type="Script" id=13]
-[ext_resource path="res://Shaders/FlashHit.tres" type="Material" id=15]
+[ext_resource path="res://_common/Materials/Shaders/FlashHit.tres" type="Material" id=15]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 10 )

@@ -23,4 +23,5 @@ func _on_spawner_died(_spawner, pickableLoot, locationOfDeath):
 func _on_spawner_hit(_spawner, pickableLoot, locationOfSpawner):
 	spawn_pickable(pickableLoot, locationOfSpawner)
 	
-
+func _on_gem_struck(_spawner, pickableLoot, locationOfGem):
+	spawn_pickable(pickableLoot, locationOfGem)
