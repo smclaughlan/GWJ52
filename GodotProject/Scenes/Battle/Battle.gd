@@ -12,8 +12,8 @@ var tutorial_ended : bool = false
 func _ready():
 	# Change the seed
 	randomize()
-	if starting_currency > $Currency.sun:
-		$Currency.update_amount( starting_currency )
+	if starting_currency > $Currency.ichor:
+		$Currency.add_ichor( starting_currency )
 			
 
 func audio_fade_in():

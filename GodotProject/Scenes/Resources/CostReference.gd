@@ -1,3 +1,9 @@
+"""
+Acts like a menu interface?
+Actual Costs are stored inside tower objects.
+Do we need this?
+"""
+
 extends Reference
 class_name CostReference
 
@@ -6,7 +12,10 @@ var tower: Object = null
 
 func can_purchase() -> bool:
 	if Global.currency_tracker != null:
-		return cost <= Global.currency_tracker.sun
+		if cost <= Global.currency_tracker.ichor:
+			return true
+		else:
+			return false
 	else:
 		return true
 

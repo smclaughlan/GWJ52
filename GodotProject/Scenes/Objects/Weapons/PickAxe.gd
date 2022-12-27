@@ -93,6 +93,22 @@ func _on_DamageArea_body_entered(body):
 						Global.stage_manager.current_map.add_child(new_hit_audio)
 						is_on_hit_cooldown_sound = !is_on_hit_cooldown_sound
 						hit_cooldown_timer.start()
+		else:
+			if body.name == "TileMap":
+				var tile_map = body
+				# Get the tile coordinates of the collision point
+				var tile_coords = tile_map.world_to_map($DamageArea/LeadingEdge.global_position)
+
+				# Get the tile at those coordinates
+				var tile = tile_map.get_cell(tile_coords.x, tile_coords.y)
+
+				# Get the name of the tile
+				var tile_name = tile_map.get_tileset().tile_get_name(tile)
+				if "gem" in tile_name:
+					print("Collided with tile:", tile_name)
+					
+
+
 
 
 func _on_HitCooldownTimer_timeout():

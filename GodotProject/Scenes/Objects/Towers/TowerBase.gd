@@ -49,10 +49,10 @@ func spawn_turret(turret_type):
 	
 	turret = new_turret
 
-func mark_for_deconstruction():
-	modulate = Color(1, 1, 1, 0.5)
-	turret.modulate = Color(1, 1, 1, 0.5)
-	remove_mark_decon_timer.start()
+#func mark_for_deconstruction():
+#	modulate = Color(1, 1, 1, 0.5)
+#	turret.modulate = Color(1, 1, 1, 0.5)
+#	remove_mark_decon_timer.start()
 
 func destroy():
 	var new_sound = tower_destroyed_audio_scene.instance()
