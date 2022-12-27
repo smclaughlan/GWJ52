@@ -203,6 +203,7 @@ zoom_toggle={
 2d_physics/layer_8="PlayerCollectionRadius"
 2d_physics/layer_9="EnemyWeapons"
 2d_physics/layer_10="CreepSpawners"
+2d_physics/layer_11="Terrain and Ore for Mining"
 2d_physics/layer_31="Pathfinding detector"
 2d_physics/layer_32="Pathfinding obstacle/target"
 

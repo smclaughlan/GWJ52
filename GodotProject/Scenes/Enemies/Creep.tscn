@@ -288,7 +288,7 @@ tracks/0/keys = {
 
 [node name="Creep" type="KinematicBody2D" groups=["creeps", "enemies"]]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 1037
 collision/safe_margin = 1.0
 script = ExtResource( 2 )
 base_speed = 0.05

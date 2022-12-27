@@ -142,7 +142,7 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="KinematicBody2D" groups=["obstacles", "player"]]
-collision_mask = 261
+collision_mask = 1285
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -292,7 +292,7 @@ texture = ExtResource( 11 )
 
 [node name="Flashlight" type="Light2D" parent="."]
 position = Vector2( 3.00003, -9 )
-scale = Vector2( 14.508, 21.5865 )
+scale = Vector2( 11.114, 16.5366 )
 texture = ExtResource( 19 )
 offset = Vector2( 80.0588, 0.677951 )
 script = ExtResource( 18 )

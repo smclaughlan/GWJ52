@@ -97,20 +97,24 @@ func _on_DamageArea_body_entered(body):
 						hit_cooldown_timer.start()
 		else:
 			if body.name == "TileMap":
+				
 				var tile_map = body
 				# Get the tile coordinates of the collision point
-				var tile_coords = tile_map.world_to_map($DamageArea/LeadingEdge.global_position)
+				var global_coords = $DamageArea/LeadingEdge.global_position
+				var tile_coords = tile_map.world_to_map(global_coords)
 
 				# Get the tile at those coordinates
 				var tile = tile_map.get_cell(tile_coords.x, tile_coords.y)
+				
 				if tile != tile_map.INVALID_CELL:
 					# Get the name of the tile
 					var tile_name = tile_map.get_tileset().tile_get_name(tile)
+					
 					if "Gem" in tile_name:
-						print("Collided with tile:", tile_name)
+						#print("Collided with tile:", tile_name)
 						if not is_connected("struck_tilemap_gem", tile_map, "_on_pickaxe_struck_gem"):
 							connect("struck_tilemap_gem", tile_map, "_on_pickaxe_struck_gem")
-						emit_signal("struck_tilemap_gem", tile, damage)
+						emit_signal("struck_tilemap_gem", global_coords, tile_coords, tile, damage)
 
 
 
