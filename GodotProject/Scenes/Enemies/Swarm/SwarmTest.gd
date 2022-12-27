@@ -74,6 +74,7 @@ func split_using_binary_fission():
 
 		var boids = $Boids.get_children()
 		for boid in boids:
+			#warning-ignore:integer_division
 			if boid.get_position_in_parent() > max_boids / 2:
 				$Boids.remove_child(boid)
 				newSwarm.get_node("Boids").add_child(boid)

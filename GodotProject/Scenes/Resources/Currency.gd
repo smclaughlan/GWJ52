@@ -9,8 +9,11 @@ signal ichor_amount_changed(amount)
 signal crystals_amount_changed(amount)
 
 # Base currency. Change the name if we must.
-var ichor: int = 0 setget add_ichor, get_ichor# energy, mana, building materials: to be used inside a level. Gained by killing creeps
+export var starting_ichor: int = 100
+
+var ichor: int = starting_ichor setget add_ichor, get_ichor# energy, mana, building materials: to be used inside a level. Gained by killing creeps
 var crystals: int = 0 setget add_crystals, get_crystals # currency to be used between levels to upgrade character, unlock items, etc. Gained by mining gems.
+
 # note: crystals will have to be saved as a persistent resource.
 
 func _ready() -> void:

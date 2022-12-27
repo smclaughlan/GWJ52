@@ -20,9 +20,12 @@ func die():
 func die_for_real_this_time():
 	$DecayTimer.start()
 
-func _on_hit(damage, impulseVector, damageAttributes):
+func knockback(impulseVector):
+	pass
+
+func _on_hit(damage, impulseVector, _damageAttributes):
 	health -= damage
-	
+	knockback(impulseVector)
 	if damage <= 0:
 		die()
 		
