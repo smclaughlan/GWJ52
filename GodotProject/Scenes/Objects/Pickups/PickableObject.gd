@@ -8,7 +8,7 @@
 extends Area2D
 class_name PickableObject
 
-const PICKUP_SPEED = 300
+export var PICKUP_SPEED = 500.0
 
 var on_pickup_radius: bool = false setget set_on_pickup
 
@@ -16,13 +16,25 @@ signal picked
 
 
 func _on_PickableObject_body_entered(body: Node) -> void:
-	if body.collision_layer == 1:
+	if body.collision_layer == 1: #Player
 		$Sprite.visible = false
 		$CollisionShape2D.set_deferred("disabled", true)
-		$PickedNoise.play()
+		
+		play_pickup_noise()
 		$linger_for_audio_timer.start()
 		emit_signal("picked")
 
+
+func play_pickup_noise():
+	if $CustomNoises.get_child_count() > 0:
+		var customNoises = $CustomNoises.get_children()
+		var randNoise = customNoises[randi()%customNoises.size()]
+		randNoise.set_pitch_scale(rand_range(0.9, 1.1))
+		randNoise.play()
+	else:
+		$DefaultPickupNoise.set_pitch_scale(rand_range(0.9, 1.1))
+		$DefaultPickupNoise.play()
+	
 
 func _physics_process(delta: float) -> void:
 	if !on_pickup_radius:
