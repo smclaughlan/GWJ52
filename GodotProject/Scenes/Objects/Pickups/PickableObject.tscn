@@ -73,8 +73,10 @@ anims/pickup = SubResource( 3 )
 
 [node name="linger_for_audio_timer" type="Timer" parent="."]
 
-[node name="PickedNoise" type="AudioStreamPlayer2D" parent="."]
+[node name="DefaultPickupNoise" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+
+[node name="CustomNoises" type="Node2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_PickableObject_body_entered"]
 [connection signal="timeout" from="linger_for_audio_timer" to="." method="_on_linger_for_audio_timer_timeout"]

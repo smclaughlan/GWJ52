@@ -4,8 +4,10 @@ var regionID : RID
 onready var actor = find_node("KinematicBody2D")
 var nav_agent : RID
 var current_path = []
+
+
 func _process(_delta):
-	$TargetSprite.set_global_position(get_global_mouse_position())
+	pass
 	
 func _ready():
 	level_navigation_map = get_world_2d().get_navigation_map()

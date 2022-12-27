@@ -12,6 +12,7 @@ export var speed : float = 6.0
 export var max_boids : int = 12
 export var max_swarms : int = 6
 onready var follow_target = $SwarmMother
+var swarm_scene_path = "res://Scenes/Enemies/Swarm/SwarmTest.tscn"
 
 enum States { INITIALIZING, READY, DEAD }
 var State = States.INITIALIZING
@@ -66,7 +67,7 @@ func spawn_boid():
 func split_using_binary_fission():
 	# make a new swarm and give it half your boids
 	if get_parent().get_child_count() < max_swarms:
-		var newSwarm = load("res://_debug/Test/SwarmTest.tscn").instance()
+		var newSwarm = load(swarm_scene_path).instance()
 		get_parent().add_child(newSwarm)
 		var randOffset = Vector2.ONE.rotated(rand_range(-PI, PI) * rand_range(30,50))
 		newSwarm.set_global_position(global_position)
