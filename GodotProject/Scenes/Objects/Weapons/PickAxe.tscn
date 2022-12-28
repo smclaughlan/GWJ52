@@ -102,7 +102,7 @@ scale = Vector2( 0.765566, 0.78367 )
 shape = SubResource( 3 )
 
 [node name="LeadingEdge" type="Position2D" parent="DamageArea"]
-position = Vector2( 139, -33 )
+position = Vector2( 145, -2 )
 
 [node name="Sprite" type="Sprite" parent="DamageArea"]
 
@@ -134,7 +134,7 @@ stream = ExtResource( 4 )
 volume_db = 5.0
 
 [node name="HitCooldownTimer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.3
 one_shot = true
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_DamageArea_body_entered"]
