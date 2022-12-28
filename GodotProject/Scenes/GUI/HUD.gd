@@ -32,7 +32,8 @@ func change_tower_instructions(towerType):
 	var currentTower = towerTypes[towerType]
 	var nextTower = towerTypes[(towerType+1) % towerTypes.size()]
 	var instructionText : String
-	if Global.currency_tracker.sun >= 10:
+	
+	if Global.currency_tracker != null and Global.currency_tracker.ichor >= 10:
 		instructionText = prevTower + " <  [ " + currentTower +  " ] > " + nextTower 
 	else:
 		instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
@@ -40,20 +41,20 @@ func change_tower_instructions(towerType):
 	
 	
 
-func update_sun(sun: int) -> void:
-	$Footer/HBoxContainer/Mana/IchorAmount.text = str(sun)
-	$Footer/HBoxContainer/Mana.value = float(sun)/Global.sun_required_to_win
-	$Footer/HBoxContainer/Mana/WinInstructionLabel.text = "To Defeat the Strife\nCollect " + str(Global.sun_required_to_win) + " ichor."
-	if sun < 10:
+func update_ichor(ichor: int) -> void:
+	$Footer/HBoxContainer/Mana/IchorAmount.text = str(ichor)
+	$Footer/HBoxContainer/Mana.value = float(ichor)/Global.ichor_required_to_win
+	$Footer/HBoxContainer/Mana/WinInstructionLabel.text = "To Defeat the Strife\nCollect " + str(Global.ichor_required_to_win) + " ichor."
+	if ichor < 10:
 		var instructionText = "Insufficient Ichor Reserves to build a tower.\nChoose another tool below and collect more Ichor."
 		find_node("ExtraInstructions").text = instructionText
 
-	# player builds and upgrades initial towers
-	if sun <= 80 and Global.current_map.tutorial_ended == false:
+	# Trigger end-of-tutorial, player has built and upgrades initial towers
+	if ichor <= 80 and Global.current_map.tutorial_ended == false:
 		Global.current_map._on_tutorial_ended()
 		
-	# if mana hits 500, should win automatically
-	if sun >= Global.sun_required_to_win:
+	# if mana hits _some_value_, should win automatically
+	if ichor >= Global.ichor_required_to_win:
 		Global.stage_manager.win()
 
 
@@ -94,3 +95,6 @@ func _on_golem_attacked():
 
 func _on_tutorial_ended():
 	$ExtraInstructionsPanel/VBoxContainer/Tutorial.hide()
+
+func _on_crystals_amount_changed(amount):
+	$Header/Crystals/CrystalValue.text = str(amount)

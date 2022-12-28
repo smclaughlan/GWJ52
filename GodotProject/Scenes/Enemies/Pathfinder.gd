@@ -19,12 +19,15 @@ var State = States.FINDING_TARGET
 func _ready():
 	# Connect signal from pathfinding_manager so pathfinding restarts when something is placed
 	# and the navmesh has been rebuilt.
+	
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	Global.pathfinding_manager.connect("restart_pathfinding", self, "start_restart_timer")
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	Global.pathfinding_manager.connect("restart_player_pathfinding", self, "update_player_pathfinding")
-	pass
-
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if State == States.DONE:
 		return
 	elif State == States.FINDING_TARGET:

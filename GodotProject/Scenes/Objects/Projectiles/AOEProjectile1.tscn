@@ -73,6 +73,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="explosion" type="AnimatedSprite" parent="."]
+self_modulate = Color( 1, 1, 1, 0.529412 )
 scale = Vector2( 8, 8 )
 frames = SubResource( 10 )
 animation = "explode"

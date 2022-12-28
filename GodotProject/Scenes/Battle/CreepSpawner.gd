@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 export var num_creeps_per_wave : int = 5
-var creep = load("res://Scenes/Enemies/Creep.tscn")
+var creep : PackedScene
 var creeps_spawned_this_wave : int = 0
 #var current_wave_wayfinder
 export var time_between_creeps = 1.2 # rand jitter will be applied later.
@@ -16,7 +16,9 @@ enum States { INITIALIZING, READY, INVUNERABLE, DEAD }
 var State = States.READY
 
 signal creep_spawned(creep, location)
+#warning-ignore:UNUSED_SIGNAL
 signal wave_started(location)
+#warning-ignore:UNUSED_SIGNAL
 signal died(location)
 signal damaged(location)
 

@@ -11,13 +11,17 @@ collision_mask = 263
 script = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, -5 )
+scale = Vector2( 1, 0.644531 )
 polygon = PoolVector2Array( 48, -32, -48, -32, -48, 32, 48, 32 )
 
 [node name="Sprite" type="Node2D" parent="."]
+visible = false
 show_behind_parent = true
 z_index = -5
 
 [node name="ShadowPoly" type="Polygon2D" parent="Sprite"]
+visible = false
 position = Vector2( -2, -47 )
 scale = Vector2( 0.620002, 0.919384 )
 color = Color( 0, 0, 0, 0.113725 )

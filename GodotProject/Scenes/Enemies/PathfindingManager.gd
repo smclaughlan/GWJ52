@@ -19,6 +19,7 @@ var shapes = {}
 var queue = []
 
 signal restart_pathfinding
+#warning-ignore:UNUSED_SIGNAL
 signal restart_player_pathfinding
 
 
@@ -42,7 +43,7 @@ func _ready():
 	max_iterations = 50000
 	create_nodes()
 	
-func _process(delta):
+func _process(_delta):
 	if navmesh_done == true:
 		return
 	if max_iterations <= 0:

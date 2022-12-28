@@ -7,11 +7,11 @@ var village_location : Vector2 # so creeps know where to go
 var village : Node2D # Not actually necessary. The village can provide a random golem location for creeps, but they already get that info from the village group.
 var current_map : Node2D # for spawning bullets and creeps
 var nav_manager : Node # makes changes to nav mesh when placing/removing objects
-var minimum_separation_between_towers : int = 150 # NavManager and TowerBuilder must collaborate on this. nav cutouts must never overlap
+var minimum_separation_between_towers : int = 32 # NavManager and TowerBuilder must collaborate on this. nav cutouts must never overlap
 var pickable_object_spawner: Node2D # Spawner node that handles spawning of pickables
 var currency_tracker: Node # Node that tracks resources or currencies
 var hud: CanvasLayer # HUD Reference
-var grid_dist_px = 50
+var grid_dist_px = 64
 var max_enemies = 25
 var pathfinding_manager : Node2D # builds and rebuilds navmesh
 var power_source : Node2D # the first TowerWireSocket, at the home base
@@ -20,7 +20,7 @@ enum TowerTypes { BEAM, AOE, SHARDS }
 enum UpgradeTypes { BIGGER, FASTER, STRONGER }
 
 var tower_cost : int = 10
-var sun_required_to_win: int = 1000
+var ichor_required_to_win: int = 1000
 
 var enable_fps_counter: bool # Shows an fps counter
 var previous_window_index = 1

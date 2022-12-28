@@ -3,7 +3,7 @@ extends Node2D
 
 export var starting_currency = 100
 
-onready var extents = $Extents.get_rect()
+onready var extents : Rect2 = find_node("Extents").get_rect()
 
 var tutorial_ended : bool = false
 
@@ -12,9 +12,7 @@ var tutorial_ended : bool = false
 func _ready():
 	# Change the seed
 	randomize()
-	if starting_currency > $Currency.sun:
-		$Currency.update_amount( starting_currency )
-			
+
 
 func audio_fade_in():
 	var fade_duration = 3.0
