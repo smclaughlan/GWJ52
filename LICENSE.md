@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022-2023 James Medway, Sean McLaughlan, plexsoup, Renz Christian Sira
+Copyright (c) 2022-2023 James Medway, Sean McLaughlan, plexsoup, Renz Christian Sira, MikuWasNotLucky
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
